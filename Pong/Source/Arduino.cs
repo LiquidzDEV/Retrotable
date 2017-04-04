@@ -8,7 +8,7 @@ namespace Pong.Source
     {
         private static SerialPort arduino;
 
-        private int[] data = new int[3];
+        private byte[] data = new byte[3];
 
         public Arduino()
         {
@@ -17,6 +17,7 @@ namespace Pong.Source
                 arduino = new SerialPort("COM3", 9600, Parity.None, 8, StopBits.One);
                 arduino.DataReceived += arduino_DataReceived;
                 arduino.Open();
+                arduino.DiscardInBuffer();
             }
             catch (Exception)
             {
@@ -33,26 +34,19 @@ namespace Pong.Source
 
         private void arduino_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-        	//byte[] testData = new byte[3];
-        	//System.Diagnostics.Debug.WriteLine("Datensätze erhalten: " + arduino.Read(testData, 0, 3));
-        	
-        	
-        	
-			try
-			{
-				//0 = player1, 1= player2, 2= start
-				string[] rawData = arduino.ReadLine().Split(',');
-				if (rawData.Length != 3 || rawData[0].Length > 3 || rawData[1].Length > 3)
-					return;
+            try
+            {
+                if (arduino.BytesToRead > 2)
+                {
+                    //0 = player1, 1= player2, 2= start
+                    arduino.Read(data, 0, 3);
+                    Pong.instance.mainForm.BeginInvoke(new EventHandler(handleData));
+                }
+            }
+            catch (Exception)
+            {
 
-				for (int i = 0; i < 3; i++)
-				{
-					data[i] = Convert.ToInt32(rawData[i].Trim());
-				}
-
-				Pong.instance.mainForm.BeginInvoke(new EventHandler(handleData));
-			}
-			catch (Exception){}
+            }
         }
 
         private void handleData(object sender, EventArgs e)
