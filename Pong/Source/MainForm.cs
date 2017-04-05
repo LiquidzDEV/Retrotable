@@ -5,6 +5,8 @@
  * Description:
  */
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using Pong.Source.Components;
 
@@ -120,6 +122,44 @@ namespace Pong.Source
 		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
 		{
 			Pong.instance.arduino.close();
-		}	
+		}
+		
+		void ToolStripCheckOnlyOne(object sender, EventArgs e)
+		{
+			var currentItem = sender as ToolStripMenuItem;
+			if (currentItem != null)
+			{	
+				((ToolStripMenuItem)currentItem.OwnerItem).DropDownItems.OfType<ToolStripMenuItem>().ToList()
+		            .ForEach(item =>
+					{
+						item.Checked = false;
+					});
+
+				currentItem.Checked = true;
+			}
+		}
+		
+		void ToolStrip_CheckedChanged(object sender, EventArgs e)
+		{
+			var currentItem = sender as ToolStripMenuItem;
+			if (currentItem != null)
+			{	
+				List<ToolStripMenuItem> items = ((ToolStripMenuItem)currentItem.OwnerItem).DropDownItems.OfType<ToolStripMenuItem>().ToList();
+
+				if(currentItem.Equals(tsBalkenSchmal)){
+					main.player1.setPanelHeight(Player.PANEL_SMALL);
+					main.player2.setPanelHeight(Player.PANEL_SMALL);
+				}
+				else if(currentItem.Equals(tsBalkenNormal)){
+					main.player1.setPanelHeight(Player.PANEL_NORMAL);
+					main.player2.setPanelHeight(Player.PANEL_NORMAL);
+				}
+				else if(currentItem.Equals(tsBalkenBreit)){
+					main.player1.setPanelHeight(Player.PANEL_BIG);
+					main.player2.setPanelHeight(Player.PANEL_BIG);
+				}
+				
+			}
+		}
 	}
 }

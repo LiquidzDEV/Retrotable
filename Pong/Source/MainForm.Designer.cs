@@ -45,7 +45,18 @@ namespace Pong.Source
         	this.timerBall = new System.Windows.Forms.Timer(this.components);
         	this.timerIncreaseSpeed = new System.Windows.Forms.Timer(this.components);
         	this.label1 = new System.Windows.Forms.Label();
+        	this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+        	this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+        	this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+        	this.tsBalkenSchmal = new System.Windows.Forms.ToolStripMenuItem();
+        	this.tsBalkenNormal = new System.Windows.Forms.ToolStripMenuItem();
+        	this.tsBalkenBreit = new System.Windows.Forms.ToolStripMenuItem();
+        	this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+        	this.tsBallSlow = new System.Windows.Forms.ToolStripMenuItem();
+        	this.tsBallNormal = new System.Windows.Forms.ToolStripMenuItem();
+        	this.tsBallFast = new System.Windows.Forms.ToolStripMenuItem();
         	((System.ComponentModel.ISupportInitialize)(this.pBall)).BeginInit();
+        	this.menuStrip1.SuspendLayout();
         	this.SuspendLayout();
         	// 
         	// pnlPlayer1
@@ -91,7 +102,7 @@ namespace Pong.Source
         	this.lblPlayer1.BackColor = System.Drawing.Color.Transparent;
         	this.lblPlayer1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
         	this.lblPlayer1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-        	this.lblPlayer1.Location = new System.Drawing.Point(384, 9);
+        	this.lblPlayer1.Location = new System.Drawing.Point(385, 28);
         	this.lblPlayer1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
         	this.lblPlayer1.Name = "lblPlayer1";
         	this.lblPlayer1.Size = new System.Drawing.Size(63, 32);
@@ -105,7 +116,7 @@ namespace Pong.Source
         	this.lblPlayer2.BackColor = System.Drawing.Color.Transparent;
         	this.lblPlayer2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
         	this.lblPlayer2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-        	this.lblPlayer2.Location = new System.Drawing.Point(584, 9);
+        	this.lblPlayer2.Location = new System.Drawing.Point(585, 28);
         	this.lblPlayer2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
         	this.lblPlayer2.Name = "lblPlayer2";
         	this.lblPlayer2.Size = new System.Drawing.Size(68, 32);
@@ -130,18 +141,113 @@ namespace Pong.Source
         	this.label1.BackColor = System.Drawing.Color.Transparent;
         	this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
         	this.label1.ForeColor = System.Drawing.Color.Gray;
-        	this.label1.Location = new System.Drawing.Point(467, 15);
+        	this.label1.Location = new System.Drawing.Point(468, 34);
         	this.label1.Name = "label1";
         	this.label1.Size = new System.Drawing.Size(100, 23);
         	this.label1.TabIndex = 6;
         	this.label1.Text = "Score";
         	this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
         	// 
+        	// menuStrip1
+        	// 
+        	this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+			this.toolStripMenuItem2});
+        	this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+        	this.menuStrip1.Name = "menuStrip1";
+        	this.menuStrip1.Size = new System.Drawing.Size(1028, 24);
+        	this.menuStrip1.TabIndex = 11;
+        	this.menuStrip1.Text = "menuStrip1";
+        	// 
+        	// toolStripMenuItem2
+        	// 
+        	this.toolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+			this.toolStripMenuItem1,
+			this.toolStripMenuItem3});
+        	this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+        	this.toolStripMenuItem2.ShortcutKeyDisplayString = "E";
+        	this.toolStripMenuItem2.Size = new System.Drawing.Size(90, 20);
+        	this.toolStripMenuItem2.Text = "Einstellungen";
+        	// 
+        	// toolStripMenuItem1
+        	// 
+        	this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+			this.tsBalkenSchmal,
+			this.tsBalkenNormal,
+			this.tsBalkenBreit});
+        	this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+        	this.toolStripMenuItem1.Size = new System.Drawing.Size(109, 22);
+        	this.toolStripMenuItem1.Text = "Balken";
+        	// 
+        	// tsBalkenSchmal
+        	// 
+        	this.tsBalkenSchmal.CheckOnClick = true;
+        	this.tsBalkenSchmal.Name = "tsBalkenSchmal";
+        	this.tsBalkenSchmal.Size = new System.Drawing.Size(114, 22);
+        	this.tsBalkenSchmal.Text = "Schmal";
+        	this.tsBalkenSchmal.CheckedChanged += new System.EventHandler(this.ToolStrip_CheckedChanged);
+        	this.tsBalkenSchmal.Click += new System.EventHandler(this.ToolStripCheckOnlyOne);
+        	// 
+        	// tsBalkenNormal
+        	// 
+        	this.tsBalkenNormal.CheckOnClick = true;
+        	this.tsBalkenNormal.Name = "tsBalkenNormal";
+        	this.tsBalkenNormal.Size = new System.Drawing.Size(114, 22);
+        	this.tsBalkenNormal.Text = "Normal";
+        	this.tsBalkenNormal.CheckedChanged += new System.EventHandler(this.ToolStrip_CheckedChanged);
+        	this.tsBalkenNormal.Click += new System.EventHandler(this.ToolStripCheckOnlyOne);
+        	// 
+        	// tsBalkenBreit
+        	// 
+        	this.tsBalkenBreit.CheckOnClick = true;
+        	this.tsBalkenBreit.Name = "tsBalkenBreit";
+        	this.tsBalkenBreit.Size = new System.Drawing.Size(114, 22);
+        	this.tsBalkenBreit.Text = "Breit";
+        	this.tsBalkenBreit.CheckedChanged += new System.EventHandler(this.ToolStrip_CheckedChanged);
+        	this.tsBalkenBreit.Click += new System.EventHandler(this.ToolStripCheckOnlyOne);
+        	// 
+        	// toolStripMenuItem3
+        	// 
+        	this.toolStripMenuItem3.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+			this.tsBallSlow,
+			this.tsBallNormal,
+			this.tsBallFast});
+        	this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+        	this.toolStripMenuItem3.Size = new System.Drawing.Size(109, 22);
+        	this.toolStripMenuItem3.Text = "Ball";
+        	// 
+        	// tsBallSlow
+        	// 
+        	this.tsBallSlow.CheckOnClick = true;
+        	this.tsBallSlow.Name = "tsBallSlow";
+        	this.tsBallSlow.Size = new System.Drawing.Size(122, 22);
+        	this.tsBallSlow.Text = "Langsam";
+        	this.tsBallSlow.CheckedChanged += new System.EventHandler(this.ToolStrip_CheckedChanged);
+        	this.tsBallSlow.Click += new System.EventHandler(this.ToolStripCheckOnlyOne);
+        	// 
+        	// tsBallNormal
+        	// 
+        	this.tsBallNormal.CheckOnClick = true;
+        	this.tsBallNormal.Name = "tsBallNormal";
+        	this.tsBallNormal.Size = new System.Drawing.Size(122, 22);
+        	this.tsBallNormal.Text = "Normal";
+        	this.tsBallNormal.CheckedChanged += new System.EventHandler(this.ToolStrip_CheckedChanged);
+        	this.tsBallNormal.Click += new System.EventHandler(this.ToolStripCheckOnlyOne);
+        	// 
+        	// tsBallFast
+        	// 
+        	this.tsBallFast.CheckOnClick = true;
+        	this.tsBallFast.Name = "tsBallFast";
+        	this.tsBallFast.Size = new System.Drawing.Size(122, 22);
+        	this.tsBallFast.Text = "Schnell";
+        	this.tsBallFast.CheckedChanged += new System.EventHandler(this.ToolStrip_CheckedChanged);
+        	this.tsBallFast.Click += new System.EventHandler(this.ToolStripCheckOnlyOne);
+        	// 
         	// MainForm
         	// 
         	this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
         	this.BackColor = System.Drawing.Color.Black;
         	this.ClientSize = new System.Drawing.Size(1028, 545);
+        	this.Controls.Add(this.menuStrip1);
         	this.Controls.Add(this.label1);
         	this.Controls.Add(this.pnlPlayer2);
         	this.Controls.Add(this.pnlPlayer1);
@@ -158,7 +264,10 @@ namespace Pong.Source
         	this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.MainForm_KeyPress);
         	this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MainFormKeyUp);
         	((System.ComponentModel.ISupportInitialize)(this.pBall)).EndInit();
+        	this.menuStrip1.ResumeLayout(false);
+        	this.menuStrip1.PerformLayout();
         	this.ResumeLayout(false);
+        	this.PerformLayout();
 
         }
 
@@ -173,5 +282,15 @@ namespace Pong.Source
         private System.Windows.Forms.Timer timerBall;
         private System.Windows.Forms.Timer timerIncreaseSpeed;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem tsBalkenSchmal;
+        private System.Windows.Forms.ToolStripMenuItem tsBalkenNormal;
+        private System.Windows.Forms.ToolStripMenuItem tsBalkenBreit;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem tsBallSlow;
+        private System.Windows.Forms.ToolStripMenuItem tsBallNormal;
+        private System.Windows.Forms.ToolStripMenuItem tsBallFast;
     }
 }

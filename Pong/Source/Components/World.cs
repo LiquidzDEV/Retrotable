@@ -10,7 +10,7 @@ namespace Pong.Source.Components
     /// <summary> Hält die Bounds des Spielfeldes. </summary>
     public static class World
     {
-        public static int upper, bottom, left, right;
+        public static int upper = 24, bottom, left, right;
         
         public static void setBounds(int height, int width){
         	World.bottom = height;

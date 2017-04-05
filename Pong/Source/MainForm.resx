@@ -124,7 +124,7 @@
   <data name="pBall.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vwAADr8BOAVTJAAAABh0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjM2qefiJQAAANtJREFUOE+dky0S
+        vAAADrwBlbxySQAAABh0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjM2qefiJQAAANtJREFUOE+dky0S
         wjAQhSuRyB6BIyCRSGQlEonkBkhkJbKSIyArKys5ArKqLd9LtjOU6TBJvpmdJJv3tj/ZZL+M47gahqEg
         rn3f1wrmJXFiLzfZMoi2RItwEfbeDEeTz2Hj4lQBUOhhNg+5nd8KhyLnyaxvfvl0OHg6ho2+u/CpePCW
         KnCzdTR4GxV42joavJ0KNLZOQgVKm0eDt1UBdVgSeCsdY85ER5LCwfVCylvguTvzBIng00Crxlub1UNC
@@ -136,5 +136,8 @@
   </metadata>
   <metadata name="timerIncreaseSpeed.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>233, 17</value>
+  </metadata>
+  <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>933, 17</value>
   </metadata>
 </root>
