@@ -33,7 +33,6 @@ namespace Pong.Source.Components
         {
             this.pnl = pnl;
             this.lblScore = lblScore;
-			pnl.Height = PANEL_NORMAL;
         }
 
         public void Move()
@@ -59,7 +58,7 @@ namespace Pong.Source.Components
         internal void setRelativePanelPosition(int percentage)
         {
             double position = (World.bottom - pnl.Size.Height - World.upper) / 100f * percentage;
-            pnl.Location = new Point(pnl.Location.X, Math.Min(World.bottom - pnl.Size.Height, Convert.ToInt32(position)));
+            pnl.Location = new Point(pnl.Location.X, Math.Min(World.bottom - pnl.Size.Height, Convert.ToInt32(position) + World.upper));
         }
         
         public void setPanelHeight(int height){

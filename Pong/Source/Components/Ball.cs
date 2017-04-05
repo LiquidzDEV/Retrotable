@@ -14,9 +14,11 @@ namespace Pong.Source.Components
     public class Ball
     {
         /// <summary> Der maximale horizontale speed des Balls. </summary>
-        public const int MAX_SPEED = 40;
+        public const int MAX_SPEED = 20;
         /// <summary> Der speed den der Ball pro Event gewinnt. </summary>
-		public const int SPEED_GAIN = 4;
+		public const int SPEED_GAIN = 2;
+        /// <summary> Geschwindigkeit die über das Menü eingestellt wird. </summary>
+        public static int SPEED_LEVEL = 2;
 		/// <summary> Der Speed am Rundenstart. </summary>
 		public const int DEFAULT_SPEED = 12;
 
@@ -46,10 +48,10 @@ namespace Pong.Source.Components
             int bottom = World.bottom - pBall.Size.Height;
 
             //Bewege den Ball nach links/rechts, wenn er oben/unten anstößt halte seine Y Position
-            pBall.Location = new Point(pBall.Location.X + speedX, Math.Max(0, Math.Min(bottom, pBall.Location.Y + speedY)));
+            pBall.Location = new Point(pBall.Location.X + speedX, Math.Max(World.upper, Math.Min(bottom, pBall.Location.Y + speedY)));
 
             //Wenn der Ball oben/unten anstößt wechsel die richtung Y
-            if (pBall.Location.Y == bottom || pBall.Location.Y == 0)
+            if (pBall.Location.Y == bottom || pBall.Location.Y == World.upper)
             {
                 speedY *= -1;
 				Pong.debugMessage("Ball ändert Richtung.");
@@ -93,9 +95,9 @@ namespace Pong.Source.Components
 
         public void increaseSpeed()
         {
-            if (speedX < MAX_SPEED && speedX > -MAX_SPEED)
+            if (speedX < MAX_SPEED * SPEED_LEVEL && speedX > -MAX_SPEED * SPEED_LEVEL)
             {
-                speedX = speedX < 0 ? speedX - Ball.SPEED_GAIN : speedX + Ball.SPEED_GAIN;
+                speedX = speedX < 0 ? speedX - Ball.SPEED_GAIN * SPEED_LEVEL : speedX + Ball.SPEED_GAIN * SPEED_LEVEL;
                 Pong.debugMessage("BallSpeed erhöht auf " + speedX);
             }
         }

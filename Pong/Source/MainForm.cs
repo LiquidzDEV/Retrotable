@@ -28,6 +28,8 @@ namespace Pong.Source
 			main.player1 = new Player(pnlPlayer1, lblPlayer1);
 			main.player2 = new Player(pnlPlayer2, lblPlayer2);
 			main.ball = new Ball(pBall);
+            tsBalkenNormal.Checked = true;
+            tsBallNormal.Checked = true;
 			resetRound();
 			timerPaddle.Start();
 			timerBall.Start();
@@ -123,29 +125,27 @@ namespace Pong.Source
 		{
 			Pong.instance.arduino.close();
 		}
-		
-		void ToolStripCheckOnlyOne(object sender, EventArgs e)
-		{
-			var currentItem = sender as ToolStripMenuItem;
-			if (currentItem != null)
-			{	
-				((ToolStripMenuItem)currentItem.OwnerItem).DropDownItems.OfType<ToolStripMenuItem>().ToList()
-		            .ForEach(item =>
-					{
-						item.Checked = false;
-					});
 
-				currentItem.Checked = true;
-			}
-		}
+        #region MenuStrip
+
+        void ToolStripCheckOnlyOne(object sender, EventArgs e)
+		{
+            if (sender is ToolStripMenuItem currentItem)
+            {
+                ((ToolStripMenuItem)currentItem.OwnerItem).DropDownItems.OfType<ToolStripMenuItem>().ToList()
+                    .ForEach(item =>
+                    {
+                        item.Checked = false;
+                    });
+
+                currentItem.Checked = true;
+            }
+        }
 		
 		void ToolStrip_CheckedChanged(object sender, EventArgs e)
 		{
-			var currentItem = sender as ToolStripMenuItem;
-			if (currentItem != null)
+			if (sender is ToolStripMenuItem currentItem)
 			{	
-				List<ToolStripMenuItem> items = ((ToolStripMenuItem)currentItem.OwnerItem).DropDownItems.OfType<ToolStripMenuItem>().ToList();
-
 				if(currentItem.Equals(tsBalkenSchmal)){
 					main.player1.setPanelHeight(Player.PANEL_SMALL);
 					main.player2.setPanelHeight(Player.PANEL_SMALL);
@@ -158,8 +158,21 @@ namespace Pong.Source
 					main.player1.setPanelHeight(Player.PANEL_BIG);
 					main.player2.setPanelHeight(Player.PANEL_BIG);
 				}
-				
-			}
+                else if (currentItem.Equals(tsBallSlow))
+                {
+                    Ball.SPEED_LEVEL = 1;
+                }
+                else if (currentItem.Equals(tsBallNormal))
+                {
+                    Ball.SPEED_LEVEL = 2;
+                }
+                else if (currentItem.Equals(tsBallFast))
+                {
+                    Ball.SPEED_LEVEL = 3;
+                }
+            }
 		}
+
+        #endregion
 	}
 }
