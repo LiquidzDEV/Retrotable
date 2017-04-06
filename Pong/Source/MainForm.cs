@@ -27,14 +27,36 @@ namespace Pong.Source
 			World.setBounds(ClientSize.Height, ClientSize.Width);
 			main.player1 = new Player(pnlPlayer1, lblPlayer1);
 			main.player2 = new Player(pnlPlayer2, lblPlayer2);
-			main.ball = new Ball(pBall);
-            tsBalkenNormal.Checked = true;
-            tsBallNormal.Checked = true;
+			main.ball = new Ball(pBall);		
+		}
+		
+		void MainFormLoad(object sender, EventArgs e)
+		{
+			tsBallSlow.Checked = Properties.Settings.Default.ballSlow;
+			tsBallNormal.Checked = Properties.Settings.Default.ballNormal;
+			tsBallFast.Checked = Properties.Settings.Default.ballFast;
+			tsBalkenSchmal.Checked = Properties.Settings.Default.panelSmall;
+			tsBalkenNormal.Checked = Properties.Settings.Default.panelNormal;
+			tsBalkenBreit.Checked = Properties.Settings.Default.panelBig;
+			
 			resetRound();
 			timerPaddle.Start();
 			timerBall.Start();
 		}
-
+		
+		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			Properties.Settings.Default.ballSlow = tsBallSlow.Checked;
+			Properties.Settings.Default.ballNormal = tsBallNormal.Checked;
+			Properties.Settings.Default.ballFast = tsBallFast.Checked;
+			Properties.Settings.Default.panelSmall = tsBalkenSchmal.Checked; 
+			Properties.Settings.Default.panelNormal = tsBalkenNormal.Checked; 
+			Properties.Settings.Default.panelBig = tsBalkenBreit.Checked;
+			Properties.Settings.Default.Save();
+			
+			Pong.instance.arduino.close();
+		}
+		
 		#region Bewegen der Balken
         
 		void MainFormKeyDown(object sender, KeyEventArgs e)
@@ -121,58 +143,69 @@ namespace Pong.Source
 			Pong.debugMessage("Spiel wurde zurückgesetzt.");
 		}
 
-		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+		#region MenuStrip
+		
+		void ToolStripCheckOnlyOne(object sender, EventArgs e)
 		{
-			Pong.instance.arduino.close();
-		}
+			if (sender != null)
+			{
+				var currentItem = (ToolStripMenuItem)sender;
 
-        #region MenuStrip
-
-        void ToolStripCheckOnlyOne(object sender, EventArgs e)
-		{
-            if (sender is ToolStripMenuItem currentItem)
-            {
-                ((ToolStripMenuItem)currentItem.OwnerItem).DropDownItems.OfType<ToolStripMenuItem>().ToList()
+				((ToolStripMenuItem)currentItem.OwnerItem).DropDownItems.OfType<ToolStripMenuItem>().ToList()
                     .ForEach(item =>
-                    {
-                        item.Checked = false;
-                    });
-
-                currentItem.Checked = true;
-            }
-        }
+					{
+						if (item.Checked && !item.Equals(currentItem))
+						{
+							item.Checked = false;
+						}      
+					});
+			}
+		}
 		
 		void ToolStrip_CheckedChanged(object sender, EventArgs e)
 		{
-			if (sender is ToolStripMenuItem currentItem)
-			{	
-				if(currentItem.Equals(tsBalkenSchmal)){
+			/*
+ 			* Nur in C#7 möglich
+			* if (sender is ToolStripMenuItem currentItem)
+			* {
+			*/	
+			if (sender != null)
+			{
+				var currentItem = (ToolStripMenuItem)sender;
+
+				if (!currentItem.Checked)
+					return;
+				
+				if (currentItem.Equals(tsBalkenSchmal))
+				{
+					
 					main.player1.setPanelHeight(Player.PANEL_SMALL);
 					main.player2.setPanelHeight(Player.PANEL_SMALL);
 				}
-				else if(currentItem.Equals(tsBalkenNormal)){
+				else if (currentItem.Equals(tsBalkenNormal))
+				{
 					main.player1.setPanelHeight(Player.PANEL_NORMAL);
 					main.player2.setPanelHeight(Player.PANEL_NORMAL);
 				}
-				else if(currentItem.Equals(tsBalkenBreit)){
+				else if (currentItem.Equals(tsBalkenBreit))
+				{
 					main.player1.setPanelHeight(Player.PANEL_BIG);
 					main.player2.setPanelHeight(Player.PANEL_BIG);
 				}
-                else if (currentItem.Equals(tsBallSlow))
-                {
-                    Ball.SPEED_LEVEL = 1;
-                }
-                else if (currentItem.Equals(tsBallNormal))
-                {
-                    Ball.SPEED_LEVEL = 2;
-                }
-                else if (currentItem.Equals(tsBallFast))
-                {
-                    Ball.SPEED_LEVEL = 3;
-                }
-            }
+				else if (currentItem.Equals(tsBallSlow))
+				{
+					Ball.setSpeedLevel(2);
+				}
+				else if (currentItem.Equals(tsBallNormal))
+				{
+					Ball.setSpeedLevel(3);
+				}
+				else if (currentItem.Equals(tsBallFast))
+				{
+					Ball.setSpeedLevel(4);
+				}
+			}
 		}
-
-        #endregion
+		#endregion
 	}
 }

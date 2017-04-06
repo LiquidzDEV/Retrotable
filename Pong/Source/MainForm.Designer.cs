@@ -185,6 +185,7 @@ namespace Pong.Source
         	this.tsBalkenSchmal.Size = new System.Drawing.Size(114, 22);
         	this.tsBalkenSchmal.Text = "Schmal";
         	this.tsBalkenSchmal.CheckedChanged += new System.EventHandler(this.ToolStrip_CheckedChanged);
+        	this.tsBalkenSchmal.CheckStateChanged += new System.EventHandler(this.ToolStrip_CheckedChanged);
         	this.tsBalkenSchmal.Click += new System.EventHandler(this.ToolStripCheckOnlyOne);
         	// 
         	// tsBalkenNormal
@@ -259,6 +260,7 @@ namespace Pong.Source
         	this.Name = "MainForm";
         	this.Text = "Pong / Pascal Hobza, Jannik Herrmann";
         	this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+        	this.Load += new System.EventHandler(this.MainFormLoad);
         	this.SizeChanged += new System.EventHandler(this.MainFormSizeChanged);
         	this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainFormKeyDown);
         	this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.MainForm_KeyPress);
