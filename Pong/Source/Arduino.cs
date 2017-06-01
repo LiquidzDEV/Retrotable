@@ -14,7 +14,7 @@ namespace Pong.Source
         {
             try
             {
-                arduino = new SerialPort("COM3", 9600, Parity.None, 8, StopBits.One);
+                arduino = new SerialPort("COM4", 9600, Parity.None, 8, StopBits.One);
                 arduino.DataReceived += arduino_DataReceived;
                 arduino.Open();
                 arduino.DiscardInBuffer();

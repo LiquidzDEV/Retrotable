@@ -11,7 +11,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="ballSlow" Type="System.Boolean" Scope="User" Roaming="false">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="panelBig" Type="System.Boolean" Scope="User" Roaming="false">
       <Value Profile="(Default)">False</Value>
@@ -20,7 +20,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="panelSmall" Type="System.Boolean" Scope="User" Roaming="false">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

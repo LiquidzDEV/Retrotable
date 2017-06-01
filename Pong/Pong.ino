@@ -1,3 +1,8 @@
+#include <SoftwareSerial.h>
+ 
+#define rxPin 10
+#define txPin 9
+
 const int player1 = A0;
 const int player2 = A1;
 
@@ -9,9 +14,12 @@ const int player1LedGreen = 6;
 const int player2LedGreen = 11;
 const int player2LedRed = 12;
 
+SoftwareSerial btSerial(rxPin, txPin);
+
 void setup()
 {
-    Serial.begin(9600); // Serieller Monitor Starten 
+    btSerial.begin(9600);
+    //Serial.begin(9600); // Serieller Monitor Starten 
 
     pinMode(btnStart, INPUT);
 
@@ -24,37 +32,39 @@ void setup()
 void loop()
 {
     delay(30);
-    Serial.print(map(analogRead(player1), 0, 1023, 0, 100));
-    Serial.print(",");
-    Serial.print(map(analogRead(player2), 0, 1023, 0, 100));
-    Serial.print(",");
-    Serial.println(digitalRead(btnStart));
 
-	if(Serial.available() > 0){
-	
-		byte data = (int) Serial.read();
+    byte data[3];
 
-		switch(data){
-			case 0:
-				digitalWrite(player1LedGreen, LOW);
-				digitalWrite(player1LedRed, LOW); 
-				digitalWrite(player2LedGreen, LOW);
-				digitalWrite(player2LedRed, LOW);
-				break;
-			case 1:        
-				setLeds(true, false);
-				break;
-			case 2:           
-				setLeds(false, true);
-				break;
-			case 3: 
-				setLeds(true, true);
-				break;
-			case 4: 
-				setLeds(false, false);
-				break;
-		} 
-	}
+    data[0] = byte(map(analogRead(player1), 0, 1023, 0, 100));
+    data[1] = byte(map(analogRead(player2), 0, 1023, 0, 100));
+    data[2] = byte(digitalRead(btnStart));
+
+    btSerial.write(data, 3);
+    
+    if(btSerial.available() > 0){
+        byte data = btSerial.read();
+    
+        switch(data){
+            case 0:
+                digitalWrite(player1LedGreen, LOW);
+                digitalWrite(player1LedRed, LOW); 
+                digitalWrite(player2LedGreen, LOW);
+                digitalWrite(player2LedRed, LOW);
+                break;
+            case 1:        
+                setLeds(true, false);
+                break;
+            case 2:           
+                setLeds(false, true);
+                break;
+            case 3: 
+                setLeds(true, true);
+                break;
+            case 4: 
+                setLeds(false, false);
+                break;
+        } 
+    }
 }
 
 void setLeds(bool player1, bool player2){

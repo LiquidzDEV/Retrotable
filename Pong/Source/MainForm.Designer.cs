@@ -248,13 +248,14 @@ namespace Pong.Source
         	this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
         	this.BackColor = System.Drawing.Color.Black;
         	this.ClientSize = new System.Drawing.Size(1028, 545);
+        	this.Controls.Add(this.pnlPlayer1);
+        	this.Controls.Add(this.pnlPlayer2);
+        	this.Controls.Add(this.pBall);
         	this.Controls.Add(this.menuStrip1);
         	this.Controls.Add(this.label1);
-        	this.Controls.Add(this.pnlPlayer2);
-        	this.Controls.Add(this.pnlPlayer1);
         	this.Controls.Add(this.lblPlayer2);
         	this.Controls.Add(this.lblPlayer1);
-        	this.Controls.Add(this.pBall);
+        	this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
         	this.Margin = new System.Windows.Forms.Padding(4);
         	this.MinimumSize = new System.Drawing.Size(1044, 583);
         	this.Name = "MainForm";
