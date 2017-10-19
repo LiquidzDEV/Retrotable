@@ -20,8 +20,7 @@ namespace Pong.Source
 
 		public MainForm()
 		{
-			this.main = Pong.instance;
-			DoubleBuffered = true;
+			this.main = Pong.instance;			
 			InitializeComponent();
 			World.setBounds(ClientSize.Height, ClientSize.Width);
 			main.player1 = new Player(pnlPlayer1, lblPlayer1);
@@ -41,6 +40,11 @@ namespace Pong.Source
 			resetRound();
 			timerPaddle.Start();
 			timerBall.Start();
+			
+			DoubleBuffered = true;
+			SetStyle(ControlStyles.UserPaint, true);
+		    SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+		    SetStyle(ControlStyles.AllPaintingInWmPaint, true);
 		}
 		
 		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -109,7 +113,7 @@ namespace Pong.Source
 
 		private void timerIncreaseSpeed_Tick(object sender, EventArgs e)
 		{
-			main.ball.increaseSpeed();
+			main.ball.IncreaseSpeed();
 		}
         
 		#endregion
