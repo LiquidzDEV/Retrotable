@@ -12,7 +12,7 @@ using Pong.Source.Components;
 namespace Pong.Source
 {
 	/// <summary>
-	/// Description of GameForm.
+	/// Description of MainForm.
 	/// </summary>
 	public partial class MainForm : Form
 	{
@@ -20,7 +20,7 @@ namespace Pong.Source
 
 		public MainForm()
 		{
-			this.main = Pong.instance;
+			main = Pong.Instance;
 			DoubleBuffered = true;
 			InitializeComponent();
 			World.setBounds(ClientSize.Height, ClientSize.Width);
@@ -53,7 +53,7 @@ namespace Pong.Source
 			Properties.Settings.Default.panelBig = tsBalkenBreit.Checked;
 			Properties.Settings.Default.Save();
 			
-			Pong.instance.arduino.close();
+			Pong.Arduino.Close();
 		}
 		
 		#region Bewegen der Balken

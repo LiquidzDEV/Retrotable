@@ -1,4 +1,4 @@
-#include <SoftwareSerial.h>
+//#include <SoftwareSerial.h>
  
 #define rxPin 10
 #define txPin 9
@@ -14,12 +14,12 @@ const int player1LedGreen = 6;
 const int player2LedGreen = 11;
 const int player2LedRed = 12;
 
-SoftwareSerial btSerial(rxPin, txPin);
+//SoftwareSerial btSerial(rxPin, txPin);
 
 void setup()
 {
-    btSerial.begin(9600);
-    //Serial.begin(9600); // Serieller Monitor Starten 
+    //btSerial.begin(9600);
+    Serial.begin(9600); // Serieller Monitor Starten 
 
     pinMode(btnStart, INPUT);
 
@@ -39,10 +39,13 @@ void loop()
     data[1] = byte(map(analogRead(player2), 0, 1023, 0, 100));
     data[2] = byte(digitalRead(btnStart));
 
-    btSerial.write(data, 3);
+    //btSerial.write(data, 3);
+    Serial.write(data, 3);
     
-    if(btSerial.available() > 0){
-        byte data = btSerial.read();
+    //if(btSerial.available() > 0){
+        //byte data = btSerial.read();
+	if(Serial.available() > 0){
+        byte data = Serial.read();
     
         switch(data){
             case 0:

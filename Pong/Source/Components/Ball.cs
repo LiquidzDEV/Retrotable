@@ -71,13 +71,15 @@ namespace Pong.Source.Components
 			// Wenn der Ball am Spieler vorbei geht, verteil einen Punkt
 			if (pBall.Location.X >= World.right - pBall.Size.Width)
 			{
-				Pong.instance.arduino.write(BoardConstants.PLAYER1);
-				Pong.instance.player1.Score();
+				//Pong.Instance.arduino.write(BoardConstants.PLAYER1);
+                ArduinoHelper.SetLeds(true, false);
+				Pong.Instance.player1.Score();
 			}
 			else if (pBall.Location.X <= 0)
 			{
-				Pong.instance.arduino.write(BoardConstants.PLAYER2);
-				Pong.instance.player2.Score();
+				//Pong.Instance.arduino.write(BoardConstants.PLAYER2);
+                ArduinoHelper.SetLeds(false, true);
+				Pong.Instance.player2.Score();
 			}
 		}
         
@@ -87,9 +89,9 @@ namespace Pong.Source.Components
 		/// <returns>Spieler-Id oder 0 wenn kein Spieler getroffen ist.</returns>
 		private int isBallHittingPlayer()
 		{
-			if (Pong.instance.player1.hits(pBall))
+			if (Pong.Instance.player1.hits(pBall))
 				return 1;
-			if (Pong.instance.player2.hits(pBall))
+			if (Pong.Instance.player2.hits(pBall))
 				return 2;
 			return 0;
 		}

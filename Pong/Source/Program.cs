@@ -14,7 +14,7 @@ namespace Pong.Source
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             
-			Pong.instance.initialize();
+			Pong.Instance.initialize();
         }
     }
 }

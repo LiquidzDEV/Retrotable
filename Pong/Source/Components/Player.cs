@@ -51,7 +51,7 @@ namespace Pong.Source.Components
 		{
 			score++;
 			lblScore.Text = score.ToString();
-			Pong.instance.mainForm.resetRound();
+			Pong.Instance.mainForm.resetRound();
 			Pong.debugMessage("Ein Punkt wurde vergeben.");
 		}
 
