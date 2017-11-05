@@ -1,7 +1,7 @@
 //#include <SoftwareSerial.h>
  
-#define rxPin 10
-#define txPin 9
+//#define rxPin 10
+//#define txPin 9
 
 const int player1 = A0;
 const int player2 = A1;
@@ -86,7 +86,3 @@ void setLeds(bool player1, bool player2){
         digitalWrite(player2LedRed, HIGH);       
     }
 }
-
-
-
-

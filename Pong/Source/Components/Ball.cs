@@ -96,7 +96,7 @@ namespace Pong.Source.Components
 			return 0;
 		}
 
-		public void increaseSpeed()
+		public void IncreaseSpeed()
 		{
 			if (speedX < MAX_SPEED * SPEED_LEVEL && speedX > -MAX_SPEED * SPEED_LEVEL)
 			{
