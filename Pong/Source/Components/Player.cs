@@ -51,8 +51,8 @@ namespace Pong.Source.Components
 		{
 			score++;
 			lblScore.Text = score.ToString();
-			Pong.Instance.mainForm.resetRound();
-			Pong.debugMessage("Ein Punkt wurde vergeben.");
+			Pong.Instance.MainForm.ResetRound();
+			Pong.DebugMessage("Ein Punkt wurde vergeben.");
 		}
 
 		internal void setRelativePanelPosition(int percentage)
@@ -64,7 +64,7 @@ namespace Pong.Source.Components
 		public void setPanelHeight(int height)
 		{
 			pnl.Height = height;
-			Pong.debugMessage("Höhe des Balken wurde auf " + height + " gesetzt!");
+			Pong.DebugMessage("Höhe des Balken wurde auf " + height + " gesetzt!");
 		}
 
 		internal bool hits(PictureBox ball)

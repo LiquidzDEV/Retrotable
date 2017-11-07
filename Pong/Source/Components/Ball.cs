@@ -14,13 +14,13 @@ namespace Pong.Source.Components
 	public class Ball
 	{
 		/// <summary> Der maximale horizontale speed des Balls. </summary>
-		public const int MAX_SPEED = 20;
+		public const int MAX_SPEED = 35;
 		/// <summary> Der speed den der Ball pro Event gewinnt. </summary>
-		public const int SPEED_GAIN = 2;
+		public const int SPEED_GAIN = 3;
 		/// <summary> Geschwindigkeit die über das Menü eingestellt wird. </summary>
 		private static int SPEED_LEVEL = 2;
 		/// <summary> Der Speed am Rundenstart. </summary>
-		public const int DEFAULT_SPEED = 12;
+		public const int DEFAULT_SPEED = 20;
 
 		private readonly PictureBox pBall;
 
@@ -54,7 +54,7 @@ namespace Pong.Source.Components
 			if (pBall.Location.Y == bottom || pBall.Location.Y == World.upper)
 			{
 				speedY *= -1;
-				Pong.debugMessage("Ball ändert Richtung.");
+				Pong.DebugMessage("Ball ändert Richtung.");
 			}
 
 			//Wenn der Ball einen Spieler berührt wechsel die richtung X und bestimme einen neuen Flugwinkel
@@ -65,7 +65,7 @@ namespace Pong.Source.Components
 				speedX *= -1;
 				int random = new Random().Next(1, 12);
 				speedY = speedY < 0 ? -random : random;
-				Pong.debugMessage("Spieler " + playerHit + " wurde vom Ball getroffen! Neuer Flugwinkel: " + random);
+				Pong.DebugMessage("Spieler " + playerHit + " wurde vom Ball getroffen! Neuer Flugwinkel: " + random);
 			}
 
 			// Wenn der Ball am Spieler vorbei geht, verteil einen Punkt
@@ -73,13 +73,13 @@ namespace Pong.Source.Components
 			{
 				//Pong.Instance.arduino.write(BoardConstants.PLAYER1);
                 ArduinoHelper.SetLeds(true, false);
-				Pong.Instance.player1.Score();
+				Pong.Instance.Player1.Score();
 			}
 			else if (pBall.Location.X <= 0)
 			{
 				//Pong.Instance.arduino.write(BoardConstants.PLAYER2);
                 ArduinoHelper.SetLeds(false, true);
-				Pong.Instance.player2.Score();
+				Pong.Instance.Player2.Score();
 			}
 		}
         
@@ -89,9 +89,9 @@ namespace Pong.Source.Components
 		/// <returns>Spieler-Id oder 0 wenn kein Spieler getroffen ist.</returns>
 		private int isBallHittingPlayer()
 		{
-			if (Pong.Instance.player1.hits(pBall))
+			if (Pong.Instance.Player1.hits(pBall))
 				return 1;
-			if (Pong.Instance.player2.hits(pBall))
+			if (Pong.Instance.Player2.hits(pBall))
 				return 2;
 			return 0;
 		}
@@ -101,14 +101,14 @@ namespace Pong.Source.Components
 			if (speedX < MAX_SPEED * SPEED_LEVEL && speedX > -MAX_SPEED * SPEED_LEVEL)
 			{
 				speedX = speedX < 0 ? speedX - Ball.SPEED_GAIN * SPEED_LEVEL : speedX + Ball.SPEED_GAIN * SPEED_LEVEL;
-				Pong.debugMessage("BallSpeed erhöht auf " + speedX);
+				Pong.DebugMessage("BallSpeed erhöht auf " + speedX);
 			}
 		}
         
 		public static void setSpeedLevel(int level)
 		{
 			Ball.SPEED_LEVEL = level;
-			Pong.debugMessage("Ballspeedlevel wurde auf " + level + " gesetzt!");
+			Pong.DebugMessage("Ballspeedlevel wurde auf " + level + " gesetzt!");
 		}
 
 		public void reset()

@@ -31,8 +31,8 @@ using Pong.Source;
 namespace LattePanda.Firmata
 {
     public delegate void DidI2CDataReveive(byte address,byte register, byte[] data);
-    public delegate void DigitalPinUpdated(byte pin, byte state);
-    public delegate void AnalogPinUpdated(int pin, int value);
+    public delegate void DigitalPinUpdated(PinMapping pin, byte state);
+    public delegate void AnalogPinUpdated(PinMapping pin, int value);
 
     class Arduino
     {
@@ -337,12 +337,12 @@ namespace LattePanda.Firmata
                                                 if ((((1 << i) & (currentDigitalInput & 0xff))) != 0)
                                                 {
                                                     if (this.digitalPinUpdated != null)
-                                                        this.digitalPinUpdated((byte)(i + _multiByteChannel * 8), Arduino.HIGH);
+                                                        this.digitalPinUpdated((PinMapping)(i + _multiByteChannel * 8), Arduino.HIGH);
                                                 }
                                                 else
                                                 {
                                                     if (this.digitalPinUpdated != null)
-                                                        this.digitalPinUpdated((byte)(i + _multiByteChannel * 8), Arduino.LOW);
+                                                        this.digitalPinUpdated((PinMapping)(i + _multiByteChannel * 8), Arduino.LOW);
                                                 }
                                             }
                                         }
@@ -352,7 +352,7 @@ namespace LattePanda.Firmata
                                     case ANALOG_MESSAGE:
                                         _analogInputData[_multiByteChannel] = (_storedInputData[0] << 7) + _storedInputData[1];
                                         if (this.analogPinUpdated != null)
-                                            analogPinUpdated(_multiByteChannel, (_storedInputData[0] << 7) + _storedInputData[1]);
+                                            analogPinUpdated((PinMapping)_multiByteChannel, (_storedInputData[0] << 7) + _storedInputData[1]);
                                         break;
                                     case REPORT_VERSION:
                                         this._majorVersion = _storedInputData[1];

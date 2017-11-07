@@ -24,7 +24,7 @@ namespace Pong.Source
 
         public static void SetLeds(bool player1, bool player2)
         {
-            if (!Pong.ARDUINOMODE) return;
+            if (!Pong.ArduinoMode) return;
 
             if (player1)
             {
