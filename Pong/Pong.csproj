@@ -73,6 +73,7 @@
     <Compile Include="Source\Components\Ball.cs" />
     <Compile Include="Source\Components\Player.cs" />
     <Compile Include="Source\Components\World.cs" />
+    <Compile Include="Source\Extensions.cs" />
     <Compile Include="Source\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
