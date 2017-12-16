@@ -14,7 +14,8 @@ namespace Pong.Source
     {
         private readonly Pong _main;
 
-        /// <summary> Constructor of the <see cref="MainForm"/>. Initializes the components and adds the DigitalPinUpdated Event. </summary>
+        /// <inheritdoc />
+        /// <summary> Constructor of the <see cref="T:Pong.Source.MainForm" />. Initializes the components and adds the DigitalPinUpdated Event. </summary>
         public MainForm()
         {
             _main = Pong.Instance;
@@ -32,8 +33,8 @@ namespace Pong.Source
         /// <summary> This Event is triggered when a digital pin is updated. </summary>
         /// <param name="pin"> The updated Pin </param>
         /// <param name="state"> the changed Value (HIGH or LOW) </param>
-        private void DigitalPinUpdated(PinMapping pin, byte state)
-        {           
+        private static void DigitalPinUpdated(PinMapping pin, byte state)
+        {
             if (pin == PinMapping.ButtonStart && state == Arduino.HIGH && !Pong.Instance.Started)
             {
                 ArduinoHelper.SetLeds(false, false);
@@ -43,7 +44,7 @@ namespace Pong.Source
         }
 
         /// <summary> Triggered when the Form is loading. </summary>
-        void MainFormLoad(object sender, EventArgs e)
+        private void MainFormLoad(object sender, EventArgs e)
         {
             tsBallSlow.Checked = Properties.Settings.Default.ballSlow;
             tsBallNormal.Checked = Properties.Settings.Default.ballNormal;
@@ -164,73 +165,72 @@ namespace Pong.Source
             timerIncreaseSpeed.Stop();
             _main.Player1.reset();
             _main.Player2.reset();
-            _main.Ball.reset();
+            _main.Ball.Reset();
             Pong.DebugMessage("Spiel wurde zurückgesetzt.");
         }
 
         #region MenuStrip
 
-        void ToolStripCheckOnlyOne(object sender, EventArgs e)
+        private void ToolStripCheckOnlyOne(object sender, EventArgs e)
         {
-            if (sender != null)
-            {
-                var currentItem = (ToolStripMenuItem)sender;
+            if (sender == null) return;
 
-                ((ToolStripMenuItem)currentItem.OwnerItem).DropDownItems.OfType<ToolStripMenuItem>().ToList()
-                    .ForEach(item =>
+            var currentItem = (ToolStripMenuItem)sender;
+
+            ((ToolStripMenuItem)currentItem.OwnerItem).DropDownItems.OfType<ToolStripMenuItem>().ToList()
+                .ForEach(item =>
+                {
+                    if (item.Checked && !item.Equals(currentItem))
                     {
-                        if (item.Checked && !item.Equals(currentItem))
-                        {
-                            item.Checked = false;
-                        }
-                    });
-            }
+                        item.Checked = false;
+                    }
+                });
         }
 
-        void ToolStrip_CheckedChanged(object sender, EventArgs e)
+        private void ToolStrip_CheckedChanged(object sender, EventArgs e)
         {
             /*
- 			* Nur in C#7 möglich
-			* if (sender is ToolStripMenuItem currentItem)
-			* {
+ 			* C# >= 7.0
+			* if (!(sender is ToolStripMenuItem currentItem)) return;
+            * 
+            * C# < 7.0
+            * if (sender == null) return;
+            * var currentItem = (ToolStripMenuItem)sender;
 			*/
-            if (sender != null)
+
+            if (!(sender is ToolStripMenuItem currentItem)) return;
+
+            if (!currentItem.Checked) return;
+
+            if (currentItem.Equals(tsBalkenSchmal))
             {
-                var currentItem = (ToolStripMenuItem)sender;
-
-                if (!currentItem.Checked)
-                    return;
-
-                if (currentItem.Equals(tsBalkenSchmal))
-                {
-
-                    _main.Player1.setPanelHeight(Player.PANEL_SMALL);
-                    _main.Player2.setPanelHeight(Player.PANEL_SMALL);
-                }
-                else if (currentItem.Equals(tsBalkenNormal))
-                {
-                    _main.Player1.setPanelHeight(Player.PANEL_NORMAL);
-                    _main.Player2.setPanelHeight(Player.PANEL_NORMAL);
-                }
-                else if (currentItem.Equals(tsBalkenBreit))
-                {
-                    _main.Player1.setPanelHeight(Player.PANEL_BIG);
-                    _main.Player2.setPanelHeight(Player.PANEL_BIG);
-                }
-                else if (currentItem.Equals(tsBallSlow))
-                {
-                    Ball.setSpeedLevel(2);
-                }
-                else if (currentItem.Equals(tsBallNormal))
-                {
-                    Ball.setSpeedLevel(3);
-                }
-                else if (currentItem.Equals(tsBallFast))
-                {
-                    Ball.setSpeedLevel(4);
-                }
+                _main.Player1.setPanelHeight(Player.PANEL_SMALL);
+                _main.Player2.setPanelHeight(Player.PANEL_SMALL);
+            }
+            else if (currentItem.Equals(tsBalkenNormal))
+            {
+                _main.Player1.setPanelHeight(Player.PANEL_NORMAL);
+                _main.Player2.setPanelHeight(Player.PANEL_NORMAL);
+            }
+            else if (currentItem.Equals(tsBalkenBreit))
+            {
+                _main.Player1.setPanelHeight(Player.PANEL_BIG);
+                _main.Player2.setPanelHeight(Player.PANEL_BIG);
+            }
+            else if (currentItem.Equals(tsBallSlow))
+            {
+                Ball.SetSpeedLevel(2);
+            }
+            else if (currentItem.Equals(tsBallNormal))
+            {
+                Ball.SetSpeedLevel(3);
+            }
+            else if (currentItem.Equals(tsBallFast))
+            {
+                Ball.SetSpeedLevel(4);
             }
         }
-        #endregion
     }
+    #endregion
 }
+

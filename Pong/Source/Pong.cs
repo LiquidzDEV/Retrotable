@@ -22,14 +22,18 @@ namespace Pong.Source
 		private static Pong _instance;   
 		
         /// <summary> Makes the instance of Pong internal seeable, creates an instances if no instance is initialized. </summary>
-        internal static Pong Instance {        	
-        	get
-        	{
-				if (_instance == null)
-					_instance = new Pong();
-				return _instance;
-        	}       		
-        }
+        internal static Pong Instance => _instance ?? (_instance = new Pong());
+
+        //Shortened Property, same as:
+        //internal static Pong Instance
+        //{
+        //    get
+        //    {
+        //        if (_instance == null)
+        //            _instance = new Pong();
+        //        return _instance;
+        //    }
+        //}
 
         /// <summary> False, if no Arduino is found. </summary>
         internal static bool ArduinoMode = true;
@@ -89,14 +93,11 @@ namespace Pong.Source
             else if (pin == PinMapping.Player2Bar)
                 Player2.setRelativePanelPosition(value.Map(0, 1023, 0, 100));
         }
-
-        /// <summary> True, if debug messages should be written to the debug console. </summary>
-        private const bool Debug = true;
         
-		/// <summary> If Debug is true, the method is writing the message in the debug console. Only works if the application is compiled in debugmode.  </summary>    
+		/// <summary> This method writes the message into the debug console. Only works if the application is compiled in debugmode.  </summary>    
         internal static void DebugMessage(string message)
         {
-            if (Debug) System.Diagnostics.Debug.WriteLine(message);
+            System.Diagnostics.Debug.WriteLine(message);
         }
     }
 }

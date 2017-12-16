@@ -126,7 +126,7 @@ namespace Pong.Source
             // 
             // timerBall
             // 
-            this.timerBall.Interval = 20;
+            this.timerBall.Interval = 10;
             this.timerBall.Tick += new System.EventHandler(this.timerBall_Tick);
             // 
             // timerIncreaseSpeed

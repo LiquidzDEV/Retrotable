@@ -20,14 +20,13 @@ namespace Pong.Source.Components
 		/// <summary> Geschwindigkeit die über das Menü eingestellt wird. </summary>
 		private static int SPEED_LEVEL = 2;
 		/// <summary> Der Speed am Rundenstart. </summary>
-		public const int DEFAULT_SPEED = 20;
+		public const int DEFAULT_SPEED = 10;
 
 		private readonly PictureBox pBall;
 
 		private int speedX;
 		private int speedY;
                 
-		//TODO Wenn er auf einen Spieler trifft soll er nur einmal die richtung wechseln damit er nicht im Spieler buggt
 		private int lastPlayerHit = 0;
 
 		public Ball(PictureBox pBall)
@@ -37,10 +36,12 @@ namespace Pong.Source.Components
 
 		public void Start()
 		{
-			int random = new Random().Next(-4, 4);
-			speedY = random;
-			random = new Random().Next(10);
-			speedX = random < 5 ? Ball.DEFAULT_SPEED : -Ball.DEFAULT_SPEED;
+            //Creates an instance of a generator for random numbers
+		    var random = new Random();
+            //Sets the y-speed of the ball randomly between -4 and 4
+			speedY = random.Next(-4, 4);
+            //Sets the x-speed on positive defaultspeed if random is lower than 5 and negative defaultspeed if random is greater or equal than 5
+			speedX = random.Next(10) < 5 ? DEFAULT_SPEED : -DEFAULT_SPEED;
 		}
 
 		public void Move()
@@ -71,13 +72,11 @@ namespace Pong.Source.Components
 			// Wenn der Ball am Spieler vorbei geht, verteil einen Punkt
 			if (pBall.Location.X >= World.right - pBall.Size.Width)
 			{
-				//Pong.Instance.arduino.write(BoardConstants.PLAYER1);
                 ArduinoHelper.SetLeds(true, false);
 				Pong.Instance.Player1.Score();
 			}
 			else if (pBall.Location.X <= 0)
 			{
-				//Pong.Instance.arduino.write(BoardConstants.PLAYER2);
                 ArduinoHelper.SetLeds(false, true);
 				Pong.Instance.Player2.Score();
 			}
@@ -105,13 +104,13 @@ namespace Pong.Source.Components
 			}
 		}
         
-		public static void setSpeedLevel(int level)
+		public static void SetSpeedLevel(int level)
 		{
-			Ball.SPEED_LEVEL = level;
+			SPEED_LEVEL = level;
 			Pong.DebugMessage("Ballspeedlevel wurde auf " + level + " gesetzt!");
 		}
 
-		public void reset()
+		public void Reset()
 		{
 			pBall.Location = new Point(((World.right - World.left) / 2) - (pBall.Size.Width / 2), ((World.bottom - World.upper) / 2) - (pBall.Size.Height / 2));
 			lastPlayerHit = 0;

@@ -67,20 +67,19 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Source\Arduino.cs" />
-    <Compile Include="Source\ArduinoHelper.cs" />
-    <Compile Include="Source\BoardConstants.cs" />
+    <Compile Include="Source\Board\Arduino.cs" />
+    <Compile Include="Source\Board\ArduinoHelper.cs" />
     <Compile Include="Source\Components\Ball.cs" />
     <Compile Include="Source\Components\Player.cs" />
     <Compile Include="Source\Components\World.cs" />
-    <Compile Include="Source\Extensions.cs" />
+    <Compile Include="Source\Board\Extensions.cs" />
     <Compile Include="Source\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Source\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Source\PinMapping.cs" />
+    <Compile Include="Source\Board\PinMapping.cs" />
     <Compile Include="Source\Pong.cs" />
     <Compile Include="Source\Program.cs" />
   </ItemGroup>
