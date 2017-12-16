@@ -1,10 +1,4 @@
-﻿/*
- * Pascal "Liquidz" H.
- * 10.02.2017 / 07:47
- * 
- * Description:
- */
-using System;
+﻿using System;
 using System.Linq;
 using System.Windows.Forms;
 using LattePanda.Firmata;
@@ -13,18 +7,20 @@ using Pong.Source.Components;
 namespace Pong.Source
 {
     /// <summary>
-    /// Description of MainForm.
+    /// This is the Form of our application.
+    /// It holds the visual appereance that the user will see and manages the input handling from the Keyboard and Arduino.
     /// </summary>
     public partial class MainForm : Form
     {
         private readonly Pong _main;
 
+        /// <summary> Constructor of the <see cref="MainForm"/>. Initializes the components and adds the DigitalPinUpdated Event. </summary>
         public MainForm()
         {
             _main = Pong.Instance;
 
             if (Pong.ArduinoMode)
-                Pong.Arduino.digitalPinUpdated += Arduino_digitalPinUpdated;
+                Pong.Arduino.DigitalPinUpdated += DigitalPinUpdated;
 
             InitializeComponent();
             World.setBounds(ClientSize.Height, ClientSize.Width);
@@ -33,7 +29,10 @@ namespace Pong.Source
             _main.Ball = new Ball(pBall);
         }
 
-        private void Arduino_digitalPinUpdated(PinMapping pin, byte state)
+        /// <summary> This Event is triggered when a digital pin is updated. </summary>
+        /// <param name="pin"> The updated Pin </param>
+        /// <param name="state"> the changed Value (HIGH or LOW) </param>
+        private void DigitalPinUpdated(PinMapping pin, byte state)
         {           
             if (pin == PinMapping.ButtonStart && state == Arduino.HIGH && !Pong.Instance.Started)
             {
@@ -43,6 +42,7 @@ namespace Pong.Source
             }
         }
 
+        /// <summary> Triggered when the Form is loading. </summary>
         void MainFormLoad(object sender, EventArgs e)
         {
             tsBallSlow.Checked = Properties.Settings.Default.ballSlow;
@@ -62,6 +62,7 @@ namespace Pong.Source
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
         }
 
+        /// <summary> Triggered when the Form is closing (not closed!). </summary>
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Properties.Settings.Default.ballSlow = tsBallSlow.Checked;

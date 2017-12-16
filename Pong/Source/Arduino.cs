@@ -50,8 +50,8 @@ namespace LattePanda.Firmata
         public const byte I2C_MODE_STOP_READING = 0x18;
 
         public event DidI2CDataReveive didI2CDataReveive;
-        public event DigitalPinUpdated digitalPinUpdated;
-        public event AnalogPinUpdated analogPinUpdated;
+        public event DigitalPinUpdated DigitalPinUpdated;
+        public event AnalogPinUpdated AnalogPinUpdated;
 
         /// <summary>
         ///
@@ -336,13 +336,13 @@ namespace LattePanda.Firmata
                                             {
                                                 if ((((1 << i) & (currentDigitalInput & 0xff))) != 0)
                                                 {
-                                                    if (this.digitalPinUpdated != null)
-                                                        this.digitalPinUpdated((PinMapping)(i + _multiByteChannel * 8), Arduino.HIGH);
+                                                    if (this.DigitalPinUpdated != null)
+                                                        this.DigitalPinUpdated((PinMapping)(i + _multiByteChannel * 8), Arduino.HIGH);
                                                 }
                                                 else
                                                 {
-                                                    if (this.digitalPinUpdated != null)
-                                                        this.digitalPinUpdated((PinMapping)(i + _multiByteChannel * 8), Arduino.LOW);
+                                                    if (this.DigitalPinUpdated != null)
+                                                        this.DigitalPinUpdated((PinMapping)(i + _multiByteChannel * 8), Arduino.LOW);
                                                 }
                                             }
                                         }
@@ -351,8 +351,8 @@ namespace LattePanda.Firmata
                                         break;
                                     case ANALOG_MESSAGE:
                                         _analogInputData[_multiByteChannel] = (_storedInputData[0] << 7) + _storedInputData[1];
-                                        if (this.analogPinUpdated != null)
-                                            analogPinUpdated((PinMapping)_multiByteChannel, (_storedInputData[0] << 7) + _storedInputData[1]);
+                                        if (this.AnalogPinUpdated != null)
+                                            AnalogPinUpdated((PinMapping)_multiByteChannel, (_storedInputData[0] << 7) + _storedInputData[1]);
                                         break;
                                     case REPORT_VERSION:
                                         this._majorVersion = _storedInputData[1];

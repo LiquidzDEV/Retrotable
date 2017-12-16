@@ -1,7 +1,6 @@
 ﻿/*
  * Pascal "Liquidz" H.
  * Jannik Herrmann, Jannic Walder, Marc Weißelstein
- * 10.02.2017 / 06:24
  */
 
 using System;
@@ -12,34 +11,48 @@ using Pong.Source.Components;
 namespace Pong.Source
 {
     /// <summary>
-    /// Hauptklasse der Anwendung.
-    /// Entrypoint befindet sich in Program.cs
+    /// Main-Class of the Application.
+    /// This Class is a Singleton-Class, that means it can only be one instance at a time.
+    /// Singleton-Classes are initialized and stored in a static field.
+    /// The Entrypoint of the Application is in <see cref="Program"/>.
     /// </summary>
     internal class Pong
-    {
-        /// <summary> Erstellt eine Singleton-Instanz der Pong-Klasse </summary>
-	    internal static Pong Instance { get; } = new Pong();
+    {    	
+    	/// <summary> The private field where the instance is stored. </summary>
+		private static Pong _instance;   
+		
+        /// <summary> Makes the instance of Pong internal seeable, creates an instances if no instance is initialized. </summary>
+        internal static Pong Instance {        	
+        	get
+        	{
+				if (_instance == null)
+					_instance = new Pong();
+				return _instance;
+        	}       		
+        }
 
-        /// <summary> false, wenn kein Arduino angeschlossen ist. </summary>
+        /// <summary> False, if no Arduino is found. </summary>
         internal static bool ArduinoMode = true;
 
-        /// <summary> Hält die Instanz des Arduino. </summary>
+        /// <summary> Static Field that represents the connection to the Arduino. </summary>
         internal static Arduino Arduino { get; private set; }
 
-        /// <summary> Unsere Form für das Spielfeld. </summary>
+        /// <summary> Field that is holding the instance of the <see cref="MainForm"/>. </summary>
         internal MainForm MainForm { get; private set; }
 
-        /// <summary> Hält Instanzen für die beiden Spieler. </summary>
+        /// <summary> Holding the instance of a Player. </summary>
         internal Player Player1, Player2;
 
-        /// <summary> Hält die Instanz des Balls. </summary>
+        /// <summary> Holding the instance of the <see cref="Ball"/>. </summary>
         internal Ball Ball;
 
-        /// <summary> true, wenn ein Spiel zurzeit läuft. </summary>
+        /// <summary> True, if a match is running. </summary>
         internal bool Started;
 
-        /// <summary> Initialisierung der Singleton Klasse. </summary>
+        /// <summary> True, if the Singleton Class is initialized. </summary>
         private bool _initialized;
+        
+        /// <summary> Initialization of the Singleton Class </summary>
         internal void Initialize()
         {
             if (_initialized)
@@ -48,7 +61,6 @@ namespace Pong.Source
             try
             {
                 Arduino = new Arduino("COM5");
-
                 ArduinoHelper.Setup();
             }
             catch (Exception)
@@ -60,14 +72,17 @@ namespace Pong.Source
             MainForm = new MainForm();
 
             if (ArduinoMode)
-                Arduino.analogPinUpdated += Arduino_analogPinUpdated;
+                Arduino.AnalogPinUpdated += AnalogPinUpdated;
 
             Application.Run(MainForm);
 
             _initialized = true;
         }
 
-        private void Arduino_analogPinUpdated(PinMapping pin, int value)
+        /// <summary> Event that triggers, when the value of an analog pin from a Player was changed. </summary>
+        /// <param name="pin"> The updated Pin </param>
+        /// <param name="value"> The changed Value </param>
+        private void AnalogPinUpdated(PinMapping pin, int value)
         {
             if (pin == PinMapping.Player1Bar)
                 Player1.setRelativePanelPosition(value.Map(0, 1023, 0, 100));
@@ -75,8 +90,10 @@ namespace Pong.Source
                 Player2.setRelativePanelPosition(value.Map(0, 1023, 0, 100));
         }
 
-        /// <summary> true, um Debugmessages in die Konsole geschrieben zu bekommen. </summary>
+        /// <summary> True, if debug messages should be written to the debug console. </summary>
         private const bool Debug = true;
+        
+		/// <summary> If Debug is true, the method is writing the message in the debug console. Only works if the application is compiled in debugmode.  </summary>    
         internal static void DebugMessage(string message)
         {
             if (Debug) System.Diagnostics.Debug.WriteLine(message);

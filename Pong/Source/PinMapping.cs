@@ -1,8 +1,8 @@
 ﻿namespace Pong.Source
 {
     /// <summary>
-    /// <para>Enum um den anzusteuernden Pins einen Namen zu geben.</para>
-    /// <para>Somit vermindert man das Problem das ein falscher Pin angesteuert wird.</para>
+    /// <para> Enum to name the connected pins. </para>
+	/// <para> Improves the readability of the code and prevents from triggering the wrong pins on the Board. </para>
     /// </summary>
     public enum PinMapping
     {
