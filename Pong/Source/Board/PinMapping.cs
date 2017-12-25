@@ -6,8 +6,10 @@
     /// </summary>
     public enum PinMapping
     {
-        ButtonStart = 4,
-        Player1LedGreen = 6,
+        ButtonStart = 4, //Schliesserkontakt der parallel geschalteten Starttaster
+        Player1ButtonLed = 2, //Led Startbutton Spieler 1
+        Player2ButtonLed = 3, //Led Startbutton Spieler 2
+        Player1LedGreen = 6, 
         Player1LedRed = 5,
         Player2LedGreen = 11,
         Player2LedRed = 12,

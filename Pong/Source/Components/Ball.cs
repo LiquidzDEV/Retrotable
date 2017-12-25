@@ -72,12 +72,12 @@ namespace Pong.Source.Components
 			// Wenn der Ball am Spieler vorbei geht, verteil einen Punkt
 			if (pBall.Location.X >= World.right - pBall.Size.Width)
 			{
-                ArduinoHelper.SetLeds(true, false);
+                ArduinoHelper.StartBlinking(true);
 				Pong.Instance.Player1.Score();
 			}
 			else if (pBall.Location.X <= 0)
 			{
-                ArduinoHelper.SetLeds(false, true);
+                ArduinoHelper.StartBlinking(false);
 				Pong.Instance.Player2.Score();
 			}
 		}

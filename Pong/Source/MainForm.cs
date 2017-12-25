@@ -37,7 +37,8 @@ namespace Pong.Source
         {
             if (pin == PinMapping.ButtonStart && state == Arduino.HIGH && !Pong.Instance.Started)
             {
-                ArduinoHelper.SetLeds(false, false);
+                ArduinoHelper.SetStartLeds(false, false);
+                ArduinoHelper.StopBlinking();
                 Pong.Instance.Ball.Start();
                 Pong.Instance.Started = true;
             }
