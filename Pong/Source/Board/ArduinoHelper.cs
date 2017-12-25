@@ -3,11 +3,9 @@ using System.Timers;
 
 namespace Pong.Source
 {
+    /// <summary> Helperclass to access the Hardware connected through the Arduino Leonardo on the Lattepanda. </summary>
     public static class ArduinoHelper
     {
-        /// <summary>
-        /// 
-        /// </summary>
         public static void Setup()
         {
             Pong.Arduino.PinMode(PinMapping.ButtonStart, Arduino.INPUT);
@@ -28,7 +26,12 @@ namespace Pong.Source
             Blinktimer.AutoReset = true;
         }
 
-        [System.Obsolete("DUO-LEDs sind zurzeit nicht verbaut!")]
+        /// <summary>
+        /// Sets the player LEDs to green or red, depending on the bools given.
+        /// </summary>
+        /// <param name="player1">If true, the player1 LED is green, otherwise red</param>
+        /// <param name="player2">If true, the player2 LED is green, otherwise red</param>
+        [System.Obsolete("DUO-LEDs are not implemented yet!", true)]
         public static void SetLeds(bool player1, bool player2)
         {
             if (!Pong.ArduinoMode) return;
