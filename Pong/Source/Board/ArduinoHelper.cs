@@ -22,8 +22,10 @@ namespace Pong.Source.Board
 
             SetStartLeds(true, true);
 
-            Blinktimer = new Timer(500);
-            Blinktimer.AutoReset = true;
+            _blinktimer = new Timer(500)
+            {
+                AutoReset = true
+            };
         }
 
         /// <summary>
@@ -69,7 +71,7 @@ namespace Pong.Source.Board
             Pong.Arduino.DigitalWrite(PinMapping.Player2ButtonLed, player2 ? Arduino.HIGH : Arduino.LOW);
         }
 
-        private static Timer Blinktimer;
+        private static Timer _blinktimer;
 
         /// <summary>
         /// Starts the blinking for a players startbutton.
@@ -77,18 +79,18 @@ namespace Pong.Source.Board
         /// <param name="player1">If true, the player 1 startbutton will blink, otherwise the player 2 startbutton</param>
         public static void StartBlinking(bool player1)
         {
-            Blinktimer.Elapsed += delegate
+            _blinktimer.Elapsed += delegate
             {
                 var pin = player1 ? PinMapping.Player1ButtonLed : PinMapping.Player2ButtonLed;
                 Pong.Arduino.DigitalWrite(pin, Pong.Arduino.DigitalRead(pin) > 0 ? Arduino.LOW : Arduino.HIGH);
             };
-            Blinktimer.Enabled = true;
+            _blinktimer.Enabled = true;
         }
 
         /// <summary> Stops the blinking for the startbuttons. </summary>
         public static void StopBlinking()
         {
-            Blinktimer.Enabled = false;
+            _blinktimer.Enabled = false;
         }
 
     }

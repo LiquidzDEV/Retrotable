@@ -1,10 +1,4 @@
-﻿/*
- * Pascal "Liquidz" H.
- * 10.02.2017 / 06:59
- * 
- * Description:
- */
-using System;
+﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -15,71 +9,71 @@ namespace Pong.Source.Components
 	/// </summary>
 	public class Player
 	{
-		public const int SPEED = 20;
+		private const int Speed = 20;
 
-		public const int PANEL_SMALL = 50;
-		public const int PANEL_NORMAL = 150;
-		public const int PANEL_BIG = 200;
+		public const int PanelSmall = 50;
+		public const int PanelNormal = 150;
+		public const int PanelBig = 200;
         
-		private readonly Panel pnl;
-		private readonly Label lblScore;
+		private readonly Panel _pnl;
+		private readonly Label _lblScore;
 
-		public bool playerUp;
-		public bool playerDown;
+		public bool PlayerUp;
+		public bool PlayerDown;
 
-		public int score;
+		private int _score;
 
 		public Player(Panel pnl, Label lblScore)
 		{
-			this.pnl = pnl;
-			this.lblScore = lblScore;
+			_pnl = pnl;
+			_lblScore = lblScore;
 		}
 
 		public void Move()
 		{
-			if (playerUp)
+			if (PlayerUp)
 			{
-				pnl.Location = new Point(pnl.Location.X, Math.Max(World.upper, pnl.Location.Y - SPEED));
+				_pnl.Location = new Point(_pnl.Location.X, Math.Max(World.Upper, _pnl.Location.Y - Speed));
 			}
-			else if (playerDown)
+			else if (PlayerDown)
 			{
-				pnl.Location = new Point(pnl.Location.X, Math.Min(World.bottom - pnl.Size.Height, pnl.Location.Y + SPEED));
+				_pnl.Location = new Point(_pnl.Location.X, Math.Min(World.Bottom - _pnl.Size.Height, _pnl.Location.Y + Speed));
 			} 
 		}
 
 		internal void Score()
 		{
-			score++;
-			lblScore.Text = score.ToString();
+			_score++;
+			_lblScore.Text = _score.ToString();
 			Pong.Instance.MainForm.ResetRound();
 			Pong.DebugMessage("Ein Punkt wurde vergeben.");
 		}
 
-		internal void setRelativePanelPosition(int percentage)
+		internal void SetRelativePanelPosition(int percentage)
 		{
-			double position = (World.bottom - pnl.Size.Height - World.upper) / 100f * percentage;
-			pnl.Location = new Point(pnl.Location.X, Math.Min(World.bottom - pnl.Size.Height, Convert.ToInt32(position) + World.upper));
+			double position = (World.Bottom - _pnl.Size.Height - World.Upper) / 100f * percentage;
+			_pnl.Location = new Point(_pnl.Location.X, Math.Min(World.Bottom - _pnl.Size.Height, Convert.ToInt32(position) + World.Upper));
 		}
         
-		public void setPanelHeight(int height)
+		public void SetPanelHeight(int height)
 		{
-			pnl.Height = height;
+			_pnl.Height = height;
 			Pong.DebugMessage("Höhe des Balken wurde auf " + height + " gesetzt!");
 		}
 
-		internal bool hits(PictureBox ball)
+		internal bool Hits(PictureBox ball)
 		{
-			return pnl.Bounds.IntersectsWith(ball.Bounds);
+			return _pnl.Bounds.IntersectsWith(ball.Bounds);
 		}
 
-		internal void reset()
+		internal void Reset()
 		{
-			pnl.Location = new Point(pnl.Location.X, ((World.bottom - World.upper) / 2) - (pnl.Size.Height / 2));
+			_pnl.Location = new Point(_pnl.Location.X, ((World.Bottom - World.Upper) / 2) - (_pnl.Size.Height / 2));
 		}
         
-		public void resize()
+		public void Resize()
 		{
-			pnl.Location = new Point(pnl.Location.X, Math.Min(World.bottom - pnl.Size.Height, pnl.Location.Y));
+			_pnl.Location = new Point(_pnl.Location.X, Math.Min(World.Bottom - _pnl.Size.Height, _pnl.Location.Y));
 		}
 	}
 }
