@@ -1,16 +1,11 @@
-﻿/*
- * Pascal "Liquidz" H.
- * 10.02.2017 / 07:09
- * 
- * Description:
- */
-using System;
+﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using Pong.Source.Board;
 
 namespace Pong.Source.Components
 {
-	/// <summary> Der Ball im Spielfeld. </summary>
+	/// <summary> The Class for the ball on the playground. </summary>
 	public class Ball
 	{
 		/// <summary> Der maximale horizontale speed des Balls. </summary>

@@ -1,11 +1,11 @@
-﻿using LattePanda.Firmata;
-using System.Timers;
+﻿using System.Timers;
 
-namespace Pong.Source
+namespace Pong.Source.Board
 {
     /// <summary> Helperclass to access the Hardware connected through the Arduino Leonardo on the Lattepanda. </summary>
     public static class ArduinoHelper
     {
+        /// <summary> Configures the pins from the arduino for the project. </summary>
         public static void Setup()
         {
             Pong.Arduino.PinMode(PinMapping.ButtonStart, Arduino.INPUT);
@@ -58,6 +58,11 @@ namespace Pong.Source
             }
         }
 
+        /// <summary>
+        /// Sets the LEDs from the player startbuttons to on or off, depending on the given bool.
+        /// </summary>
+        /// <param name="player1">If true, the LED from the player 1 startbutton is on</param>
+        /// <param name="player2">If true, the LED from the player 2 startbutton is on</param>
         public static void SetStartLeds(bool player1, bool player2)
         {
             Pong.Arduino.DigitalWrite(PinMapping.Player1ButtonLed, player1 ? Arduino.HIGH : Arduino.LOW);
@@ -66,16 +71,21 @@ namespace Pong.Source
 
         private static Timer Blinktimer;
 
+        /// <summary>
+        /// Starts the blinking for a players startbutton.
+        /// </summary>
+        /// <param name="player1">If true, the player 1 startbutton will blink, otherwise the player 2 startbutton</param>
         public static void StartBlinking(bool player1)
         {
             Blinktimer.Elapsed += delegate
             {
                 var pin = player1 ? PinMapping.Player1ButtonLed : PinMapping.Player2ButtonLed;
-                Pong.Arduino.DigitalWrite(pin, Pong.Arduino.digitalRead(pin) > 0 ? Arduino.LOW : Arduino.HIGH);
+                Pong.Arduino.DigitalWrite(pin, Pong.Arduino.DigitalRead(pin) > 0 ? Arduino.LOW : Arduino.HIGH);
             };
             Blinktimer.Enabled = true;
         }
 
+        /// <summary> Stops the blinking for the startbuttons. </summary>
         public static void StopBlinking()
         {
             Blinktimer.Enabled = false;

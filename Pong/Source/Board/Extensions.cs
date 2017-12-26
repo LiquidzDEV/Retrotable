@@ -1,17 +1,18 @@
 ﻿using System;
 
-namespace Pong.Source
+namespace Pong.Source.Board
 {
+    /// <summary> Static Helperclass to extend the int-Class </summary>
     public static class Extensions
     {
         /// <summary>
-        /// Äquivalent zur map()-Methode vom Arduino.
+        /// Equivalent to the map()-Method of Arduino.
         /// </summary>
-        /// <param name="value">Der Wert der umgewandelt werden soll</param>
-        /// <param name="fromSource">Der Minimale Wert den value haben kann</param>
-        /// <param name="toSource">Der Maximale Wert den value haben kann</param>
-        /// <param name="fromTarget">Der Minimale Wert der gemappten value</param>
-        /// <param name="toTarget">Der maximale Wert der gemappten value</param>
+        /// <param name="value">The value that should be converted</param>
+        /// <param name="fromSource">The minimal value of value</param>
+        /// <param name="toSource">The maximum value of value</param>
+        /// <param name="fromTarget">The minimal value of the converted value</param>
+        /// <param name="toTarget">The maximum value of the converted value</param>
         /// <returns></returns>
         public static int Map(this int value, decimal fromSource, decimal toSource, decimal fromTarget, decimal toTarget)
         {

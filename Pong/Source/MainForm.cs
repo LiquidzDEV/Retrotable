@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
-using LattePanda.Firmata;
+using Pong.Source.Board;
 using Pong.Source.Components;
 
 namespace Pong.Source
