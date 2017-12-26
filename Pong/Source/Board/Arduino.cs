@@ -18,17 +18,14 @@
   version 2.1 of the License, or (at your option) any later version.
 * Special thanks to Tim Farley, on whose Firmata.NET library
   this code is based.
+* Modified 2017 by Pascal Hobza to fit our use-case for our Project
 *************************************************************/
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.IO.Ports;
-using System.Diagnostics;
 using System.Threading;
-using Pong.Source;
 
-namespace LattePanda.Firmata
+namespace Pong.Source.Board
 {
     public delegate void DidI2CDataReveive(byte address,byte register, byte[] data);
     public delegate void DigitalPinUpdated(PinMapping pin, byte state);
@@ -172,7 +169,7 @@ namespace LattePanda.Firmata
         /// </summary>
         /// <param name="pin">The arduino digital input pin.</param>
         /// <returns>Arduino.HIGH or Arduino.LOW</returns>
-        public int digitalRead(PinMapping pin)
+        public int DigitalRead(PinMapping pin)
         {
             return((_digitalInputData[(int)pin >> 3] >> ((int)pin & 0x07)) & 0x01);
         }
@@ -182,7 +179,7 @@ namespace LattePanda.Firmata
         /// </summary>
         /// <param name="pin">The arduino analog input pin.</param>
         /// <returns>A value representing the analog value between 0 (0V) and 1023 (5V).</returns>
-        public int analogRead(PinMapping pin)
+        public int AnalogRead(PinMapping pin)
         {
             return _analogInputData[(int)pin];
         }
@@ -212,7 +209,7 @@ namespace LattePanda.Firmata
         /// </summary>
         /// <param name="pin">Analog output pin.</param>
         /// <param name="value">PWM frequency from 0 (always off) to 255 (always on).</param>
-        public void analogWrite(int pin, int value)
+        public void AnalogWrite(int pin, int value)
         {
             byte[] message = new byte[3];
             message[0] = (byte)(ANALOG_MESSAGE | (pin & 0x0F));
