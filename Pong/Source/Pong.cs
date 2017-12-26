@@ -89,9 +89,9 @@ namespace Pong.Source
         private void AnalogPinUpdated(PinMapping pin, int value)
         {
             if (pin == PinMapping.Player1Bar)
-                Player1.setRelativePanelPosition(value.Map(0, 1023, 0, 100));
+                Player1.SetRelativePanelPosition(value.Map(0, 1023, 0, 100));
             else if (pin == PinMapping.Player2Bar)
-                Player2.setRelativePanelPosition(value.Map(0, 1023, 0, 100));
+                Player2.SetRelativePanelPosition(value.Map(0, 1023, 0, 100));
         }
         
 		/// <summary> This method writes the message into the debug console. Only works if the application is compiled in debugmode.  </summary>    

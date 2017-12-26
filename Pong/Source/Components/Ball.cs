@@ -5,110 +5,115 @@ using Pong.Source.Board;
 
 namespace Pong.Source.Components
 {
-	/// <summary> The Class for the ball on the playground. </summary>
-	public class Ball
-	{
-		/// <summary> Der maximale horizontale speed des Balls. </summary>
-		public const int MAX_SPEED = 35;
-		/// <summary> Der speed den der Ball pro Event gewinnt. </summary>
-		public const int SPEED_GAIN = 3;
-		/// <summary> Geschwindigkeit die über das Menü eingestellt wird. </summary>
-		private static int SPEED_LEVEL = 2;
-		/// <summary> Der Speed am Rundenstart. </summary>
-		public const int DEFAULT_SPEED = 10;
+    /// <summary> The Class for the ball on the playground. </summary>
+    public class Ball
+    {
+        /// <summary> Speed of the ball on round start. </summary>
+        private const int DefaultSpeed = 10;
+        /// <summary> The speed that the ball gains per Event. </summary>
+        private const int SpeedGain = 3;
+        /// <summary> The maximum horizontal speed of the ball. </summary>
+        private const int MaxSpeed = 35;
 
-		private readonly PictureBox pBall;
+        /// <summary> The speed that is configured over the options. </summary>
+        private static int _speedLevel = 2;
 
-		private int speedX;
-		private int speedY;
-                
-		private int lastPlayerHit = 0;
+        private readonly PictureBox _pBall;
+        private int _speedX;
+        private int _speedY;
 
-		public Ball(PictureBox pBall)
-		{
-			this.pBall = pBall;
-		}
+        private int _lastPlayerHit;
 
-		public void Start()
-		{
+        public Ball(PictureBox pBall)
+        {
+            _pBall = pBall;
+        }
+
+        /// <summary> Starts the movement of the ball. </summary>
+        public void Start()
+        {
             //Creates an instance of a generator for random numbers
-		    var random = new Random();
+            var random = new Random();
             //Sets the y-speed of the ball randomly between -4 and 4
-			speedY = random.Next(-4, 4);
+            _speedY = random.Next(-4, 4);
             //Sets the x-speed on positive defaultspeed if random is lower than 5 and negative defaultspeed if random is greater or equal than 5
-			speedX = random.Next(10) < 5 ? DEFAULT_SPEED : -DEFAULT_SPEED;
-		}
+            _speedX = random.Next(10) < 5 ? DefaultSpeed : -DefaultSpeed;
+        }
 
-		public void Move()
-		{
-			int bottom = World.bottom - pBall.Size.Height;
+        /// <summary> Detects and sets the new movement for the ball. </summary>
+        public void Move()
+        {
+            int bottom = World.Bottom - _pBall.Size.Height;
 
-			//Bewege den Ball nach links/rechts, wenn er oben/unten anstößt halte seine Y Position
-			pBall.Location = new Point(pBall.Location.X + speedX, Math.Max(World.upper, Math.Min(bottom, pBall.Location.Y + speedY)));
+            //Move the ball left and right, if he hits up/down border don´t move him vertical
+            _pBall.Location = new Point(_pBall.Location.X + _speedX, Math.Max(World.Upper, Math.Min(bottom, _pBall.Location.Y + _speedY)));
 
-			//Wenn der Ball oben/unten anstößt wechsel die richtung Y
-			if (pBall.Location.Y == bottom || pBall.Location.Y == World.upper)
-			{
-				speedY *= -1;
-				Pong.DebugMessage("Ball ändert Richtung.");
-			}
+            //If the ball hits up/down border change his vertical direction
+            if (_pBall.Location.Y == bottom || _pBall.Location.Y == World.Upper)
+            {
+                _speedY *= -1;
+                Pong.DebugMessage("Ball changes direction!");
+            }
 
-			//Wenn der Ball einen Spieler berührt wechsel die richtung X und bestimme einen neuen Flugwinkel
-			int playerHit = isBallHittingPlayer();
-			if (playerHit > 0 && lastPlayerHit != playerHit)
-			{
-				lastPlayerHit = playerHit;
-				speedX *= -1;
-				int random = new Random().Next(1, 12);
-				speedY = speedY < 0 ? -random : random;
-				Pong.DebugMessage("Spieler " + playerHit + " wurde vom Ball getroffen! Neuer Flugwinkel: " + random);
-			}
+            //If the ball hits a player change his horizontal direction and calculate a new angle
+            int playerHit = IsBallHittingPlayer();
+            if (playerHit > 0 && _lastPlayerHit != playerHit)
+            {
+                _lastPlayerHit = playerHit;
+                _speedX *= -1;
+                int random = new Random().Next(1, 12);
+                _speedY = _speedY < 0 ? -random : random;
+                Pong.DebugMessage("Spieler " + playerHit + " wurde vom Ball getroffen! Neuer Flugwinkel: " + random);
+            }
 
-			// Wenn der Ball am Spieler vorbei geht, verteil einen Punkt
-			if (pBall.Location.X >= World.right - pBall.Size.Width)
-			{
+            //If the ball goes behind a player, give the other player a point
+            if (_pBall.Location.X >= World.Right - _pBall.Size.Width)
+            {
                 ArduinoHelper.StartBlinking(true);
-				Pong.Instance.Player1.Score();
-			}
-			else if (pBall.Location.X <= 0)
-			{
+                Pong.Instance.Player1.Score();
+            }
+            else if (_pBall.Location.X <= 0)
+            {
                 ArduinoHelper.StartBlinking(false);
-				Pong.Instance.Player2.Score();
-			}
-		}
-        
-		/// <summary>
-		/// Gibt die SpielerID zurück, mit welcher der Ball sich zurzeit überschneidet.
-		/// </summary>
-		/// <returns>Spieler-Id oder 0 wenn kein Spieler getroffen ist.</returns>
-		private int isBallHittingPlayer()
-		{
-			if (Pong.Instance.Player1.hits(pBall))
-				return 1;
-			if (Pong.Instance.Player2.hits(pBall))
-				return 2;
-			return 0;
-		}
+                Pong.Instance.Player2.Score();
+            }
+        }
 
-		public void IncreaseSpeed()
-		{
-			if (speedX < MAX_SPEED * SPEED_LEVEL && speedX > -MAX_SPEED * SPEED_LEVEL)
-			{
-				speedX = speedX < 0 ? speedX - Ball.SPEED_GAIN * SPEED_LEVEL : speedX + Ball.SPEED_GAIN * SPEED_LEVEL;
-				Pong.DebugMessage("BallSpeed erhöht auf " + speedX);
-			}
-		}
-        
-		public static void SetSpeedLevel(int level)
-		{
-			SPEED_LEVEL = level;
-			Pong.DebugMessage("Ballspeedlevel wurde auf " + level + " gesetzt!");
-		}
+        /// <summary>
+        /// If the ball is hitting some player, this method returns the player id, otherwise 0.
+        /// </summary>
+        /// <returns>The playerid, otherwise 0</returns>
+        private int IsBallHittingPlayer()
+        {
+            if (Pong.Instance.Player1.Hits(_pBall))
+                return 1;
+            if (Pong.Instance.Player2.Hits(_pBall))
+                return 2;
+            return 0;
+        }
 
-		public void Reset()
-		{
-			pBall.Location = new Point(((World.right - World.left) / 2) - (pBall.Size.Width / 2), ((World.bottom - World.upper) / 2) - (pBall.Size.Height / 2));
-			lastPlayerHit = 0;
-		}
-	}
+        /// <summary> Increases the horizontal speed of the ball to the given movement. </summary>
+        public void IncreaseSpeed()
+        {
+            if (_speedX < MaxSpeed * _speedLevel && _speedX > -MaxSpeed * _speedLevel)
+            {
+                _speedX = _speedX < 0 ? _speedX - SpeedGain * _speedLevel : _speedX + SpeedGain * _speedLevel;
+                Pong.DebugMessage("BallSpeed erhöht auf " + _speedX);
+            }
+        }
+
+        /// <summary> Sets the Speedlevel of the ball. </summary>
+        public static void SetSpeedLevel(int level)
+        {
+            _speedLevel = level;
+            Pong.DebugMessage("Ballspeedlevel was set to " + level + "!");
+        }
+
+        /// <summary> Resets the position of the ball. </summary>
+        public void Reset()
+        {
+            _pBall.Location = new Point(((World.Right - World.Left) / 2) - (_pBall.Size.Width / 2), ((World.Bottom - World.Upper) / 2) - (_pBall.Size.Height / 2));
+            _lastPlayerHit = 0;
+        }
+    }
 }

@@ -24,7 +24,7 @@ namespace Pong.Source
                 Pong.Arduino.DigitalPinUpdated += DigitalPinUpdated;
 
             InitializeComponent();
-            World.setBounds(ClientSize.Height, ClientSize.Width);
+            World.SetBounds(ClientSize.Height, ClientSize.Width);
             _main.Player1 = new Player(pnlPlayer1, lblPlayer1);
             _main.Player2 = new Player(pnlPlayer2, lblPlayer2);
             _main.Ball = new Ball(pBall);
@@ -103,17 +103,17 @@ namespace Pong.Source
                 switch (keycode)
                 {
                     case Keys.W:
-                        _main.Player1.playerUp = isKeyDown;
+                        _main.Player1.PlayerUp = isKeyDown;
                         break;
                     case Keys.S:
-                        _main.Player1.playerDown = isKeyDown;
+                        _main.Player1.PlayerDown = isKeyDown;
                         break;
 
                     case Keys.Up:
-                        _main.Player2.playerUp = isKeyDown;
+                        _main.Player2.PlayerUp = isKeyDown;
                         break;
                     case Keys.Down:
-                        _main.Player2.playerDown = isKeyDown;
+                        _main.Player2.PlayerDown = isKeyDown;
                         break;
                 }
             }
@@ -154,9 +154,9 @@ namespace Pong.Source
 
         private void MainFormSizeChanged(object sender, EventArgs e)
         {
-            World.setBounds(ClientSize.Height, ClientSize.Width);
-            _main.Player1.resize();
-            _main.Player2.resize();
+            World.SetBounds(ClientSize.Height, ClientSize.Width);
+            _main.Player1.Resize();
+            _main.Player2.Resize();
             Pong.DebugMessage("Auflösung verändert. (" + ClientSize.Height + "/" + ClientSize.Width + ")");
         }
 
@@ -164,8 +164,8 @@ namespace Pong.Source
         {
             _main.Started = false;
             timerIncreaseSpeed.Stop();
-            _main.Player1.reset();
-            _main.Player2.reset();
+            _main.Player1.Reset();
+            _main.Player2.Reset();
             _main.Ball.Reset();
             Pong.DebugMessage("Spiel wurde zurückgesetzt.");
         }
@@ -205,18 +205,18 @@ namespace Pong.Source
 
             if (currentItem.Equals(tsBalkenSchmal))
             {
-                _main.Player1.setPanelHeight(Player.PANEL_SMALL);
-                _main.Player2.setPanelHeight(Player.PANEL_SMALL);
+                _main.Player1.SetPanelHeight(Player.PanelSmall);
+                _main.Player2.SetPanelHeight(Player.PanelSmall);
             }
             else if (currentItem.Equals(tsBalkenNormal))
             {
-                _main.Player1.setPanelHeight(Player.PANEL_NORMAL);
-                _main.Player2.setPanelHeight(Player.PANEL_NORMAL);
+                _main.Player1.SetPanelHeight(Player.PanelNormal);
+                _main.Player2.SetPanelHeight(Player.PanelNormal);
             }
             else if (currentItem.Equals(tsBalkenBreit))
             {
-                _main.Player1.setPanelHeight(Player.PANEL_BIG);
-                _main.Player2.setPanelHeight(Player.PANEL_BIG);
+                _main.Player1.SetPanelHeight(Player.PanelBig);
+                _main.Player2.SetPanelHeight(Player.PanelBig);
             }
             else if (currentItem.Equals(tsBallSlow))
             {

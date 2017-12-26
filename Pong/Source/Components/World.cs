@@ -1,20 +1,14 @@
-﻿/*
- * Pascal "Liquidz" H.
- * 10.02.2017 / 07:03
- * 
- * Description:
- */
-
-namespace Pong.Source.Components
+﻿namespace Pong.Source.Components
 {
-    /// <summary> Hält die Bounds des Spielfeldes. </summary>
+    /// <summary> Holds the bounds for the gameworld. </summary>
     public static class World
     {
-        public static int upper = 24, bottom, left, right;
-        
-        public static void setBounds(int height, int width){
-        	World.bottom = height;
-            World.right = width;
+        public static int Upper = 24, Bottom, Left = 0, Right;
+
+        public static void SetBounds(int height, int width)
+        {
+            Bottom = height;
+            Right = width;
         }
     }
 }
