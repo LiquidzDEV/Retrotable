@@ -67,6 +67,8 @@ namespace Pong.Source.Board
         /// <param name="player2">If true, the LED from the player 2 startbutton is on</param>
         public static void SetStartLeds(bool player1, bool player2)
         {
+            if (!Pong.ArduinoMode) return;
+
             Pong.Arduino.DigitalWrite(PinMapping.Player1ButtonLed, player1 ? Arduino.HIGH : Arduino.LOW);
             Pong.Arduino.DigitalWrite(PinMapping.Player2ButtonLed, player2 ? Arduino.HIGH : Arduino.LOW);
         }
@@ -79,6 +81,8 @@ namespace Pong.Source.Board
         /// <param name="player1">If true, the player 1 startbutton will blink, otherwise the player 2 startbutton</param>
         public static void StartBlinking(bool player1)
         {
+            if (!Pong.ArduinoMode) return;
+
             _blinktimer.Elapsed += delegate
             {
                 var pin = player1 ? PinMapping.Player1ButtonLed : PinMapping.Player2ButtonLed;
