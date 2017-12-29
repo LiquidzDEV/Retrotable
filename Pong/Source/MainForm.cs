@@ -50,9 +50,9 @@ namespace Pong.Source
             tsBallSlow.Checked = Properties.Settings.Default.ballSlow;
             tsBallNormal.Checked = Properties.Settings.Default.ballNormal;
             tsBallFast.Checked = Properties.Settings.Default.ballFast;
-            tsBalkenSchmal.Checked = Properties.Settings.Default.panelSmall;
-            tsBalkenNormal.Checked = Properties.Settings.Default.panelNormal;
-            tsBalkenBreit.Checked = Properties.Settings.Default.panelBig;
+            tsPanelSmall.Checked = Properties.Settings.Default.panelSmall;
+            tsPanelNormal.Checked = Properties.Settings.Default.panelNormal;
+            tsPanelBig.Checked = Properties.Settings.Default.panelBig;
 
             ResetRound();
             timerPaddle.Start();
@@ -70,9 +70,9 @@ namespace Pong.Source
             Properties.Settings.Default.ballSlow = tsBallSlow.Checked;
             Properties.Settings.Default.ballNormal = tsBallNormal.Checked;
             Properties.Settings.Default.ballFast = tsBallFast.Checked;
-            Properties.Settings.Default.panelSmall = tsBalkenSchmal.Checked;
-            Properties.Settings.Default.panelNormal = tsBalkenNormal.Checked;
-            Properties.Settings.Default.panelBig = tsBalkenBreit.Checked;
+            Properties.Settings.Default.panelSmall = tsPanelSmall.Checked;
+            Properties.Settings.Default.panelNormal = tsPanelNormal.Checked;
+            Properties.Settings.Default.panelBig = tsPanelBig.Checked;
             Properties.Settings.Default.Save();
 
             if (Pong.ArduinoMode)
@@ -91,7 +91,10 @@ namespace Pong.Source
             if (e.KeyCode == Keys.Escape)
                 Application.Exit();
             else if (e.KeyCode == Keys.F12)
+            {
                 WindowState = WindowState == FormWindowState.Maximized ? FormWindowState.Normal : FormWindowState.Maximized;
+                tsFullscreen.Checked = WindowState == FormWindowState.Maximized;
+            }
 
             SetMovingState(e.KeyCode, false);
         }
@@ -170,13 +173,19 @@ namespace Pong.Source
             Pong.DebugMessage("Spiel wurde zurückgesetzt.");
         }
 
-        #region MenuStrip
+        #region ContextMenu
 
-        private void ToolStripCheckOnlyOne(object sender, EventArgs e)
+        private void MainForm_MouseUp(object sender, MouseEventArgs e)
         {
-            if (sender == null) return;
+            if (e.Button == MouseButtons.Right)
+            {
+                ctxtMenu.Show(this.Location.X + e.Location.X, this.Location.Y + e.Location.Y);
+            }
+        }
 
-            var currentItem = (ToolStripMenuItem)sender;
+        private void ctxtMenu_Click(object sender, EventArgs e)
+        {
+            if (!(sender is ToolStripMenuItem currentItem)) return;
 
             ((ToolStripMenuItem)currentItem.OwnerItem).DropDownItems.OfType<ToolStripMenuItem>().ToList()
                 .ForEach(item =>
@@ -186,34 +195,20 @@ namespace Pong.Source
                         item.Checked = false;
                     }
                 });
-        }
 
-        private void ToolStrip_CheckedChanged(object sender, EventArgs e)
-        {
-            /*
- 			* C# >= 7.0
-			* if (!(sender is ToolStripMenuItem currentItem)) return;
-            * 
-            * C# < 7.0
-            * if (sender == null) return;
-            * var currentItem = (ToolStripMenuItem)sender;
-			*/
+            currentItem.Checked = true;
 
-            if (!(sender is ToolStripMenuItem currentItem)) return;
-
-            if (!currentItem.Checked) return;
-
-            if (currentItem.Equals(tsBalkenSchmal))
+            if (currentItem.Equals(tsPanelSmall))
             {
                 _main.Player1.SetPanelHeight(Player.PanelSmall);
                 _main.Player2.SetPanelHeight(Player.PanelSmall);
             }
-            else if (currentItem.Equals(tsBalkenNormal))
+            else if (currentItem.Equals(tsPanelNormal))
             {
                 _main.Player1.SetPanelHeight(Player.PanelNormal);
                 _main.Player2.SetPanelHeight(Player.PanelNormal);
             }
-            else if (currentItem.Equals(tsBalkenBreit))
+            else if (currentItem.Equals(tsPanelBig))
             {
                 _main.Player1.SetPanelHeight(Player.PanelBig);
                 _main.Player2.SetPanelHeight(Player.PanelBig);
@@ -230,6 +225,17 @@ namespace Pong.Source
             {
                 Ball.SetSpeedLevel(4);
             }
+        }
+
+        private void tsFullscreen_Click(object sender, EventArgs e)
+        {
+            WindowState = WindowState == FormWindowState.Maximized ? FormWindowState.Normal : FormWindowState.Maximized;
+            tsFullscreen.Checked = WindowState == FormWindowState.Maximized;
+        }
+
+        private void tsClose_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
     #endregion
