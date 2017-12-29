@@ -17,10 +17,10 @@ namespace Pong.Source
     /// The Entrypoint of the Application is in <see cref="Program"/>.
     /// </summary>
     internal class Pong
-    {    	
-    	/// <summary> The private field where the instance is stored. </summary>
-		private static Pong _instance;   
-		
+    {
+        /// <summary> The private field where the instance is stored. </summary>
+        private static Pong _instance;
+
         /// <summary> Makes the instance of Pong internal seeable, creates an instances if no instance is initialized. </summary>
         internal static Pong Instance => _instance ?? (_instance = new Pong());
 
@@ -55,7 +55,7 @@ namespace Pong.Source
 
         /// <summary> True, if the Singleton Class is initialized. </summary>
         private bool _initialized;
-        
+
         /// <summary> Initialization of the Singleton Class </summary>
         internal void Initialize()
         {
@@ -64,13 +64,21 @@ namespace Pong.Source
 
             try
             {
-                Arduino = new Arduino("COM5");
+                Arduino = new Arduino("COM3");
                 ArduinoHelper.Setup();
             }
             catch (Exception)
             {
-                ArduinoMode = false;
-                MessageBox.Show("Es kann über W,S und Up,Down gespielt werden.\nMit Leertaste startet die Runde.", "Kein Arduino gefunden!");
+                try
+                {
+                    Arduino = new Arduino("COM5");
+                    ArduinoHelper.Setup();
+                }
+                catch (Exception)
+                {
+                    ArduinoMode = false;
+                    MessageBox.Show("Es kann über W,S und Up,Down gespielt werden.\nMit Leertaste startet die Runde.", "Kein Arduino gefunden!");
+                }
             }
 
             MainForm = new MainForm();
@@ -89,12 +97,12 @@ namespace Pong.Source
         private void AnalogPinUpdated(PinMapping pin, int value)
         {
             if (pin == PinMapping.Player1Bar)
-                Player1.SetRelativePanelPosition(value.Map(0, 1023, 0, 100));
+                Player1.SetRelativePanelPosition(value.Map(0, 1023, 0, 100), true);
             else if (pin == PinMapping.Player2Bar)
-                Player2.SetRelativePanelPosition(value.Map(0, 1023, 0, 100));
+                Player2.SetRelativePanelPosition(value.Map(0, 1023, 0, 100), false);
         }
-        
-		/// <summary> This method writes the message into the debug console. Only works if the application is compiled in debugmode.  </summary>    
+
+        /// <summary> This method writes the message into the debug console. Only works if the application is compiled in debugmode.  </summary>    
         internal static void DebugMessage(string message)
         {
             System.Diagnostics.Debug.WriteLine(message);

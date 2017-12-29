@@ -52,8 +52,11 @@ namespace Pong.Source.Components
         }
 
         /// <summary> Sets the players panel position relative to the poti value. </summary>
-        internal void SetRelativePanelPosition(int percentage)
+        internal void SetRelativePanelPosition(int percentage, bool player1)
         {
+            if (player1)
+                percentage = 100 - percentage;
+
             double position = (World.Bottom - _pnl.Size.Height - World.Upper) / 100f * percentage;
             _pnl.Location = new Point(_pnl.Location.X, Math.Min(World.Bottom - _pnl.Size.Height, Convert.ToInt32(position) + World.Upper));
         }
