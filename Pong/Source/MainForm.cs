@@ -62,6 +62,8 @@ namespace Pong.Source
             SetStyle(ControlStyles.UserPaint, true);
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+
+            UpdateCheckedState();
         }
 
         /// <summary> Triggered when the Form is closing (not closed!). </summary>
@@ -158,8 +160,8 @@ namespace Pong.Source
         private void MainFormSizeChanged(object sender, EventArgs e)
         {
             World.SetBounds(ClientSize.Height, ClientSize.Width);
-            _main.Player1.Resize();
-            _main.Player2.Resize();
+            _main.Player1.Resize(true);
+            _main.Player2.Resize(false);
             Pong.DebugMessage("Auflösung verändert. (" + ClientSize.Height + "/" + ClientSize.Width + ")");
         }
 
@@ -198,30 +200,36 @@ namespace Pong.Source
 
             currentItem.Checked = true;
 
-            if (currentItem.Equals(tsPanelSmall))
+            UpdateCheckedState();
+        }
+
+        private void UpdateCheckedState()
+        {
+            if (tsPanelSmall.Checked)
             {
                 _main.Player1.SetPanelHeight(Player.PanelSmall);
                 _main.Player2.SetPanelHeight(Player.PanelSmall);
             }
-            else if (currentItem.Equals(tsPanelNormal))
+            else if (tsPanelNormal.Checked)
             {
                 _main.Player1.SetPanelHeight(Player.PanelNormal);
                 _main.Player2.SetPanelHeight(Player.PanelNormal);
             }
-            else if (currentItem.Equals(tsPanelBig))
+            else if (tsPanelBig.Checked)
             {
                 _main.Player1.SetPanelHeight(Player.PanelBig);
                 _main.Player2.SetPanelHeight(Player.PanelBig);
             }
-            else if (currentItem.Equals(tsBallSlow))
+
+            if (tsBallSlow.Checked)
             {
                 Ball.SetSpeedLevel(2);
             }
-            else if (currentItem.Equals(tsBallNormal))
+            else if (tsBallNormal.Checked)
             {
                 Ball.SetSpeedLevel(3);
             }
-            else if (currentItem.Equals(tsBallFast))
+            else if (tsBallFast.Checked)
             {
                 Ball.SetSpeedLevel(4);
             }
