@@ -78,9 +78,10 @@ namespace Pong.Source.Components
             _pnl.Location = new Point(_pnl.Location.X, ((World.Bottom - World.Upper) / 2) - (_pnl.Size.Height / 2));
         }
 
-        public void Resize()
+        public void Resize(bool player1)
         {
-            _pnl.Location = new Point(_pnl.Location.X, Math.Min(World.Bottom - _pnl.Size.Height, _pnl.Location.Y));
+            int x = player1 ? 10 : World.Right - _pnl.Size.Width - 10;
+            _pnl.Location = new Point(x, Math.Min(World.Bottom - _pnl.Size.Height, _pnl.Location.Y));
         }
     }
 }
