@@ -51,11 +51,9 @@ namespace RetroTable.Main
         /// <summary> Static Field that represents the connection to the Arduino. </summary>
         internal static Arduino Arduino { get; private set; }
 
+        internal MainMenuForm MainMenuform { get; private set; }
         /// <summary> Field that is holding the instance of the <see cref="Pongform"/>. </summary>
         internal PongForm Pongform { get; private set; }
-        internal MainMenuForm MainMenuform { get; private set; }
-
-        internal UserManager UserManager = new UserManager();
 
         /// <summary> Holding the instance of a Player. </summary>
         internal Player Player1, Player2;

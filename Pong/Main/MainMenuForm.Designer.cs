@@ -39,6 +39,7 @@
             // 
             // btnAddUser
             // 
+            this.btnAddUser.BackColor = System.Drawing.SystemColors.Control;
             this.btnAddUser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddUser.Location = new System.Drawing.Point(10, 10);
@@ -46,13 +47,13 @@
             this.btnAddUser.Size = new System.Drawing.Size(125, 125);
             this.btnAddUser.TabIndex = 2;
             this.btnAddUser.Text = "+";
-            this.btnAddUser.UseVisualStyleBackColor = true;
+            this.btnAddUser.UseVisualStyleBackColor = false;
             this.btnAddUser.Click += new System.EventHandler(this.btnAddUser_Click);
             // 
             // button1
             // 
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(22, 184);
+            this.button1.Location = new System.Drawing.Point(325, 189);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(125, 125);
             this.button1.TabIndex = 3;
@@ -77,7 +78,7 @@
             this.pnlUser.Controls.Add(this.btnAddUser);
             this.pnlUser.Location = new System.Drawing.Point(12, 341);
             this.pnlUser.Name = "pnlUser";
-            this.pnlUser.Size = new System.Drawing.Size(776, 145);
+            this.pnlUser.Size = new System.Drawing.Size(776, 157);
             this.pnlUser.TabIndex = 6;
             // 
             // MainMenuForm
@@ -87,8 +88,8 @@
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(800, 522);
             this.Controls.Add(this.pnlUser);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.button1);
+            this.Controls.Add(this.pictureBox1);
             this.Name = "MainMenuForm";
             this.Text = "MainMenuForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainMenuForm_FormClosing);
