@@ -63,7 +63,7 @@
             this.trbBallSpeed.TickFrequency = 25;
             this.trbBallSpeed.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.trbBallSpeed.Value = 200;
-            this.trbBallSpeed.Scroll += new System.EventHandler(this.trbBallSpeed_Scroll);
+            this.trbBallSpeed.ValueChanged += new System.EventHandler(this.trbBallSpeed_ValueChanged);
             // 
             // trbPanelSize
             // 
@@ -77,7 +77,7 @@
             this.trbPanelSize.TickFrequency = 10;
             this.trbPanelSize.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.trbPanelSize.Value = 150;
-            this.trbPanelSize.Scroll += new System.EventHandler(this.trbPanelSize_Scroll);
+            this.trbPanelSize.ValueChanged += new System.EventHandler(this.trbPanelSize_ValueChanged);
             // 
             // label1
             // 
@@ -126,11 +126,11 @@
             // 
             // lblInfo
             // 
+            this.lblInfo.ForeColor = System.Drawing.Color.OrangeRed;
             this.lblInfo.Location = new System.Drawing.Point(12, 145);
             this.lblInfo.Name = "lblInfo";
             this.lblInfo.Size = new System.Drawing.Size(376, 17);
             this.lblInfo.TabIndex = 8;
-            this.lblInfo.Text = "lblInfo";
             this.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnSave
@@ -145,7 +145,6 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Location = new System.Drawing.Point(208, 169);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(180, 23);
@@ -184,10 +183,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox txtName;
-        private System.Windows.Forms.TrackBar trbBallSpeed;
-        private System.Windows.Forms.TrackBar trbPanelSize;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
@@ -196,5 +191,8 @@
         private System.Windows.Forms.Label lblInfo;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.TextBox txtName;
+        private System.Windows.Forms.TrackBar trbBallSpeed;
+        private System.Windows.Forms.TrackBar trbPanelSize;
     }
 }

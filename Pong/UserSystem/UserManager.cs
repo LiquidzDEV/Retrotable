@@ -7,42 +7,42 @@ using System.Threading.Tasks;
 
 namespace RetroTable.UserSystem
 {
-    internal class UserManager
+    internal static class UserManager
     {
-        private List<User> Users = new List<User>();
+        private static List<User> Users = new List<User>();
 
-        public int Player1Id { get; private set; }
-        public int Player2Id { get; private set; }
+        public static User Player1 { get; set; }
+        public static User Player2 { get; set; }
 
-        internal UserManager()
+        internal static User CreateUser(string name)
         {
+            //TODO if (Database.User.UserHasName(name) != null) return null;
+            if (Users.Find(x => x.Name == name) != null) return null;
 
+            var user = new User(name);
+
+            Users.Add(user);
+
+            //TODO return Database.User.UserCreate(name);
+            return user;
         }
 
-        internal User CreateUser(string name)
+        private static void UpdateUsers()
         {
-            if (Database.User.UserHasName(name) != null) return null;
-            return Database.User.UserCreate(name);
-        }
+            //TODO Users = Database.User.UserGet();
 
-        private void UpdateUsers()
-        {
-            Users = new List<User>(); //TODO Database.User.UserGet();
-
-            if (Player1Id > 0)
+            if (Player1 != null && !Users.Contains(Player1))
             {
-                if (Users.Find(x => x.id == Player1Id) == null)
-                    Player1Id = 0;
+                Player1 = null;
             }
 
-            if (Player2Id > 0)
+            if (Player2 != null && !Users.Contains(Player2))
             {
-                if (Users.Find(x => x.id == Player2Id) == null)
-                    Player2Id = 0;
+                Player2 = null;
             }
         }
 
-        internal List<User> GetUsers()
+        internal static List<User> GetUsers()
         {
             UpdateUsers();
             return Users.ToList();
