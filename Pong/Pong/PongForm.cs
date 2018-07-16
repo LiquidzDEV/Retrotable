@@ -32,6 +32,8 @@ namespace RetroTable.Pong
 
         private void RetroTable_onButtonReleased(PinMapping button)
         {
+            if (!Visible) return;
+
             if (button == PinMapping.ButtonStart && !Retrotable.Instance.Started)
             {
                 ArduinoHelper.SetStartLeds(false, false);
@@ -41,19 +43,19 @@ namespace RetroTable.Pong
             }
         }
 
-        /// <summary> This Event is triggered when a digital pin is updated. </summary>
-        /// <param name="pin"> The updated Pin </param>
-        /// <param name="state"> the changed Value (HIGH or LOW) </param>
-        private static void DigitalPinUpdated(PinMapping pin, byte state)
-        {
-            if (pin == PinMapping.ButtonStart && state == Arduino.HIGH && !Retrotable.Instance.Started)
-            {
-                ArduinoHelper.SetStartLeds(false, false);
-                ArduinoHelper.StopBlinking();
-                Retrotable.Instance.Ball.Start();
-                Retrotable.Instance.Started = true;
-            }
-        }
+        ///// <summary> This Event is triggered when a digital pin is updated. </summary>
+        ///// <param name="pin"> The updated Pin </param>
+        ///// <param name="state"> the changed Value (HIGH or LOW) </param>
+        //private static void DigitalPinUpdated(PinMapping pin, byte state)
+        //{
+        //    if (pin == PinMapping.ButtonStart && state == Arduino.HIGH && !Retrotable.Instance.Started)
+        //    {
+        //        ArduinoHelper.SetStartLeds(false, false);
+        //        ArduinoHelper.StopBlinking();
+        //        Retrotable.Instance.Ball.Start();
+        //        Retrotable.Instance.Started = true;
+        //    }
+        //}
 
         /// <summary> Triggered when the Form is loading. </summary>
         private void MainFormLoad(object sender, EventArgs e)
