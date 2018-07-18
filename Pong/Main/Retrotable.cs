@@ -27,13 +27,6 @@ namespace RetroTable.Main
         /// <summary> Makes the instance of Pong internal seeable, creates an instances if no instance is initialized. </summary>
         internal static Retrotable Instance => _instance ?? (_instance = new Retrotable());
 
-        public static event ButtonPressed onButtonPressed;
-        public delegate void ButtonPressed(PinMapping button);
-        public static event ButtonReleased onButtonReleased;
-        public delegate void ButtonReleased(PinMapping button);
-        public static event ValueChanged onValueChanged;
-        public delegate void ValueChanged(PinMapping button, int newValue);
-
         //Shortened Property, same as:
         //internal static Pong Instance
         //{
@@ -45,24 +38,25 @@ namespace RetroTable.Main
         //    }
         //}
 
+        public static event ButtonPressed onButtonPressed;
+        public delegate void ButtonPressed(PinMapping button);
+        public static event ButtonReleased onButtonReleased;
+        public delegate void ButtonReleased(PinMapping button);
+        public static event ValueChanged onValueChanged;
+        public delegate void ValueChanged(PinMapping button, int newValue);
+
         /// <summary> False, if no Arduino is found. </summary>
         internal static bool ArduinoMode = true;
 
         /// <summary> Static Field that represents the connection to the Arduino. </summary>
         internal static Arduino Arduino { get; private set; }
 
+        /// <summary> Holds the Instance for the MainMenu </summary>
         internal MainMenuForm MainMenuform { get; private set; }
-        /// <summary> Field that is holding the instance of the <see cref="Pongform"/>. </summary>
-        internal PongForm Pongform { get; private set; }
 
-        /// <summary> Holding the instance of a Player. </summary>
-        internal Player Player1, Player2;
+        /// <summary> Field that is holding the instance of the Game <see cref="Pong"/>. </summary>
+        internal Pong.Pong Pong { get; private set; }
 
-        /// <summary> Holding the instance of the <see cref="Ball"/>. </summary>
-        internal Ball Ball;
-
-        /// <summary> True, if a match is running. </summary>
-        internal bool Started;
 
         /// <summary> True, if the Singleton Class is initialized. </summary>
         private bool _initialized;
@@ -94,8 +88,10 @@ namespace RetroTable.Main
                 }
             }
 
-            MainMenuform = new MainMenuForm();
-            Pongform = new PongForm();
+            MainMenuform = new MainMenuForm(); //Instantiating MainMenu
+
+            Pong = new Pong.Pong(); //Instantiating the Game Pong
+
 
             if (ArduinoMode)
             {
@@ -140,12 +136,6 @@ namespace RetroTable.Main
         {
             if (pin == PinMapping.Player1Bar || pin == PinMapping.Player2Bar)
                 onValueChanged?.Invoke(pin, value.Map(0, 1023, 0, 100));
-        }
-
-        /// <summary> This method writes the message into the debug console. Only works if the application is compiled in debugmode.  </summary>    
-        internal static void DebugMessage(string message)
-        {
-            System.Diagnostics.Debug.WriteLine(message);
         }
     }
 }

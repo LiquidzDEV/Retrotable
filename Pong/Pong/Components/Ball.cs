@@ -9,24 +9,27 @@ namespace RetroTable.Pong.Components
     /// <summary> The Class for the ball on the playground. </summary>
     public class Ball
     {
+        private Pong Main;
+
         /// <summary> Speed of the ball on round start. </summary>
-        private const int DefaultSpeed = 10;
+        private const float DefaultSpeed = 10f;
         /// <summary> The speed that the ball gains per Event. </summary>
-        private const int SpeedGain = 3;
+        private const float SpeedGain = 3f;
         /// <summary> The maximum horizontal speed of the ball. </summary>
-        private const int MaxSpeed = 35;
+        private const float MaxSpeed = 35f;
 
         /// <summary> The speed that is configured over the options. </summary>
-        private static int _speedLevel = 2;
+        private static float _speedLevel = 2f;
 
         private readonly PictureBox _pBall;
-        private int _speedX;
-        private int _speedY;
+        private float _speedX;
+        private float _speedY;
 
         private int _lastPlayerHit;
 
         public Ball(PictureBox pBall)
         {
+            Main = Retrotable.Instance.Pong;
             _pBall = pBall;
         }
 
@@ -47,13 +50,13 @@ namespace RetroTable.Pong.Components
             int bottom = World.Bottom - _pBall.Size.Height;
 
             //Move the ball left and right, if he hits up/down border don´t move him vertical
-            _pBall.Location = new Point(_pBall.Location.X + _speedX, Math.Max(World.Upper, Math.Min(bottom, _pBall.Location.Y + _speedY)));
+            _pBall.Location = new Point(_pBall.Location.X + (int)_speedX, Math.Max(World.Upper, Math.Min(bottom, _pBall.Location.Y + (int)_speedY)));
 
             //If the ball hits up/down border change his vertical direction
             if (_pBall.Location.Y == bottom || _pBall.Location.Y == World.Upper)
             {
                 _speedY *= -1;
-                Retrotable.DebugMessage("Ball changes direction!");
+                System.Diagnostics.Debug.WriteLine("Ball changes direction!");
             }
 
             //If the ball hits a player change his horizontal direction and calculate a new angle
@@ -64,19 +67,19 @@ namespace RetroTable.Pong.Components
                 _speedX *= -1;
                 int random = new Random().Next(1, 12);
                 _speedY = _speedY < 0 ? -random : random;
-                Retrotable.DebugMessage("Spieler " + playerHit + " wurde vom Ball getroffen! Neuer Flugwinkel: " + random);
+                System.Diagnostics.Debug.WriteLine("Spieler " + playerHit + " wurde vom Ball getroffen! Neuer Flugwinkel: " + random);
             }
 
             //If the ball goes behind a player, give the other player a point
             if (_pBall.Location.X >= World.Right - _pBall.Size.Width)
             {
                 ArduinoHelper.StartBlinking(true);
-                Retrotable.Instance.Player1.Score();
+                Main.Player1.Score();
             }
             else if (_pBall.Location.X <= 0)
             {
                 ArduinoHelper.StartBlinking(false);
-                Retrotable.Instance.Player2.Score();
+                Main.Player2.Score();
             }
         }
 
@@ -86,9 +89,9 @@ namespace RetroTable.Pong.Components
         /// <returns>The playerid, otherwise 0</returns>
         private int IsBallHittingPlayer()
         {
-            if (Retrotable.Instance.Player1.Hits(_pBall))
+            if (Main.Player1.Hits(_pBall))
                 return 1;
-            if (Retrotable.Instance.Player2.Hits(_pBall))
+            if (Main.Player2.Hits(_pBall))
                 return 2;
             return 0;
         }
@@ -98,16 +101,16 @@ namespace RetroTable.Pong.Components
         {
             if (_speedX < MaxSpeed * _speedLevel && _speedX > -MaxSpeed * _speedLevel)
             {
-                _speedX = _speedX < 0 ? _speedX - SpeedGain * _speedLevel : _speedX + SpeedGain * _speedLevel;
-                Retrotable.DebugMessage("BallSpeed erhöht auf " + _speedX);
+                _speedX = _speedX < 0f ? _speedX - SpeedGain * _speedLevel : _speedX + SpeedGain * _speedLevel;
+                System.Diagnostics.Debug.WriteLine("BallSpeed erhöht auf " + _speedX);
             }
         }
 
         /// <summary> Sets the Speedlevel of the ball. </summary>
-        public static void SetSpeedLevel(int level)
+        public static void SetSpeedLevel(float level)
         {
             _speedLevel = level;
-            Retrotable.DebugMessage("Ballspeedlevel was set to " + level + "!");
+            System.Diagnostics.Debug.WriteLine("Ballspeedlevel was set to " + level + "!");
         }
 
         /// <summary> Resets the position of the ball. </summary>

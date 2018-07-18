@@ -60,8 +60,8 @@ namespace RetroTable.Pong.Components
         {
             _score++;
             _lblScore.Text = _score.ToString();
-            Retrotable.Instance.Pongform.ResetRound();
-            Retrotable.DebugMessage("Ein Punkt wurde vergeben.");
+            Retrotable.Instance.Pong.Reset();
+            System.Diagnostics.Debug.WriteLine("Ein Punkt wurde vergeben.");
         }
 
         /// <summary> Sets the players panel position relative to the poti value. </summary>
@@ -79,7 +79,7 @@ namespace RetroTable.Pong.Components
         public void SetPanelHeight(int height)
         {
             _pnl.Height = height;
-            Retrotable.DebugMessage("Höhe des Balken wurde auf " + height + " gesetzt!");
+            System.Diagnostics.Debug.WriteLine("Höhe des Balken wurde auf " + height + " gesetzt!");
         }
 
         internal bool Hits(PictureBox ball)

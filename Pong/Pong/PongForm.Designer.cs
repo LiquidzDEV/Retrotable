@@ -46,16 +46,11 @@ namespace RetroTable.Pong
             this.timerIncreaseSpeed = new System.Windows.Forms.Timer(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.ctxtMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.tsPanel = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsPanelSmall = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsPanelNormal = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsPanelBig = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsBall = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsBallSlow = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsBallNormal = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsBallFast = new System.Windows.Forms.ToolStripMenuItem();
             this.tsFullscreen = new System.Windows.Forms.ToolStripMenuItem();
             this.tsClose = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsBallSpeed = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsPlayer1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsPlayer2 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pBall)).BeginInit();
             this.ctxtMenu.SuspendLayout();
             this.SuspendLayout();
@@ -152,98 +147,49 @@ namespace RetroTable.Pong
             // ctxtMenu
             // 
             this.ctxtMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsPanel,
-            this.tsBall,
             this.tsFullscreen,
-            this.tsClose});
+            this.tsClose,
+            this.tsBallSpeed,
+            this.tsPlayer1,
+            this.tsPlayer2});
             this.ctxtMenu.Name = "ctxtMenu";
-            this.ctxtMenu.Size = new System.Drawing.Size(153, 114);
-            // 
-            // tsPanel
-            // 
-            this.tsPanel.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsPanelSmall,
-            this.tsPanelNormal,
-            this.tsPanelBig});
-            this.tsPanel.Name = "tsPanel";
-            this.tsPanel.Size = new System.Drawing.Size(152, 22);
-            this.tsPanel.Text = "Balken";
-            // 
-            // tsPanelSmall
-            // 
-            this.tsPanelSmall.CheckOnClick = true;
-            this.tsPanelSmall.Name = "tsPanelSmall";
-            this.tsPanelSmall.Size = new System.Drawing.Size(114, 22);
-            this.tsPanelSmall.Text = "Schmal";
-            this.tsPanelSmall.Click += new System.EventHandler(this.ctxtMenu_Click);
-            // 
-            // tsPanelNormal
-            // 
-            this.tsPanelNormal.CheckOnClick = true;
-            this.tsPanelNormal.Name = "tsPanelNormal";
-            this.tsPanelNormal.Size = new System.Drawing.Size(114, 22);
-            this.tsPanelNormal.Text = "Normal";
-            this.tsPanelNormal.Click += new System.EventHandler(this.ctxtMenu_Click);
-            // 
-            // tsPanelBig
-            // 
-            this.tsPanelBig.CheckOnClick = true;
-            this.tsPanelBig.Name = "tsPanelBig";
-            this.tsPanelBig.Size = new System.Drawing.Size(114, 22);
-            this.tsPanelBig.Text = "Breit";
-            this.tsPanelBig.Click += new System.EventHandler(this.ctxtMenu_Click);
-            // 
-            // tsBall
-            // 
-            this.tsBall.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsBallSlow,
-            this.tsBallNormal,
-            this.tsBallFast});
-            this.tsBall.Name = "tsBall";
-            this.tsBall.Size = new System.Drawing.Size(152, 22);
-            this.tsBall.Text = "Ball";
-            // 
-            // tsBallSlow
-            // 
-            this.tsBallSlow.CheckOnClick = true;
-            this.tsBallSlow.Name = "tsBallSlow";
-            this.tsBallSlow.Size = new System.Drawing.Size(152, 22);
-            this.tsBallSlow.Text = "Langsam";
-            this.tsBallSlow.Click += new System.EventHandler(this.ctxtMenu_Click);
-            // 
-            // tsBallNormal
-            // 
-            this.tsBallNormal.CheckOnClick = true;
-            this.tsBallNormal.Name = "tsBallNormal";
-            this.tsBallNormal.Size = new System.Drawing.Size(152, 22);
-            this.tsBallNormal.Text = "Normal";
-            this.tsBallNormal.Click += new System.EventHandler(this.ctxtMenu_Click);
-            // 
-            // tsBallFast
-            // 
-            this.tsBallFast.CheckOnClick = true;
-            this.tsBallFast.Name = "tsBallFast";
-            this.tsBallFast.Size = new System.Drawing.Size(152, 22);
-            this.tsBallFast.Text = "Schnell";
-            this.tsBallFast.Click += new System.EventHandler(this.ctxtMenu_Click);
+            this.ctxtMenu.Size = new System.Drawing.Size(207, 114);
             // 
             // tsFullscreen
             // 
             this.tsFullscreen.Checked = true;
             this.tsFullscreen.CheckState = System.Windows.Forms.CheckState.Checked;
             this.tsFullscreen.Name = "tsFullscreen";
-            this.tsFullscreen.Size = new System.Drawing.Size(152, 22);
+            this.tsFullscreen.Size = new System.Drawing.Size(206, 22);
             this.tsFullscreen.Text = "Vollbild";
             this.tsFullscreen.Click += new System.EventHandler(this.tsFullscreen_Click);
             // 
             // tsClose
             // 
             this.tsClose.Name = "tsClose";
-            this.tsClose.Size = new System.Drawing.Size(152, 22);
+            this.tsClose.Size = new System.Drawing.Size(206, 22);
             this.tsClose.Text = "Schliessen";
             this.tsClose.Click += new System.EventHandler(this.tsClose_Click);
             // 
-            // MainForm
+            // tsBallSpeed
+            // 
+            this.tsBallSpeed.Name = "tsBallSpeed";
+            this.tsBallSpeed.Size = new System.Drawing.Size(206, 22);
+            this.tsBallSpeed.Text = "Ballgeschwindigkeit: 2.00";
+            // 
+            // tsPlayer1
+            // 
+            this.tsPlayer1.Name = "tsPlayer1";
+            this.tsPlayer1.Size = new System.Drawing.Size(206, 22);
+            this.tsPlayer1.Text = "Breite Spieler 1: 150px";
+            // 
+            // tsPlayer2
+            // 
+            this.tsPlayer2.Name = "tsPlayer2";
+            this.tsPlayer2.Size = new System.Drawing.Size(206, 22);
+            this.tsPlayer2.Text = "Breite Spieler 2: 150px";
+            // 
+            // PongForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.Black;
@@ -258,7 +204,7 @@ namespace RetroTable.Pong
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MinimumSize = new System.Drawing.Size(1044, 583);
-            this.Name = "MainForm";
+            this.Name = "PongForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pong";
@@ -266,6 +212,7 @@ namespace RetroTable.Pong
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainFormLoad);
             this.SizeChanged += new System.EventHandler(this.MainFormSizeChanged);
+            this.VisibleChanged += new System.EventHandler(this.PongForm_VisibleChanged);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainFormKeyDown);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.MainForm_KeyPress);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MainFormKeyUp);
@@ -285,18 +232,13 @@ namespace RetroTable.Pong
         private System.Windows.Forms.Label lblPlayer1;
         private System.Windows.Forms.Label lblPlayer2;
         private System.Windows.Forms.Timer timerBall;
-        private System.Windows.Forms.Timer timerIncreaseSpeed;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ContextMenuStrip ctxtMenu;
-        private System.Windows.Forms.ToolStripMenuItem tsPanel;
-        private System.Windows.Forms.ToolStripMenuItem tsPanelSmall;
-        private System.Windows.Forms.ToolStripMenuItem tsPanelNormal;
-        private System.Windows.Forms.ToolStripMenuItem tsPanelBig;
-        private System.Windows.Forms.ToolStripMenuItem tsBall;
-        private System.Windows.Forms.ToolStripMenuItem tsBallSlow;
-        private System.Windows.Forms.ToolStripMenuItem tsBallNormal;
-        private System.Windows.Forms.ToolStripMenuItem tsBallFast;
         private System.Windows.Forms.ToolStripMenuItem tsFullscreen;
         private System.Windows.Forms.ToolStripMenuItem tsClose;
+        private System.Windows.Forms.Timer timerIncreaseSpeed;
+        private System.Windows.Forms.ToolStripMenuItem tsBallSpeed;
+        private System.Windows.Forms.ToolStripMenuItem tsPlayer1;
+        private System.Windows.Forms.ToolStripMenuItem tsPlayer2;
     }
 }
