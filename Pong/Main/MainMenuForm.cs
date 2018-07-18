@@ -109,5 +109,39 @@ namespace RetroTable.Main
             if (Retrotable.ArduinoMode)
                 Retrotable.Arduino.Close();
         }
+
+        private void btnPong_Click(object sender, EventArgs e)
+        {
+            if (UserManager.Player1 == null || UserManager.Player2 == null)
+            {
+                SetInfoLabel("Es müssen zwei Spieler ausgewählt sein, damit Pong gestartet werden kann");
+                return;
+            }
+
+            Retrotable.Instance.Pong.Show();
+        }
+
+        private Timer timer;
+        private void SetInfoLabel(string text)
+        {
+            timer?.Stop();
+
+            lblInfo.Text = text;
+
+            if (timer == null)
+            {
+                timer = new Timer()
+                {
+                    Interval = 3000,
+                };
+            }
+
+            timer.Start();
+
+            timer.Tick += (object sender, EventArgs e) =>
+            {
+                lblInfo.Text = "";
+            };
+        }
     }
 }

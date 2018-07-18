@@ -30,9 +30,10 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainMenuForm));
             this.btnAddUser = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnPong = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pnlUser = new System.Windows.Forms.Panel();
+            this.lblInfo = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.pnlUser.SuspendLayout();
             this.SuspendLayout();
@@ -50,15 +51,16 @@
             this.btnAddUser.UseVisualStyleBackColor = false;
             this.btnAddUser.Click += new System.EventHandler(this.btnAddUser_Click);
             // 
-            // button1
+            // btnPong
             // 
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(325, 189);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(125, 125);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Pong";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnPong.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPong.Location = new System.Drawing.Point(325, 189);
+            this.btnPong.Name = "btnPong";
+            this.btnPong.Size = new System.Drawing.Size(125, 125);
+            this.btnPong.TabIndex = 3;
+            this.btnPong.Text = "Pong";
+            this.btnPong.UseVisualStyleBackColor = true;
+            this.btnPong.Click += new System.EventHandler(this.btnPong_Click);
             // 
             // pictureBox1
             // 
@@ -81,14 +83,25 @@
             this.pnlUser.Size = new System.Drawing.Size(776, 157);
             this.pnlUser.TabIndex = 6;
             // 
+            // lblInfo
+            // 
+            this.lblInfo.ForeColor = System.Drawing.Color.OrangeRed;
+            this.lblInfo.Location = new System.Drawing.Point(12, 501);
+            this.lblInfo.Name = "lblInfo";
+            this.lblInfo.Size = new System.Drawing.Size(776, 21);
+            this.lblInfo.TabIndex = 7;
+            this.lblInfo.Text = "lblInfo";
+            this.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // MainMenuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(800, 522);
+            this.Controls.Add(this.lblInfo);
             this.Controls.Add(this.pnlUser);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnPong);
             this.Controls.Add(this.pictureBox1);
             this.Name = "MainMenuForm";
             this.Text = "MainMenuForm";
@@ -102,8 +115,9 @@
         #endregion
 
         private System.Windows.Forms.Button btnAddUser;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnPong;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Panel pnlUser;
+        private System.Windows.Forms.Label lblInfo;
     }
 }
