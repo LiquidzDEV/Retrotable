@@ -46,7 +46,7 @@ namespace RetroTable.Main
         public delegate void ValueChanged(PinMapping button, int newValue);
 
         /// <summary> False, if no Arduino is found. </summary>
-        internal static bool ArduinoMode = true;
+        internal static bool ArduinoMode = false;
 
         /// <summary> False, wenn die Software ohne Datenbank betrieben werden soll. </summary>
         internal const bool Databasemode = false;
@@ -70,26 +70,32 @@ namespace RetroTable.Main
             if (_initialized)
                 return;
 
-            Database.Init();
+            if (Databasemode)
+                Database.Init();
+            else
+            {
+                UserManager.CreateUser("Pascal");
+                UserManager.CreateUser("Test");
+            }
 
-            try
-            {
-                Arduino = new Arduino("COM3");
-                ArduinoHelper.Setup();
-            }
-            catch (Exception)
-            {
-                //try
-                //{
-                //    Arduino = new Arduino("COM5");
-                //    ArduinoHelper.Setup();
-                //}
-                //catch (Exception)
-                {
-                    ArduinoMode = false;
-                    MessageBox.Show("Es kann über W,S und Up,Down gespielt werden.\nMit Leertaste startet die Runde.", "Kein Arduino gefunden!");
-                }
-            }
+            //try
+            //{
+            //    Arduino = new Arduino("COM3");
+            //    ArduinoHelper.Setup();
+            //}
+            //catch (Exception)
+            //{
+            //    try
+            //    {
+            //        Arduino = new Arduino("COM5");
+            //        ArduinoHelper.Setup();
+            //    }
+            //    catch (Exception)
+            //    {
+            ArduinoMode = false;
+            MessageBox.Show("Es kann über W,S und Up,Down gespielt werden.\nMit Leertaste startet die Runde.", "Kein Arduino gefunden!");
+            //    }
+            //}
 
             MainMenuform = new MainMenuForm(); //Instantiating MainMenu
 
