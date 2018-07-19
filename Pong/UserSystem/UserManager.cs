@@ -1,4 +1,5 @@
-﻿using RetroTable.MySql;
+﻿using RetroTable.Main;
+using RetroTable.MySql;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,20 +17,27 @@ namespace RetroTable.UserSystem
 
         internal static User CreateUser(string name)
         {
-            //TODO if (Database.User.UserHasName(name) != null) return null;
-            if (Users.Find(x => x.Name == name) != null) return null;
+            if (Retrotable.Databasemode)
+            {
+                if (Database.User.UserHasName(name) != null) return null;
 
-            var user = new User(name);
+                return Database.User.UserCreate(name);
+            }
+            else
+            {
+                if (Users.Find(x => x.Name == name) != null) return null;
 
-            Users.Add(user);
+                var user = new User(name);
 
-            //TODO return Database.User.UserCreate(name);
-            return user;
+                Users.Add(user);
+                return user;
+            }
         }
 
         private static void UpdateUsers()
         {
-            //TODO Users = Database.User.UserGet();
+            if (Retrotable.Databasemode)
+                Users = Database.User.UserGet();
 
             if (Player1 != null && !Users.Contains(Player1))
             {

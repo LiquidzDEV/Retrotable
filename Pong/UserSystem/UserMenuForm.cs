@@ -1,4 +1,6 @@
-﻿using System;
+﻿using RetroTable.Main;
+using RetroTable.MySql;
+using System;
 using System.Windows.Forms;
 
 namespace RetroTable.UserSystem
@@ -56,12 +58,10 @@ namespace RetroTable.UserSystem
                 Close();
             }
             else
-            {
-                //TODO if (Database.User.UserHasName(name) != null) return null;
-
+            {              
                 if (!txtName.Text.Equals(User.Name))
                 {
-                    if (UserManager.GetUsers().Find(x => x.Name == txtName.Text) != null)
+                    if ((Retrotable.Databasemode && Database.User.UserHasName(txtName.Text) != null) ||UserManager.GetUsers().Find(x => x.Name == txtName.Text) != null)
                     {
                         SetInfoLabel("Dieser Name ist bereits vergeben");
                         return;

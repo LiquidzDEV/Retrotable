@@ -48,6 +48,9 @@ namespace RetroTable.Main
         /// <summary> False, if no Arduino is found. </summary>
         internal static bool ArduinoMode = true;
 
+        /// <summary> False, wenn die Software ohne Datenbank betrieben werden soll. </summary>
+        internal const bool Databasemode = false;
+
         /// <summary> Static Field that represents the connection to the Arduino. </summary>
         internal static Arduino Arduino { get; private set; }
 
