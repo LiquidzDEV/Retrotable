@@ -67,14 +67,14 @@
             // 
             // trbPanelSize
             // 
-            this.trbPanelSize.LargeChange = 30;
+            this.trbPanelSize.LargeChange = 20;
             this.trbPanelSize.Location = new System.Drawing.Point(122, 97);
-            this.trbPanelSize.Maximum = 400;
-            this.trbPanelSize.Minimum = 50;
+            this.trbPanelSize.Maximum = 500;
+            this.trbPanelSize.Minimum = 30;
             this.trbPanelSize.Name = "trbPanelSize";
             this.trbPanelSize.Size = new System.Drawing.Size(266, 45);
             this.trbPanelSize.TabIndex = 2;
-            this.trbPanelSize.TickFrequency = 10;
+            this.trbPanelSize.TickFrequency = 20;
             this.trbPanelSize.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.trbPanelSize.Value = 150;
             this.trbPanelSize.ValueChanged += new System.EventHandler(this.trbPanelSize_ValueChanged);
@@ -145,6 +145,7 @@
             // 
             // btnCancel
             // 
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Location = new System.Drawing.Point(208, 169);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(180, 23);

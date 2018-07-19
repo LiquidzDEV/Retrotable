@@ -12,5 +12,6 @@ namespace RetroTable.MySql.Tables
         List<User> UserGet();
         User UserHasName(string name);
         User UserCreate(string name);
+        void UserSave(User user);
     }
 }
