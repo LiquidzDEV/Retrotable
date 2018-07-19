@@ -15,6 +15,8 @@ namespace RetroTable.UserSystem
         internal string Name { get; set; }
         internal float BallSpeed { get; set; }
         internal int PanelSize { get; set; }
+        internal int TimeLimit { get; set; }
+        internal int PlayTimePong { get; set; }
 
         /// <summary> Creates a pseudo User, only used when no Database is connected</summary>
         internal User(string name)
@@ -22,10 +24,14 @@ namespace RetroTable.UserSystem
             if (Retrotable.Databasemode)
                 throw new Exception("Im Datenbankmodus können keine Instanzen von User selber erstellt werden!");
 
-            Id = new Random().Next(1, 100000);
+            var random = new Random();
+            random.Next(1, 100000);
+
+            Id = random.Next(1, 100000);
             Name = name;
             BallSpeed = 2f;
             PanelSize = 150;
+            TimeLimit = 3;
         }
 
         internal void Save()

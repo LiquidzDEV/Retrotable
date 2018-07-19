@@ -39,8 +39,13 @@
             this.lblInfo = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.lblTimeLimit = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.trbTimeLimit = new System.Windows.Forms.TrackBar();
+            this.lblPlayTime = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.trbBallSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trbPanelSize)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trbTimeLimit)).BeginInit();
             this.SuspendLayout();
             // 
             // txtName
@@ -126,8 +131,9 @@
             // 
             // lblInfo
             // 
+            this.lblInfo.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.lblInfo.ForeColor = System.Drawing.Color.OrangeRed;
-            this.lblInfo.Location = new System.Drawing.Point(12, 145);
+            this.lblInfo.Location = new System.Drawing.Point(12, 250);
             this.lblInfo.Name = "lblInfo";
             this.lblInfo.Size = new System.Drawing.Size(376, 17);
             this.lblInfo.TabIndex = 8;
@@ -135,7 +141,8 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(12, 169);
+            this.btnSave.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnSave.Location = new System.Drawing.Point(12, 270);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(180, 23);
             this.btnSave.TabIndex = 9;
@@ -145,13 +152,54 @@
             // 
             // btnCancel
             // 
+            this.btnCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(208, 169);
+            this.btnCancel.Location = new System.Drawing.Point(208, 270);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(180, 23);
             this.btnCancel.TabIndex = 10;
             this.btnCancel.Text = "Abbrechen";
             this.btnCancel.UseVisualStyleBackColor = true;
+            // 
+            // lblTimeLimit
+            // 
+            this.lblTimeLimit.AutoSize = true;
+            this.lblTimeLimit.Location = new System.Drawing.Point(12, 161);
+            this.lblTimeLimit.Name = "lblTimeLimit";
+            this.lblTimeLimit.Size = new System.Drawing.Size(60, 13);
+            this.lblTimeLimit.TabIndex = 13;
+            this.lblTimeLimit.Text = "10 Minuten";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 148);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(45, 13);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "Zeitlimit:";
+            // 
+            // trbTimeLimit
+            // 
+            this.trbTimeLimit.LargeChange = 2;
+            this.trbTimeLimit.Location = new System.Drawing.Point(122, 148);
+            this.trbTimeLimit.Maximum = 15;
+            this.trbTimeLimit.Minimum = 1;
+            this.trbTimeLimit.Name = "trbTimeLimit";
+            this.trbTimeLimit.Size = new System.Drawing.Size(266, 45);
+            this.trbTimeLimit.TabIndex = 11;
+            this.trbTimeLimit.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trbTimeLimit.Value = 3;
+            this.trbTimeLimit.ValueChanged += new System.EventHandler(this.trbTimeLimit_ValueChanged);
+            // 
+            // lblPlayTime
+            // 
+            this.lblPlayTime.AutoSize = true;
+            this.lblPlayTime.Location = new System.Drawing.Point(12, 226);
+            this.lblPlayTime.Name = "lblPlayTime";
+            this.lblPlayTime.Size = new System.Drawing.Size(194, 13);
+            this.lblPlayTime.TabIndex = 14;
+            this.lblPlayTime.Text = "Spielzeit Pong: 3 Minuten 10 Sekunden";
             // 
             // UserMenuForm
             // 
@@ -159,7 +207,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(400, 204);
+            this.ClientSize = new System.Drawing.Size(400, 305);
+            this.Controls.Add(this.lblPlayTime);
+            this.Controls.Add(this.lblTimeLimit);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.trbTimeLimit);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lblInfo);
@@ -178,6 +230,7 @@
             this.Text = "UserMenuForm";
             ((System.ComponentModel.ISupportInitialize)(this.trbBallSpeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trbPanelSize)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trbTimeLimit)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -195,5 +248,9 @@
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.TrackBar trbBallSpeed;
         private System.Windows.Forms.TrackBar trbPanelSize;
+        private System.Windows.Forms.Label lblTimeLimit;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TrackBar trbTimeLimit;
+        private System.Windows.Forms.Label lblPlayTime;
     }
 }

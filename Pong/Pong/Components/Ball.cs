@@ -14,7 +14,7 @@ namespace RetroTable.Pong.Components
         /// <summary> Speed of the ball on round start. </summary>
         private const float DefaultSpeed = 10f;
         /// <summary> The speed that the ball gains per Event. </summary>
-        private const float SpeedGain = 3f;
+        private const float SpeedGain = 0.3f;
         /// <summary> The maximum horizontal speed of the ball. </summary>
         private const float MaxSpeed = 35f;
 
@@ -27,9 +27,9 @@ namespace RetroTable.Pong.Components
 
         private int _lastPlayerHit;
 
-        public Ball(PictureBox pBall)
+        public Ball(Pong main, PictureBox pBall)
         {
-            Main = Retrotable.Instance.Pong;
+            Main = main;
             _pBall = pBall;
         }
 
