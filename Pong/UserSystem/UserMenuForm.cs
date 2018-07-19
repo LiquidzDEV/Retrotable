@@ -20,6 +20,7 @@ namespace RetroTable.UserSystem
                 txtName.Text = User.Name;
                 trbBallSpeed.Value = (int)(User.BallSpeed * 100);
                 trbPanelSize.Value = User.PanelSize;
+                trbTimeLimit.Value = User.TimeLimit;
             }
         }
 
@@ -33,9 +34,14 @@ namespace RetroTable.UserSystem
             lblPanelSize.Text = trbPanelSize.Value + "px";
         }
 
+        private void trbTimeLimit_ValueChanged(object sender, EventArgs e)
+        {
+            lblTimeLimit.Text = trbTimeLimit.Value + " Minuten";
+        }
+
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if(txtName.Text.Trim().Length < 3)
+            if (txtName.Text.Trim().Length < 3)
             {
                 SetInfoLabel("Der Name muss min. drei Zeichen lang sein");
                 return;
@@ -53,15 +59,16 @@ namespace RetroTable.UserSystem
 
                 user.BallSpeed = trbBallSpeed.Value / 100f;
                 user.PanelSize = trbPanelSize.Value;
+                user.TimeLimit = trbTimeLimit.Value;
                 user.Save();
                 DialogResult = DialogResult.OK;
                 Close();
             }
             else
-            {              
+            {
                 if (!txtName.Text.Equals(User.Name))
                 {
-                    if ((Retrotable.Databasemode && Database.User.UserHasName(txtName.Text) != null) ||UserManager.GetUsers().Find(x => x.Name == txtName.Text) != null)
+                    if ((Retrotable.Databasemode && Database.User.UserHasName(txtName.Text) != null) || UserManager.GetUsers().Find(x => x.Name == txtName.Text) != null)
                     {
                         SetInfoLabel("Dieser Name ist bereits vergeben");
                         return;
@@ -81,7 +88,7 @@ namespace RetroTable.UserSystem
         {
             timer?.Stop();
 
-            lblInfo.Text = text;          
+            lblInfo.Text = text;
 
             if (timer == null)
             {
@@ -98,5 +105,7 @@ namespace RetroTable.UserSystem
                 lblInfo.Text = "";
             };
         }
+
+
     }
 }

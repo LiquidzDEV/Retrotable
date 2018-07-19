@@ -1,5 +1,6 @@
 ﻿using RetroTable.Board;
 using RetroTable.Main;
+using RetroTable.UserSystem;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -20,13 +21,16 @@ namespace RetroTable.Pong.Components
         private readonly Panel _pnl;
         private readonly Label _lblScore;
 
+        private bool Player1;
+
         public bool PlayerUp;
         public bool PlayerDown;
 
-        private int _score;
+        internal int ScorePoints { get; set; }
 
-        public Player(Panel pnl, Label lblScore)
+        public Player(bool player1, Panel pnl, Label lblScore)
         {
+            Player1 = player1;
             _pnl = pnl;
             _lblScore = lblScore;
 
@@ -58,17 +62,17 @@ namespace RetroTable.Pong.Components
         /// <summary> Gives this player a scorepoint. </summary>
         internal void Score()
         {
-            _score++;
-            _lblScore.Text = _score.ToString();
-            Retrotable.Instance.Pong.Reset();
+            ScorePoints++;
+            _lblScore.Text = ScorePoints + "\n" + (Player1 ? UserManager.Player1.Name : UserManager.Player2.Name);
+            Retrotable.Instance.Pong.ResetRound();
             System.Diagnostics.Debug.WriteLine("Ein Punkt wurde vergeben.");
         }
 
         /// <summary> Sets the players panel position relative to the poti value. </summary>
         [Obsolete("Replaced with Eventhandler onValueChanged", true)]
-        internal void SetRelativePanelPosition(int percentage, bool player1)
+        internal void SetRelativePanelPosition(int percentage)
         {
-            if (player1)
+            if (Player1)
                 percentage = 100 - percentage;
 
             double position = (World.Bottom - _pnl.Size.Height - World.Upper) / 100f * percentage;
@@ -90,11 +94,12 @@ namespace RetroTable.Pong.Components
         internal void Reset()
         {
             _pnl.Location = new Point(_pnl.Location.X, ((World.Bottom - World.Upper) / 2) - (_pnl.Size.Height / 2));
+            _lblScore.Text = ScorePoints + "\n" + (Player1 ? UserManager.Player1.Name : UserManager.Player2.Name);
         }
 
-        public void Resize(bool player1)
+        public void Resize()
         {
-            int x = player1 ? 10 : World.Right - _pnl.Size.Width - 10;
+            int x = Player1 ? 10 : World.Right - _pnl.Size.Width - 10;
             _pnl.Location = new Point(x, Math.Min(World.Bottom - _pnl.Size.Height, _pnl.Location.Y));
         }
     }

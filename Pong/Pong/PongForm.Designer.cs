@@ -43,7 +43,7 @@ namespace RetroTable.Pong
             this.lblPlayer1 = new System.Windows.Forms.Label();
             this.lblPlayer2 = new System.Windows.Forms.Label();
             this.timerBall = new System.Windows.Forms.Timer(this.components);
-            this.timerIncreaseSpeed = new System.Windows.Forms.Timer(this.components);
+            this.timerMain = new System.Windows.Forms.Timer(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.ctxtMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsFullscreen = new System.Windows.Forms.ToolStripMenuItem();
@@ -51,6 +51,8 @@ namespace RetroTable.Pong
             this.tsBallSpeed = new System.Windows.Forms.ToolStripMenuItem();
             this.tsPlayer1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsPlayer2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblTime = new System.Windows.Forms.Label();
+            this.lblWinner = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pBall)).BeginInit();
             this.ctxtMenu.SuspendLayout();
             this.SuspendLayout();
@@ -59,7 +61,7 @@ namespace RetroTable.Pong
             // 
             this.pnlPlayer1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.pnlPlayer1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pnlPlayer1.Location = new System.Drawing.Point(16, 252);
+            this.pnlPlayer1.Location = new System.Drawing.Point(16, 214);
             this.pnlPlayer1.Margin = new System.Windows.Forms.Padding(4);
             this.pnlPlayer1.Name = "pnlPlayer1";
             this.pnlPlayer1.Size = new System.Drawing.Size(20, 154);
@@ -69,7 +71,7 @@ namespace RetroTable.Pong
             // 
             this.pnlPlayer2.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.pnlPlayer2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.pnlPlayer2.Location = new System.Drawing.Point(1008, 252);
+            this.pnlPlayer2.Location = new System.Drawing.Point(1008, 214);
             this.pnlPlayer2.Margin = new System.Windows.Forms.Padding(4);
             this.pnlPlayer2.Name = "pnlPlayer2";
             this.pnlPlayer2.Size = new System.Drawing.Size(20, 154);
@@ -86,7 +88,7 @@ namespace RetroTable.Pong
             this.pBall.BackColor = System.Drawing.Color.Transparent;
             this.pBall.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pBall.BackgroundImage")));
             this.pBall.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.pBall.Location = new System.Drawing.Point(520, 309);
+            this.pBall.Location = new System.Drawing.Point(512, 281);
             this.pBall.Margin = new System.Windows.Forms.Padding(4);
             this.pBall.Name = "pBall";
             this.pBall.Size = new System.Drawing.Size(21, 20);
@@ -95,40 +97,42 @@ namespace RetroTable.Pong
             // 
             // lblPlayer1
             // 
+            this.lblPlayer1.AutoSize = true;
             this.lblPlayer1.BackColor = System.Drawing.Color.Transparent;
             this.lblPlayer1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPlayer1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblPlayer1.Location = new System.Drawing.Point(384, 3);
+            this.lblPlayer1.Location = new System.Drawing.Point(437, 9);
             this.lblPlayer1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPlayer1.Name = "lblPlayer1";
-            this.lblPlayer1.Size = new System.Drawing.Size(63, 32);
+            this.lblPlayer1.Size = new System.Drawing.Size(20, 24);
             this.lblPlayer1.TabIndex = 4;
             this.lblPlayer1.Text = "0";
-            this.lblPlayer1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblPlayer1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblPlayer2
             // 
             this.lblPlayer2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblPlayer2.AutoSize = true;
             this.lblPlayer2.BackColor = System.Drawing.Color.Transparent;
             this.lblPlayer2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPlayer2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.lblPlayer2.Location = new System.Drawing.Point(600, 3);
+            this.lblPlayer2.Location = new System.Drawing.Point(587, 9);
             this.lblPlayer2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPlayer2.Name = "lblPlayer2";
-            this.lblPlayer2.Size = new System.Drawing.Size(68, 32);
+            this.lblPlayer2.Size = new System.Drawing.Size(20, 24);
             this.lblPlayer2.TabIndex = 5;
             this.lblPlayer2.Text = "0";
-            this.lblPlayer2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblPlayer2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // timerBall
             // 
             this.timerBall.Interval = 10;
             this.timerBall.Tick += new System.EventHandler(this.timerBall_Tick);
             // 
-            // timerIncreaseSpeed
+            // timerMain
             // 
-            this.timerIncreaseSpeed.Interval = 10000;
-            this.timerIncreaseSpeed.Tick += new System.EventHandler(this.timerIncreaseSpeed_Tick);
+            this.timerMain.Interval = 1000;
+            this.timerMain.Tick += new System.EventHandler(this.timerMain_Tick);
             // 
             // label1
             // 
@@ -137,7 +141,7 @@ namespace RetroTable.Pong
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Gray;
-            this.label1.Location = new System.Drawing.Point(467, 9);
+            this.label1.Location = new System.Drawing.Point(464, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(116, 23);
             this.label1.TabIndex = 6;
@@ -189,11 +193,41 @@ namespace RetroTable.Pong
             this.tsPlayer2.Size = new System.Drawing.Size(206, 22);
             this.tsPlayer2.Text = "Breite Spieler 2: 150px";
             // 
+            // lblTime
+            // 
+            this.lblTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblTime.BackColor = System.Drawing.Color.Transparent;
+            this.lblTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTime.ForeColor = System.Drawing.Color.Gray;
+            this.lblTime.Location = new System.Drawing.Point(464, 32);
+            this.lblTime.Name = "lblTime";
+            this.lblTime.Size = new System.Drawing.Size(116, 23);
+            this.lblTime.TabIndex = 7;
+            this.lblTime.Text = "10:00";
+            this.lblTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblWinner
+            // 
+            this.lblWinner.AutoSize = true;
+            this.lblWinner.BackColor = System.Drawing.Color.Transparent;
+            this.lblWinner.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblWinner.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lblWinner.Location = new System.Drawing.Point(512, 159);
+            this.lblWinner.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblWinner.Name = "lblWinner";
+            this.lblWinner.Size = new System.Drawing.Size(20, 24);
+            this.lblWinner.TabIndex = 8;
+            this.lblWinner.Text = "0";
+            this.lblWinner.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // PongForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(1044, 583);
+            this.Controls.Add(this.lblWinner);
+            this.Controls.Add(this.lblTime);
             this.Controls.Add(this.pnlPlayer1);
             this.Controls.Add(this.pnlPlayer2);
             this.Controls.Add(this.pBall);
@@ -220,6 +254,7 @@ namespace RetroTable.Pong
             ((System.ComponentModel.ISupportInitialize)(this.pBall)).EndInit();
             this.ctxtMenu.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -231,14 +266,16 @@ namespace RetroTable.Pong
         private System.Windows.Forms.Timer timerPaddle;
         private System.Windows.Forms.Label lblPlayer1;
         private System.Windows.Forms.Label lblPlayer2;
-        private System.Windows.Forms.Timer timerBall;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ContextMenuStrip ctxtMenu;
         private System.Windows.Forms.ToolStripMenuItem tsFullscreen;
         private System.Windows.Forms.ToolStripMenuItem tsClose;
-        private System.Windows.Forms.Timer timerIncreaseSpeed;
         private System.Windows.Forms.ToolStripMenuItem tsBallSpeed;
         private System.Windows.Forms.ToolStripMenuItem tsPlayer1;
         private System.Windows.Forms.ToolStripMenuItem tsPlayer2;
+        private System.Windows.Forms.Label lblTime;
+        internal System.Windows.Forms.Timer timerBall;
+        internal System.Windows.Forms.Timer timerMain;
+        internal System.Windows.Forms.Label lblWinner;
     }
 }

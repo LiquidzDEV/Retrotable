@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using RetroTable.Board;
@@ -26,9 +27,9 @@ namespace RetroTable.Pong
 
             InitializeComponent();
             World.SetBounds(ClientSize.Height, ClientSize.Width);
-            Main.Player1 = new Player(pnlPlayer1, lblPlayer1);
-            Main.Player2 = new Player(pnlPlayer2, lblPlayer2);
-            Main.Ball = new Ball(pBall);
+            Main.Player1 = new Player(true, pnlPlayer1, lblPlayer1);
+            Main.Player2 = new Player(false, pnlPlayer2, lblPlayer2);
+            Main.Ball = new Ball(main, pBall);
             Hide();
         }
 
@@ -58,7 +59,7 @@ namespace RetroTable.Pong
 
         /// <summary> Triggered when the Form is loading. </summary>
         private void MainFormLoad(object sender, EventArgs e)
-        {           
+        {
             DoubleBuffered = true;
             SetStyle(ControlStyles.UserPaint, true);
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
@@ -131,9 +132,36 @@ namespace RetroTable.Pong
                 Main.Ball.Move();
         }
 
-        private void timerIncreaseSpeed_Tick(object sender, EventArgs e)
+        private void timerMain_Tick(object sender, EventArgs e)
         {
             Main.Ball.IncreaseSpeed();
+            Main.TimeLeft--;
+            UserManager.Player1.PlayTimePong++;
+            UserManager.Player2.PlayTimePong++;
+
+            var time = new TimeSpan(0, 0, Main.TimeLeft);
+            lblTime.Text = Math.Floor(time.TotalMinutes) + ":" + time.Seconds;
+
+            if (Main.TimeLeft <= 0)
+            {
+                if (Main.Player1.ScorePoints > Main.Player2.ScorePoints)
+                {
+                    lblWinner.Text = "Spieler 1 hat gewonnen!";
+                    lblWinner.ForeColor = Color.FromArgb(255, 255, 0, 0);
+                }
+                else if (Main.Player1.ScorePoints < Main.Player2.ScorePoints)
+                {
+                    lblWinner.Text = "Spieler 2 hat gewonnen!";
+                    lblWinner.ForeColor = Color.FromArgb(255, 0, 0, 255);
+                }
+                else
+                {
+                    lblWinner.Text = "Unentschieden!";
+                    lblWinner.ForeColor = Color.FromArgb(255, 180, 180, 180);
+                }
+                lblWinner.Visible = true;
+                Main.ResetRound();
+            }
         }
 
         #endregion
@@ -143,21 +171,15 @@ namespace RetroTable.Pong
             if (e.KeyChar.Equals(' ') && !Retrotable.ArduinoMode)
             {
                 Main.Start();
-                timerIncreaseSpeed.Start();
             }
         }
 
         private void MainFormSizeChanged(object sender, EventArgs e)
         {
             World.SetBounds(ClientSize.Height, ClientSize.Width);
-            Main.Player1.Resize(true);
-            Main.Player2.Resize(false);
+            Main.Player1.Resize();
+            Main.Player2.Resize();
             System.Diagnostics.Debug.WriteLine("Auflösung verändert. (" + ClientSize.Height + "/" + ClientSize.Width + ")");
-        }
-
-        internal void ResetRound()
-        {
-            timerIncreaseSpeed.Stop();
         }
 
         #region ContextMenu
@@ -185,9 +207,9 @@ namespace RetroTable.Pong
         {
             if (Visible)
             {
-                Main.Reset();
+                Main.ResetRound();
                 timerPaddle.Start();
-                timerBall.Start();
+
 
                 Main.Player1.SetPanelHeight(UserManager.Player1.PanelSize);
                 Main.Player2.SetPanelHeight(UserManager.Player2.PanelSize);
@@ -200,7 +222,8 @@ namespace RetroTable.Pong
             }
             System.Diagnostics.Debug.WriteLine("Pongform Visible -> " + Visible);
         }
+
+        #endregion
     }
-    #endregion
 }
 

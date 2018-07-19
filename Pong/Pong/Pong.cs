@@ -1,6 +1,7 @@
 ﻿using RetroTable.Board;
 using RetroTable.Main;
 using RetroTable.Pong.Components;
+using RetroTable.UserSystem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,9 @@ namespace RetroTable.Pong
         /// <summary> True, if a match is running. </summary>
         internal bool Started { get; private set; }
 
+        /// <summary> Time left in seconds. </summary>
+        internal int TimeLeft;
+
         public Pong()
         {
             Pongform = new PongForm(this);
@@ -29,7 +33,10 @@ namespace RetroTable.Pong
 
         internal void Show()
         {
-            Reset();
+            Player1.ScorePoints = 0;
+            Player2.ScorePoints = 0;
+            TimeLeft = UserManager.Player1.TimeLimit * 60;
+            ResetRound();
             Pongform.Show();
         }
 
@@ -45,6 +52,16 @@ namespace RetroTable.Pong
             Ball.Start();
             Started = true;
 
+            Pongform.timerMain.Start();
+            Pongform.timerBall.Start();
+            if (TimeLeft <= 0)
+            {
+                Player1.ScorePoints = 0;
+                Player2.ScorePoints = 0;
+                TimeLeft = UserManager.Player1.TimeLimit * 60;
+                Pongform.lblWinner.Visible = false;
+            }
+
             if (Retrotable.ArduinoMode)
             {
                 ArduinoHelper.SetStartLeds(false, false);
@@ -52,10 +69,11 @@ namespace RetroTable.Pong
             }
         }
 
-        internal void Reset()
+        internal void ResetRound()
         {
             Started = false;
-            Pongform.ResetRound();
+            Pongform.timerMain.Stop();
+            Pongform.timerBall.Stop();
             Player1.Reset();
             Player2.Reset();
             Ball.Reset();
