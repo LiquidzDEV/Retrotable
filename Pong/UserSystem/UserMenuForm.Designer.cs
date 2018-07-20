@@ -166,9 +166,9 @@
             this.lblTimeLimit.AutoSize = true;
             this.lblTimeLimit.Location = new System.Drawing.Point(12, 161);
             this.lblTimeLimit.Name = "lblTimeLimit";
-            this.lblTimeLimit.Size = new System.Drawing.Size(60, 13);
+            this.lblTimeLimit.Size = new System.Drawing.Size(54, 13);
             this.lblTimeLimit.TabIndex = 13;
-            this.lblTimeLimit.Text = "10 Minuten";
+            this.lblTimeLimit.Text = "3 Minuten";
             // 
             // label5
             // 
