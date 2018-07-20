@@ -21,6 +21,9 @@ namespace RetroTable.UserSystem
                 trbBallSpeed.Value = (int)(User.BallSpeed * 100);
                 trbPanelSize.Value = User.PanelSize;
                 trbTimeLimit.Value = User.TimeLimit;
+
+                TimeSpan playTime = new TimeSpan(0, 0, User.PlayTimePong);
+                lblPlayTime.Text = playTime.TotalMinutes + " Minuten " + playTime.Seconds + " Sekunden";
             }
         }
 
@@ -49,20 +52,13 @@ namespace RetroTable.UserSystem
 
             if (User == null)
             {
-                var user = UserManager.CreateUser(txtName.Text);
+                User = UserManager.CreateUser(txtName.Text);
 
-                if (user == null)
+                if (User == null)
                 {
                     SetInfoLabel("Dieser Name ist bereits vergeben");
                     return;
                 }
-
-                user.BallSpeed = trbBallSpeed.Value / 100f;
-                user.PanelSize = trbPanelSize.Value;
-                user.TimeLimit = trbTimeLimit.Value;
-                user.Save();
-                DialogResult = DialogResult.OK;
-                Close();
             }
             else
             {
@@ -75,12 +71,13 @@ namespace RetroTable.UserSystem
                     }
                     User.Name = txtName.Text;
                 }
-
-                User.BallSpeed = trbBallSpeed.Value / 100f;
-                User.PanelSize = trbPanelSize.Value;
-                User.Save();
-                Close();
             }
+            User.BallSpeed = trbBallSpeed.Value / 100f;
+            User.PanelSize = trbPanelSize.Value;
+            User.TimeLimit = trbTimeLimit.Value;
+            User.Save();
+            DialogResult = DialogResult.OK;
+            Close();
         }
 
         private Timer timer;
@@ -105,7 +102,5 @@ namespace RetroTable.UserSystem
                 lblInfo.Text = "";
             };
         }
-
-
     }
 }
