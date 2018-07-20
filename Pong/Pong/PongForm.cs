@@ -139,8 +139,7 @@ namespace RetroTable.Pong
             UserManager.Player1.PlayTimePong++;
             UserManager.Player2.PlayTimePong++;
 
-            var time = new TimeSpan(0, 0, Main.TimeLeft);
-            lblTime.Text = Math.Floor(time.TotalMinutes) + ":" + time.Seconds;
+            UpdateTime();
 
             if (Main.TimeLeft <= 0)
             {
@@ -162,6 +161,13 @@ namespace RetroTable.Pong
                 lblWinner.Visible = true;
                 Main.ResetRound();
             }
+        }
+
+        internal void UpdateTime()
+        {
+            var time = new TimeSpan(0, 0, Main.TimeLeft);
+            lblTime.Text = time.ToString(@"mm\:ss");
+            //lblTime.Text = Math.Floor(time.TotalMinutes) + ":" + time.Seconds;
         }
 
         #endregion
@@ -219,6 +225,7 @@ namespace RetroTable.Pong
             {
                 timerPaddle.Stop();
                 timerBall.Stop();
+                timerMain.Stop();
             }
             System.Diagnostics.Debug.WriteLine("Pongform Visible -> " + Visible);
         }
