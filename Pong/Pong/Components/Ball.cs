@@ -1,5 +1,6 @@
 ﻿using RetroTable.Board;
 using RetroTable.Main;
+using RetroTable.UserSystem;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -65,9 +66,22 @@ namespace RetroTable.Pong.Components
             {
                 _lastPlayerHit = playerHit;
                 _speedX *= -1;
-                int random = new Random().Next(1, 12);
-                _speedY = _speedY < 0 ? -random : random;
-                System.Diagnostics.Debug.WriteLine("Spieler " + playerHit + " wurde vom Ball getroffen! Neuer Flugwinkel: " + random);
+
+                //Calculating new angle
+
+                var relativeHitPosition = playerHit == 1 ? Main.Player1.GetRelativeHitPosition(Main.Ball) : Main.Player2.GetRelativeHitPosition(Main.Ball);
+
+                _speedY = 24 * relativeHitPosition - 12;
+
+                //int random = new Random().Next(1, 12);
+                //_speedY = _speedY < 0 ? -random : random;
+
+                if (playerHit == 1)
+                    UserManager.Player1.DefendTimesPong++;
+                else
+                    UserManager.Player2.DefendTimesPong++;
+
+                System.Diagnostics.Debug.WriteLine("Spieler " + playerHit + " wurde vom Ball getroffen! Neuer Flugwinkel: " + _speedY);
             }
 
             //If the ball goes behind a player, give the other player a point
@@ -111,6 +125,11 @@ namespace RetroTable.Pong.Components
         {
             _speedLevel = level;
             System.Diagnostics.Debug.WriteLine("Ballspeedlevel was set to " + level + "!");
+        }
+
+        internal Rectangle GetBounds()
+        {
+            return _pBall.Bounds;
         }
 
         /// <summary> Resets the position of the ball. </summary>
