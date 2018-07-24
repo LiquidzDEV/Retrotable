@@ -90,7 +90,6 @@
             this.lblInfo.Name = "lblInfo";
             this.lblInfo.Size = new System.Drawing.Size(776, 21);
             this.lblInfo.TabIndex = 7;
-            this.lblInfo.Text = "lblInfo";
             this.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // MainMenuForm
