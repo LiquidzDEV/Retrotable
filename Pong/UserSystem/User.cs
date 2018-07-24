@@ -17,6 +17,9 @@ namespace RetroTable.UserSystem
         internal int PanelSize { get; set; }
         internal int TimeLimit { get; set; }
         internal int PlayTimePong { get; set; }
+        internal int MadeGoalsPong { get; set; }
+        internal int TakenGoalsPong { get; set; }
+        internal int DefendTimesPong { get; set; }
 
         /// <summary> Creates a pseudo User, only used when no Database is connected</summary>
         internal User(string name)
