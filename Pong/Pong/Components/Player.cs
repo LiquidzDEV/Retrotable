@@ -2,6 +2,7 @@
 using RetroTable.Main;
 using RetroTable.UserSystem;
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -64,6 +65,18 @@ namespace RetroTable.Pong.Components
         {
             ScorePoints++;
             _lblScore.Text = ScorePoints + "\n" + (Player1 ? UserManager.Player1.Name : UserManager.Player2.Name);
+
+            if (Player1)
+            {
+                UserManager.Player1.MadeGoalsPong++;
+                UserManager.Player2.TakenGoalsPong++;
+            }
+            else
+            {
+                UserManager.Player2.MadeGoalsPong++;
+                UserManager.Player1.TakenGoalsPong++;
+            }
+
             Retrotable.Instance.Pong.ResetRound();
             System.Diagnostics.Debug.WriteLine("Ein Punkt wurde vergeben.");
         }
@@ -89,6 +102,21 @@ namespace RetroTable.Pong.Components
         internal bool Hits(PictureBox ball)
         {
             return _pnl.Bounds.IntersectsWith(ball.Bounds);
+        }
+
+        /// <summary> Gibt die relative Position zurück, in welcher Höher der Ball den Balken gerade berührt.</summary>
+        /// <returns>Die Position in relativer Angabe (0-1) wo der Ball den Balken getroffen hat. -1 wenn der Ball den Balken nicht berührt.</returns>
+        public float GetRelativeHitPosition(Ball ball)
+        {
+            var bounds = ball.GetBounds();
+            if (_pnl.Bounds.IntersectsWith(bounds))
+            {
+                var hitPosition = (bounds.Y + bounds.Height / 2f) - _pnl.Bounds.Y;
+                var relativeHitPosition = hitPosition / _pnl.Bounds.Height;
+                System.Diagnostics.Debug.WriteLine("HitPosition: " + hitPosition + "px | Relative: " + relativeHitPosition);
+                return relativeHitPosition;
+            }
+            return -1;
         }
 
         internal void Reset()
