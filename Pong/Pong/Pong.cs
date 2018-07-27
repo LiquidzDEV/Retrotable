@@ -1,5 +1,6 @@
 ﻿using RetroTable.Board;
 using RetroTable.Main;
+using RetroTable.MySql;
 using RetroTable.Pong.Components;
 using RetroTable.UserSystem;
 
@@ -21,32 +22,49 @@ namespace RetroTable.Pong
         /// <summary> Time left in seconds. </summary>
         internal int TimeLeft;
 
+        internal PongRecords Records { get; }
+
+        internal int BallSwitchesRound;
+        internal int BallSwitchesGame;
+
         public Pong()
         {
             Pongform = new PongForm(this);
+            if (Retrotable.Databasemode)
+                Records = Database.Records.RecordsLoad();
+            else
+                Records = new PongRecords();
         }
 
+        //Wenn Pong geöffnet wird
         internal void Show()
         {
             ClearPoints();
             ResetRound();
             Pongform.Show();
+            Pongform.UpdateRecordDisplay();
         }
 
+        //Immer wenn Pong über ESC geschlossen wird
         internal void Hide()
         {
             Pongform.Hide();
         }
 
+        // Jedes mal wenn Leertaste oder Start gedrückt wird
         internal void Start()
         {
             if (Started) return;
 
+            BallSwitchesRound = 0;
             Ball.Start();
             Started = true;
 
             Pongform.timerMain.Start();
             Pongform.timerBall.Start();
+
+            Pongform.UpdateRecordDisplay();
+
             if (TimeLeft <= 0)
             {
                 ClearPoints();
@@ -63,6 +81,7 @@ namespace RetroTable.Pong
         {
             Player1.ScorePoints = 0;
             Player2.ScorePoints = 0;
+            BallSwitchesGame = 0;
             TimeLeft = UserManager.Player1.TimeLimit * 60;
             Pongform.UpdateTime();
             Pongform.lblWinner.Visible = false;

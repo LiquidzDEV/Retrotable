@@ -23,8 +23,8 @@ namespace RetroTable.Pong.Components
         private static float _speedLevel = 2f;
 
         private readonly PictureBox _pBall;
-        private float _speedX;
-        private float _speedY;
+        internal float Speed { get; private set; }
+        internal float Angle { get; private set; }
 
         private int _lastPlayerHit;
 
@@ -40,9 +40,9 @@ namespace RetroTable.Pong.Components
             //Creates an instance of a generator for random numbers
             var random = new Random();
             //Sets the y-speed of the ball randomly between -4 and 4
-            _speedY = random.Next(-4, 4);
+            Angle = random.Next(-4, 4);
             //Sets the x-speed on positive defaultspeed if random is lower than 5 and negative defaultspeed if random is greater or equal than 5
-            _speedX = random.Next(10) < 5 ? DefaultSpeed : -DefaultSpeed;
+            Speed = random.Next(10) < 5 ? DefaultSpeed : -DefaultSpeed;
         }
 
         /// <summary> Detects and sets the new movement for the ball. </summary>
@@ -51,12 +51,12 @@ namespace RetroTable.Pong.Components
             int bottom = World.Bottom - _pBall.Size.Height;
 
             //Move the ball left and right, if he hits up/down border don´t move him vertical
-            _pBall.Location = new Point(_pBall.Location.X + (int)_speedX, Math.Max(World.Upper, Math.Min(bottom, _pBall.Location.Y + (int)_speedY)));
+            _pBall.Location = new Point(_pBall.Location.X + (int)Speed, Math.Max(World.Upper, Math.Min(bottom, _pBall.Location.Y + (int)Angle)));
 
             //If the ball hits up/down border change his vertical direction
             if (_pBall.Location.Y == bottom || _pBall.Location.Y == World.Upper)
             {
-                _speedY *= -1;
+                Angle *= -1;
                 System.Diagnostics.Debug.WriteLine("Ball changes direction!");
             }
 
@@ -65,13 +65,13 @@ namespace RetroTable.Pong.Components
             if (playerHit > 0 && _lastPlayerHit != playerHit)
             {
                 _lastPlayerHit = playerHit;
-                _speedX *= -1;
+                Speed *= -1;
 
                 //Calculating new angle
 
                 var relativeHitPosition = playerHit == 1 ? Main.Player1.GetRelativeHitPosition(Main.Ball) : Main.Player2.GetRelativeHitPosition(Main.Ball);
 
-                _speedY = 24 * relativeHitPosition - 12;
+                Angle = 24 * relativeHitPosition - 12;
 
                 //int random = new Random().Next(1, 12);
                 //_speedY = _speedY < 0 ? -random : random;
@@ -81,7 +81,10 @@ namespace RetroTable.Pong.Components
                 else
                     UserManager.Player2.DefendTimesPong++;
 
-                System.Diagnostics.Debug.WriteLine("Spieler " + playerHit + " wurde vom Ball getroffen! Neuer Flugwinkel: " + _speedY);
+                Main.BallSwitchesRound++;
+                Main.BallSwitchesGame++;
+
+                System.Diagnostics.Debug.WriteLine("Spieler " + playerHit + " wurde vom Ball getroffen! Neuer Flugwinkel: " + Angle);
             }
 
             //If the ball goes behind a player, give the other player a point
@@ -113,10 +116,10 @@ namespace RetroTable.Pong.Components
         /// <summary> Increases the horizontal speed of the ball to the given movement. </summary>
         public void IncreaseSpeed()
         {
-            if (_speedX < MaxSpeed * _speedLevel && _speedX > -MaxSpeed * _speedLevel)
+            if (Speed < MaxSpeed * _speedLevel && Speed > -MaxSpeed * _speedLevel)
             {
-                _speedX = _speedX < 0f ? _speedX - SpeedGain * _speedLevel : _speedX + SpeedGain * _speedLevel;
-                System.Diagnostics.Debug.WriteLine("BallSpeed erhöht auf " + _speedX);
+                Speed = Speed < 0f ? Speed - SpeedGain * _speedLevel : Speed + SpeedGain * _speedLevel;
+                System.Diagnostics.Debug.WriteLine("BallSpeed erhöht auf " + Speed);
             }
         }
 
