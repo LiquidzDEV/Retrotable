@@ -10,6 +10,7 @@ namespace RetroTable.MySql
         private static MySqlConnectionStringBuilder connection;
 
         internal static TableUser User;
+        internal static TableRecords Records;
 
         internal static void Init()
         {
@@ -24,6 +25,7 @@ namespace RetroTable.MySql
             connection.Database = "pong";
 
             User = connection.Connection().AsParallel<TableUser>();
+            Records = connection.Connection().AsParallel<TableRecords>();
         }
     }
 }

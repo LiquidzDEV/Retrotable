@@ -77,7 +77,16 @@ namespace RetroTable.Pong.Components
                 UserManager.Player1.TakenGoalsPong++;
             }
 
-            Retrotable.Instance.Pong.ResetRound();
+            var pong = Retrotable.Instance.Pong;
+            if (pong.BallSwitchesRound > pong.Records.BallSwitchesRound)
+            {
+                pong.Records.BallSwitchesRound = pong.BallSwitchesRound;
+                pong.Records.BallSwitchesRoundId1 = UserManager.Player1.Id;
+                pong.Records.BallSwitchesRoundId2 = UserManager.Player2.Id;
+                pong.Records.Save();
+            }
+
+            pong.ResetRound();
             System.Diagnostics.Debug.WriteLine("Ein Punkt wurde vergeben.");
         }
 

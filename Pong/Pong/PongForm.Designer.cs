@@ -48,11 +48,18 @@ namespace RetroTable.Pong
             this.ctxtMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsFullscreen = new System.Windows.Forms.ToolStripMenuItem();
             this.tsClose = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsBallSpeed = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsPlayer1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsPlayer2 = new System.Windows.Forms.ToolStripMenuItem();
             this.lblTime = new System.Windows.Forms.Label();
             this.lblWinner = new System.Windows.Forms.Label();
+            this.spieleinstellungenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsPlayer1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsPlayer2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsBallSpeed = new System.Windows.Forms.ToolStripMenuItem();
+            this.rekordeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsBallSwitchGame = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsMostScores = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsMostScoresTotal = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsBallSwitchRound = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblDebug = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pBall)).BeginInit();
             this.ctxtMenu.SuspendLayout();
             this.SuspendLayout();
@@ -151,45 +158,26 @@ namespace RetroTable.Pong
             this.ctxtMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsFullscreen,
             this.tsClose,
-            this.tsBallSpeed,
-            this.tsPlayer1,
-            this.tsPlayer2});
+            this.spieleinstellungenToolStripMenuItem,
+            this.rekordeToolStripMenuItem});
             this.ctxtMenu.Name = "ctxtMenu";
-            this.ctxtMenu.Size = new System.Drawing.Size(207, 114);
+            this.ctxtMenu.Size = new System.Drawing.Size(181, 114);
             // 
             // tsFullscreen
             // 
             this.tsFullscreen.Checked = true;
             this.tsFullscreen.CheckState = System.Windows.Forms.CheckState.Checked;
             this.tsFullscreen.Name = "tsFullscreen";
-            this.tsFullscreen.Size = new System.Drawing.Size(206, 22);
+            this.tsFullscreen.Size = new System.Drawing.Size(180, 22);
             this.tsFullscreen.Text = "Vollbild";
             this.tsFullscreen.Click += new System.EventHandler(this.tsFullscreen_Click);
             // 
             // tsClose
             // 
             this.tsClose.Name = "tsClose";
-            this.tsClose.Size = new System.Drawing.Size(206, 22);
+            this.tsClose.Size = new System.Drawing.Size(180, 22);
             this.tsClose.Text = "Schliessen";
             this.tsClose.Click += new System.EventHandler(this.tsClose_Click);
-            // 
-            // tsBallSpeed
-            // 
-            this.tsBallSpeed.Name = "tsBallSpeed";
-            this.tsBallSpeed.Size = new System.Drawing.Size(206, 22);
-            this.tsBallSpeed.Text = "Ballgeschwindigkeit: 2.00";
-            // 
-            // tsPlayer1
-            // 
-            this.tsPlayer1.Name = "tsPlayer1";
-            this.tsPlayer1.Size = new System.Drawing.Size(206, 22);
-            this.tsPlayer1.Text = "Breite Spieler 1: 150px";
-            // 
-            // tsPlayer2
-            // 
-            this.tsPlayer2.Name = "tsPlayer2";
-            this.tsPlayer2.Size = new System.Drawing.Size(206, 22);
-            this.tsPlayer2.Text = "Breite Spieler 2: 150px";
             // 
             // lblTime
             // 
@@ -221,11 +209,87 @@ namespace RetroTable.Pong
             this.lblWinner.Text = "0";
             this.lblWinner.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // spieleinstellungenToolStripMenuItem
+            // 
+            this.spieleinstellungenToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsPlayer1,
+            this.tsPlayer2,
+            this.tsBallSpeed});
+            this.spieleinstellungenToolStripMenuItem.Name = "spieleinstellungenToolStripMenuItem";
+            this.spieleinstellungenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.spieleinstellungenToolStripMenuItem.Text = "Spieleinstellungen";
+            // 
+            // tsPlayer1
+            // 
+            this.tsPlayer1.Name = "tsPlayer1";
+            this.tsPlayer1.Size = new System.Drawing.Size(187, 22);
+            this.tsPlayer1.Text = "Breite Spieler 1: 150px";
+            // 
+            // tsPlayer2
+            // 
+            this.tsPlayer2.Name = "tsPlayer2";
+            this.tsPlayer2.Size = new System.Drawing.Size(187, 22);
+            this.tsPlayer2.Text = "Breite Spieler 2: 150px";
+            // 
+            // tsBallSpeed
+            // 
+            this.tsBallSpeed.Name = "tsBallSpeed";
+            this.tsBallSpeed.Size = new System.Drawing.Size(187, 22);
+            this.tsBallSpeed.Text = "Ballgeschwindigkeit: ";
+            // 
+            // rekordeToolStripMenuItem
+            // 
+            this.rekordeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsBallSwitchGame,
+            this.tsBallSwitchRound,
+            this.tsMostScores,
+            this.tsMostScoresTotal});
+            this.rekordeToolStripMenuItem.Name = "rekordeToolStripMenuItem";
+            this.rekordeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.rekordeToolStripMenuItem.Text = "Rekorde";
+            // 
+            // tsBallSwitchGame
+            // 
+            this.tsBallSwitchGame.Name = "tsBallSwitchGame";
+            this.tsBallSwitchGame.Size = new System.Drawing.Size(221, 22);
+            this.tsBallSwitchGame.Text = "Meiste Ballwechsel (Spiel): ";
+            // 
+            // tsMostScores
+            // 
+            this.tsMostScores.Name = "tsMostScores";
+            this.tsMostScores.Size = new System.Drawing.Size(221, 22);
+            this.tsMostScores.Text = "Meiste Tore (Spiel):";
+            // 
+            // tsMostScoresTotal
+            // 
+            this.tsMostScoresTotal.Name = "tsMostScoresTotal";
+            this.tsMostScoresTotal.Size = new System.Drawing.Size(221, 22);
+            this.tsMostScoresTotal.Text = "Meiste Tore (Einzeln):";
+            // 
+            // tsBallSwitchRound
+            // 
+            this.tsBallSwitchRound.Name = "tsBallSwitchRound";
+            this.tsBallSwitchRound.Size = new System.Drawing.Size(221, 22);
+            this.tsBallSwitchRound.Text = "Meiste Ballwechsel (Runde):";
+            // 
+            // lblDebug
+            // 
+            this.lblDebug.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblDebug.AutoSize = true;
+            this.lblDebug.ForeColor = System.Drawing.Color.Red;
+            this.lblDebug.Location = new System.Drawing.Point(205, 214);
+            this.lblDebug.Name = "lblDebug";
+            this.lblDebug.Size = new System.Drawing.Size(0, 13);
+            this.lblDebug.TabIndex = 9;
+            // 
             // PongForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(1044, 583);
+            this.Controls.Add(this.lblDebug);
             this.Controls.Add(this.lblWinner);
             this.Controls.Add(this.lblTime);
             this.Controls.Add(this.pnlPlayer1);
@@ -270,12 +334,19 @@ namespace RetroTable.Pong
         private System.Windows.Forms.ContextMenuStrip ctxtMenu;
         private System.Windows.Forms.ToolStripMenuItem tsFullscreen;
         private System.Windows.Forms.ToolStripMenuItem tsClose;
-        private System.Windows.Forms.ToolStripMenuItem tsBallSpeed;
-        private System.Windows.Forms.ToolStripMenuItem tsPlayer1;
-        private System.Windows.Forms.ToolStripMenuItem tsPlayer2;
         internal System.Windows.Forms.Timer timerBall;
         internal System.Windows.Forms.Timer timerMain;
         internal System.Windows.Forms.Label lblWinner;
         internal System.Windows.Forms.Label lblTime;
+        private System.Windows.Forms.ToolStripMenuItem spieleinstellungenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsPlayer1;
+        private System.Windows.Forms.ToolStripMenuItem tsPlayer2;
+        private System.Windows.Forms.ToolStripMenuItem tsBallSpeed;
+        private System.Windows.Forms.ToolStripMenuItem rekordeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsBallSwitchGame;
+        private System.Windows.Forms.ToolStripMenuItem tsBallSwitchRound;
+        private System.Windows.Forms.ToolStripMenuItem tsMostScores;
+        private System.Windows.Forms.ToolStripMenuItem tsMostScoresTotal;
+        private System.Windows.Forms.Label lblDebug;
     }
 }
