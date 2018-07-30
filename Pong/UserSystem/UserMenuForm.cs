@@ -26,7 +26,7 @@ namespace RetroTable.UserSystem
                 lblTakenGoals.Text = "Kassierte Tore: " + User.TakenGoalsPong;
                 lblDefended.Text = "Abgewehrte Bälle: " + User.DefendTimesPong;
                 TimeSpan playTime = new TimeSpan(0, 0, User.PlayTimePong);
-                lblPlayTime.Text = playTime.TotalMinutes + " Minuten " + playTime.Seconds + " Sekunden";
+                lblPlayTime.Text = Math.Floor(playTime.TotalMinutes) + " Minuten " + playTime.Seconds + " Sekunden";
             }
         }
 
