@@ -13,11 +13,11 @@ namespace RetroTable.Pong.Components
         private Pong Main;
 
         /// <summary> Speed of the ball on round start. </summary>
-        private const float DefaultSpeed = 10f;
+        private const float DefaultSpeed = 5f;
         /// <summary> The speed that the ball gains per Event. </summary>
         private const float SpeedGain = 0.3f;
         /// <summary> The maximum horizontal speed of the ball. </summary>
-        private const float MaxSpeed = 35f;
+        private const float MaxSpeed = 80f;
 
         /// <summary> The speed that is configured over the options. </summary>
         private static float _speedLevel = 2f;
@@ -37,12 +37,10 @@ namespace RetroTable.Pong.Components
         /// <summary> Starts the movement of the ball. </summary>
         public void Start()
         {
-            //Creates an instance of a generator for random numbers
-            var random = new Random();
-            //Sets the y-speed of the ball randomly between -4 and 4
-            Angle = random.Next(-4, 4);
+            //Sets the y-speed of the ball randomly between -6 and 6
+            Angle = 0; //TODO Retrotable.Random.Next(-6, 6);
             //Sets the x-speed on positive defaultspeed if random is lower than 5 and negative defaultspeed if random is greater or equal than 5
-            Speed = random.Next(10) < 5 ? DefaultSpeed : -DefaultSpeed;
+            Speed = Retrotable.Random.Next(10) < 5 ? DefaultSpeed : -DefaultSpeed;
         }
 
         /// <summary> Detects and sets the new movement for the ball. </summary>
@@ -61,43 +59,72 @@ namespace RetroTable.Pong.Components
             }
 
             //If the ball hits a player change his horizontal direction and calculate a new angle
-            int playerHit = IsBallHittingPlayer();
-            if (playerHit > 0 && _lastPlayerHit != playerHit)
-            {
-                _lastPlayerHit = playerHit;
-                Speed *= -1;
+            Reverse(IsBallHittingPlayer());
 
-                //Calculating new angle
-
-                var relativeHitPosition = playerHit == 1 ? Main.Player1.GetRelativeHitPosition(Main.Ball) : Main.Player2.GetRelativeHitPosition(Main.Ball);
-
-                Angle = 24 * relativeHitPosition - 12;
-
-                //int random = new Random().Next(1, 12);
-                //_speedY = _speedY < 0 ? -random : random;
-
-                if (playerHit == 1)
-                    UserManager.Player1.DefendTimesPong++;
-                else
-                    UserManager.Player2.DefendTimesPong++;
-
-                Main.BallSwitchesRound++;
-                Main.BallSwitchesGame++;
-
-                System.Diagnostics.Debug.WriteLine("Spieler " + playerHit + " wurde vom Ball getroffen! Neuer Flugwinkel: " + Angle);
-            }
 
             //If the ball goes behind a player, give the other player a point
-            if (_pBall.Location.X >= World.Right - _pBall.Size.Width)
+            if (_pBall.Location.X >= World.Right - _pBall.Size.Width - 36)
             {
+                if (Main.Player2.GetRelativeHitPosition(Main.Ball) != -1)
+                {
+                    //Ball ist durch den Spieler durch geflogen
+                    Reverse(2);
+                    return;
+                }
+
                 ArduinoHelper.StartBlinking(true);
                 Main.Player1.Score();
             }
-            else if (_pBall.Location.X <= 0)
+            else if (_pBall.Location.X <= 36)
             {
+                if (Main.Player1.GetRelativeHitPosition(Main.Ball) != -1)
+                {
+                    //Ball ist durch den Spieler durch geflogen
+                    Reverse(1);
+                    return;
+                }
+
                 ArduinoHelper.StartBlinking(false);
                 Main.Player2.Score();
             }
+        }
+
+        private void Reverse(int player)
+        {
+            if (player == 0) return;
+            if (_lastPlayerHit == player) return;
+
+            //save the last player that was hit, to pevent this code from executing twice
+            _lastPlayerHit = player;
+
+            //reverse the velocity from the ball
+            Speed *= -1;
+
+            //Calculating new angle
+
+            var relativeHitPosition = player == 1 ? Main.Player1.GetRelativeHitPosition(Main.Ball) : Main.Player2.GetRelativeHitPosition(Main.Ball);
+            Angle = (float)Math.Ceiling(24 * relativeHitPosition - 12);
+
+#if !DEBUG
+            if (Angle == 0f)
+                Angle = new Random().Next(100) < 50 ? -1 : 1;
+#endif
+
+            //old calculation (Small Project)
+            //int random = new Random().Next(1, 12);
+            //Angle = Angle < 0 ? -random : random;
+
+            //incrementing statistics
+            if (player == 1)
+                UserManager.Player1.DefendTimesPong++;
+            else
+                UserManager.Player2.DefendTimesPong++;
+
+            Main.BallSwitchesRound++;
+            Main.BallSwitchesGame++;
+
+            //Debug Message
+            System.Diagnostics.Debug.WriteLine("Spieler " + player + " wurde vom Ball getroffen! Neuer Flugwinkel: " + Angle);
         }
 
         /// <summary>
@@ -113,14 +140,20 @@ namespace RetroTable.Pong.Components
             return 0;
         }
 
-        /// <summary> Increases the horizontal speed of the ball to the given movement. </summary>
+        /// <summary> Increases the horizontal speed of the ball to the given movement.
+        /// If the Speed is already MaxSpeed do nothing, if the Speed is greater than MaxSpeed set it to MaxSpeed</summary>
         public void IncreaseSpeed()
         {
-            if (Speed < MaxSpeed * _speedLevel && Speed > -MaxSpeed * _speedLevel)
+            if (Math.Abs(Speed) == MaxSpeed) return;
+
+            if (Math.Abs(Speed) > MaxSpeed)
             {
-                Speed = Speed < 0f ? Speed - SpeedGain * _speedLevel : Speed + SpeedGain * _speedLevel;
-                System.Diagnostics.Debug.WriteLine("BallSpeed erhöht auf " + Speed);
+                Speed = Speed < 0f ? -MaxSpeed : MaxSpeed;
+                return;
             }
+
+            Speed = Speed < 0f ? Speed - SpeedGain * _speedLevel : Speed + SpeedGain * _speedLevel;
+            System.Diagnostics.Debug.WriteLine("BallSpeed erhöht auf " + Speed);
         }
 
         /// <summary> Sets the Speedlevel of the ball. </summary>
