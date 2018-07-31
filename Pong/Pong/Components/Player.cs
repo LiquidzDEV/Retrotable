@@ -118,6 +118,7 @@ namespace RetroTable.Pong.Components
         public float GetRelativeHitPosition(Ball ball)
         {
             var bounds = ball.GetBounds();
+            bounds.X = Player1 ? _pnl.Bounds.Right - 1 : _pnl.Bounds.Left + 1;
             if (_pnl.Bounds.IntersectsWith(bounds))
             {
                 var hitPosition = (bounds.Y + bounds.Height / 2f) - _pnl.Bounds.Y;
