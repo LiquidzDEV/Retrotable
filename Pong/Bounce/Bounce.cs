@@ -18,8 +18,7 @@ namespace RetroTable.Bounce
         {
             BounceForm = new BounceForm(this);
 
-            Player = new Player(1);
-            BounceForm.Controls.Add(Player);
+            Player.Create(BounceForm, 1);
 
             Ball = new Ball();
             BounceForm.Controls.Add(Ball);

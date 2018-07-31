@@ -10,10 +10,12 @@ namespace RetroTable.Bounce
 
         private int Index { get; }
 
+        internal int Score { get; private set; }
+
         private bool MoveUp;
         private bool MoveDown;
 
-        public Player(int index)
+        private Player(int index)
         {
             Index = index;
 
@@ -24,6 +26,13 @@ namespace RetroTable.Bounce
             Size = new System.Drawing.Size(20, 154);
 
             Retrotable.onValueChanged += Retrotable_onValueChanged;
+        }
+
+        public static Player Create(Form parent, int index)
+        {
+            var player = new Player(index);
+            parent.Controls.Add(player);
+            return player;
         }
 
         private void Retrotable_onValueChanged(Board.PinMapping button, int newValue)
