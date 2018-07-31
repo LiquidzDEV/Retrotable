@@ -126,13 +126,18 @@ namespace RetroTable.Pong
 
         #region Ball
 
+#if DEBUG
+        private DateTime TickTime = DateTime.Now;
+#endif
         private void timerBall_Tick(object sender, EventArgs e)
         {
             if (Main.Started)
                 Main.Ball.Move();
 
 #if DEBUG
-            lblDebug.Text = "Ballspeed: " + Main.Ball.Speed + "\nAngle: " + Main.Ball.Angle;
+            var newTime = DateTime.Now;
+            lblDebug.Text = "Ballspeed: " + Main.Ball.Speed + "\nAngle: " + Main.Ball.Angle + "\nTick: " + (newTime - TickTime).TotalMilliseconds;
+            TickTime = newTime;
 #endif
         }
 
