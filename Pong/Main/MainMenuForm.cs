@@ -121,6 +121,17 @@ namespace RetroTable.Main
             Retrotable.Instance.Pong.Show();
         }
 
+        private void btnBounce_Click(object sender, EventArgs e)
+        {
+            if (UserManager.Player1 == null)
+            {
+                SetInfoLabel("Es muss ein Spieler ausgewählt sein, damit Prellball gestartet werden kann");
+                return;
+            }
+
+            Retrotable.Instance.Bounce.Show();
+        }
+
         private Timer timer;
         private void SetInfoLabel(string text)
         {
