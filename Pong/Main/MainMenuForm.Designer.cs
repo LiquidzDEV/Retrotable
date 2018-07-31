@@ -34,6 +34,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pnlUser = new System.Windows.Forms.Panel();
             this.lblInfo = new System.Windows.Forms.Label();
+            this.btnBounce = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.pnlUser.SuspendLayout();
             this.SuspendLayout();
@@ -54,7 +55,7 @@
             // btnPong
             // 
             this.btnPong.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPong.Location = new System.Drawing.Point(325, 189);
+            this.btnPong.Location = new System.Drawing.Point(263, 187);
             this.btnPong.Name = "btnPong";
             this.btnPong.Size = new System.Drawing.Size(125, 125);
             this.btnPong.TabIndex = 3;
@@ -92,12 +93,24 @@
             this.lblInfo.TabIndex = 7;
             this.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // btnBounce
+            // 
+            this.btnBounce.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBounce.Location = new System.Drawing.Point(413, 187);
+            this.btnBounce.Name = "btnBounce";
+            this.btnBounce.Size = new System.Drawing.Size(125, 125);
+            this.btnBounce.TabIndex = 8;
+            this.btnBounce.Text = "Prellball";
+            this.btnBounce.UseVisualStyleBackColor = true;
+            this.btnBounce.Click += new System.EventHandler(this.btnBounce_Click);
+            // 
             // MainMenuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(800, 522);
+            this.Controls.Add(this.btnBounce);
             this.Controls.Add(this.lblInfo);
             this.Controls.Add(this.pnlUser);
             this.Controls.Add(this.btnPong);
@@ -118,5 +131,6 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Panel pnlUser;
         private System.Windows.Forms.Label lblInfo;
+        private System.Windows.Forms.Button btnBounce;
     }
 }

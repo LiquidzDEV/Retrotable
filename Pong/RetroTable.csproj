@@ -78,7 +78,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bounce\Ball.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Bounce\Ball.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Ball.resx</DependentUpon>
+    </Compile>
     <Compile Include="Bounce\Bounce.cs" />
+    <Compile Include="Bounce\BounceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Bounce\BounceForm.Designer.cs">
+      <DependentUpon>BounceForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Bounce\Player.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="MySql\Tables\TableRecords.cs" />
     <Compile Include="Pong\Pong.cs" />
     <Compile Include="Pong\PongRecords.cs" />
@@ -135,6 +152,17 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Bounce\Ball.resx">
+      <DependentUpon>Ball.cs</DependentUpon>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Ball.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Bounce\BounceForm.resx">
+      <DependentUpon>BounceForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Bounce\Player.resx">
+      <DependentUpon>Player.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -149,6 +177,8 @@
       <DependentUpon>UserMenuForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\ballBlack.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

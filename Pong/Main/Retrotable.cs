@@ -60,6 +60,9 @@ namespace RetroTable.Main
         /// <summary> Field that is holding the instance of the Game <see cref="Pong"/>. </summary>
         internal Pong.Pong Pong { get; private set; }
 
+        internal Bounce.Bounce Bounce { get; private set; }
+
+        internal static Random Random { get; } = new Random();
 
         /// <summary> True, if the Singleton Class is initialized. </summary>
         private bool _initialized;
@@ -100,7 +103,7 @@ namespace RetroTable.Main
             MainMenuform = new MainMenuForm(); //Instantiating MainMenu
 
             Pong = new Pong.Pong(); //Instantiating the Game Pong
-
+            Bounce = new Bounce.Bounce();
 
             if (ArduinoMode)
             {

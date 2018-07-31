@@ -27,10 +27,7 @@ namespace RetroTable.UserSystem
             if (Retrotable.Databasemode)
                 throw new Exception("Im Datenbankmodus können keine Instanzen von User selber erstellt werden!");
 
-            var random = new Random();
-            random.Next(1, 100000);
-
-            Id = random.Next(1, 100000);
+            Id = Retrotable.Random.Next(1, 100000);
             Name = name;
             BallSpeed = 2f;
             PanelSize = 150;
