@@ -93,8 +93,15 @@
     <Compile Include="Bounce\BounceForm.Designer.cs">
       <DependentUpon>BounceForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Bounce\BounceHighscore.cs" />
     <Compile Include="Bounce\Player.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Main\RotatingLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Main\RotatingLabel.Designer.cs">
+      <DependentUpon>RotatingLabel.cs</DependentUpon>
     </Compile>
     <Compile Include="MySql\Tables\TableRecords.cs" />
     <Compile Include="Pong\Pong.cs" />

@@ -60,6 +60,7 @@ namespace RetroTable.Pong
             Ball.Start();
             Started = true;
 
+            Pongform.lblWinner.Text = "";
             Pongform.timerMain.Start();
             Pongform.timerBall.Start();
 
@@ -83,8 +84,7 @@ namespace RetroTable.Pong
             Player2.ScorePoints = 0;
             BallSwitchesGame = 0;
             TimeLeft = UserManager.Player1.TimeLimit * 60;
-            Pongform.UpdateTime();
-            Pongform.lblWinner.Visible = false;
+            Pongform.UpdateTime();        
         }
 
         internal void ResetRound()

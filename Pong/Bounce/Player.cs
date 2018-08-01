@@ -1,4 +1,5 @@
 ﻿using RetroTable.Main;
+using RetroTable.UserSystem;
 using System;
 using System.Windows.Forms;
 
@@ -6,7 +7,7 @@ namespace RetroTable.Bounce
 {
     public class Player : Panel
     {
-        private const int MoveTempo = 10;
+        private const int MoveTempo = 20;
 
         private int Index { get; }
 
@@ -15,7 +16,7 @@ namespace RetroTable.Bounce
         private bool MoveUp;
         private bool MoveDown;
 
-        private Player(int index)
+        internal Player(Form parent, int index)
         {
             Index = index;
 
@@ -26,13 +27,8 @@ namespace RetroTable.Bounce
             Size = new System.Drawing.Size(20, 154);
 
             Retrotable.onValueChanged += Retrotable_onValueChanged;
-        }
 
-        public static Player Create(Form parent, int index)
-        {
-            var player = new Player(index);
-            parent.Controls.Add(player);
-            return player;
+            parent.Controls.Add(this);
         }
 
         private void Retrotable_onValueChanged(Board.PinMapping button, int newValue)
@@ -46,6 +42,13 @@ namespace RetroTable.Bounce
                 MoveUp = keyDown;
             else
                 MoveDown = keyDown;
+        }
+
+        internal void SetScore(int score)
+        {
+            Score = score;
+            var lblScore = Parent.Controls.Find("lblScore", true);
+            lblScore[0].Text = UserManager.Player1.Name + ": " + Score;
         }
 
         internal new void Move()

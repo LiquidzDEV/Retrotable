@@ -258,19 +258,17 @@ namespace RetroTable.Pong
             // 
             // lblWinner
             // 
-            this.lblWinner.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblWinner.AutoSize = true;
+            this.lblWinner.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblWinner.BackColor = System.Drawing.Color.Transparent;
             this.lblWinner.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblWinner.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblWinner.Location = new System.Drawing.Point(501, 159);
+            this.lblWinner.Location = new System.Drawing.Point(262, 159);
             this.lblWinner.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblWinner.Name = "lblWinner";
-            this.lblWinner.Size = new System.Drawing.Size(43, 46);
+            this.lblWinner.Size = new System.Drawing.Size(524, 209);
             this.lblWinner.TabIndex = 8;
             this.lblWinner.Text = "0";
-            this.lblWinner.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblWinner.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // lblDebug
             // 
@@ -289,15 +287,15 @@ namespace RetroTable.Pong
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(1044, 583);
-            this.Controls.Add(this.lblDebug);
-            this.Controls.Add(this.lblWinner);
-            this.Controls.Add(this.lblTime);
-            this.Controls.Add(this.pnlPlayer1);
             this.Controls.Add(this.pnlPlayer2);
+            this.Controls.Add(this.pnlPlayer1);
+            this.Controls.Add(this.lblDebug);
             this.Controls.Add(this.pBall);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.lblPlayer2);
             this.Controls.Add(this.lblPlayer1);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblTime);
+            this.Controls.Add(this.lblWinner);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
