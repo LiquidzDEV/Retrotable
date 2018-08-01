@@ -198,7 +198,7 @@ namespace RetroTable.Pong
                     Main.Records.MostScoresInGameId2 = UserManager.Player2.Id;
                 }
 
-                lblWinner.Visible = true;
+                //lblWinner.Visible = true;
                 Main.ResetRound();
             }
         }
@@ -260,6 +260,7 @@ namespace RetroTable.Pong
                 Main.Player1.SetPanelHeight(UserManager.Player1.PanelSize);
                 Main.Player2.SetPanelHeight(UserManager.Player2.PanelSize);
                 Ball.SetSpeedLevel(UserManager.Player1.BallSpeed);
+                lblWinner.Text = Retrotable.ArduinoMode ? "Drücken zum Starten" : "Leertaste zum Starten";
                 tsBallSpeed.Text = "Ballgeschwindigkeit: " + UserManager.Player1.BallSpeed;
                 tsPlayer1.Text = "Balkengröße Spieler1: " + UserManager.Player1.PanelSize + "px";
                 tsPlayer2.Text = "Balkengröße Spieler2: " + UserManager.Player2.PanelSize + "px";
