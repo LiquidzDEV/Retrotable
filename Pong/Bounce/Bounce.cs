@@ -1,14 +1,15 @@
-﻿using RetroTable.UserSystem;
+﻿using RetroTable.Main;
+using RetroTable.MySql;
+using RetroTable.UserSystem;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RetroTable.Bounce
 {
     public class Bounce
     {
+        internal List<BounceHighscore> Ranking = new List<BounceHighscore>();
+
         internal List<Ball> Balls { get; }
 
         internal Player Player { get; }
@@ -21,6 +22,9 @@ namespace RetroTable.Bounce
 
         public Bounce()
         {
+            if (Retrotable.Databasemode)
+                Ranking = Database.Rankings.RankingsLoad();
+
             Balls = new List<Ball>();
             BounceForm = new BounceForm(this);
             Player = new Player(BounceForm, 1);
@@ -44,11 +48,12 @@ namespace RetroTable.Bounce
 
             Player.SetScore(0);
             TimePassed = 0;
+
             Balls.Add(new Ball(BounceForm));
             BounceForm.timerMain.Start();
             BounceForm.timerBalls.Start();
             BounceForm.timerAddBall.Start();
-
+            BounceForm.HideRanking();
             Started = true;
         }
 
@@ -68,7 +73,20 @@ namespace RetroTable.Bounce
         internal void Finish()
         {
             Reset();
-            //Database
+            if (Retrotable.Databasemode)
+                BounceHighscore.Create(UserManager.Player1, Player.Score, TimePassed);
+            else
+            {
+                Ranking.Add(new BounceHighscore
+                {
+                    Score = Player.Score,
+                    Duration = TimePassed,
+                    UserId = UserManager.Player1.Id,
+                    PanelSize = UserManager.Player1.PanelSize,
+                    BallSpeed = UserManager.Player1.BallSpeed
+                });
+            }
+            BounceForm.ShowRanking();
         }
     }
 }

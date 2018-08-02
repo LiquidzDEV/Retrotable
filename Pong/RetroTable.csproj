@@ -103,6 +103,7 @@
     <Compile Include="Main\RotatingLabel.Designer.cs">
       <DependentUpon>RotatingLabel.cs</DependentUpon>
     </Compile>
+    <Compile Include="MySql\Tables\TableRankings.cs" />
     <Compile Include="MySql\Tables\TableRecords.cs" />
     <Compile Include="Pong\Pong.cs" />
     <Compile Include="Pong\PongRecords.cs" />

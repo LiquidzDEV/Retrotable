@@ -48,7 +48,15 @@ namespace RetroTable.Bounce
         {
             Score = score;
             var lblScore = Parent.Controls.Find("lblScore", true);
-            lblScore[0].Text = UserManager.Player1.Name + ": " + Score;
+            if (lblScore[0] is RotatingLabel rotLabel)
+            {
+                rotLabel.NewText = UserManager.Player1.Name + ": " + Score;
+            }
+            else
+            {
+                lblScore[0].Text = UserManager.Player1.Name + ": " + Score;
+            }
+
         }
 
         internal new void Move()

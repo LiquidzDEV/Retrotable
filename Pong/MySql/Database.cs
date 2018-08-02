@@ -11,6 +11,7 @@ namespace RetroTable.MySql
 
         internal static TableUser User;
         internal static TableRecords Records;
+        internal static TableRankings Rankings;
 
         internal static void Init()
         {
@@ -26,6 +27,7 @@ namespace RetroTable.MySql
 
             User = connection.Connection().AsParallel<TableUser>();
             Records = connection.Connection().AsParallel<TableRecords>();
+            Rankings = connection.Connection().AsParallel<TableRankings>();
         }
     }
 }
