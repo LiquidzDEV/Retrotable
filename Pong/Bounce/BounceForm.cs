@@ -1,7 +1,9 @@
 ﻿using RetroTable.Main;
 using System;
+using System.Linq;
 using System.Drawing;
 using System.Windows.Forms;
+using RetroTable.UserSystem;
 
 namespace RetroTable.Bounce
 {
@@ -60,6 +62,40 @@ namespace RetroTable.Bounce
             }
         }
 
+        internal void ShowRanking()
+        {
+            var rankings = Main.Ranking.OrderByDescending(x => x.Score).ToList();
+
+            lblRanking.Text = "";
+
+            for (int i = 0; i < rankings.Count; i++)
+            {
+                var ranking = rankings[i];
+                if (i == 0)
+                {
+                    lblFirst.Text = ranking.UserId + ": " + ranking.Score;
+                }
+                else if (i == 1)
+                {
+                    lblSecond.Text = ranking.UserId + ": " + ranking.Score;
+                }
+                else if (i == 2)
+                {
+                    lblThird.Text = ranking.UserId + ": " + ranking.Score;
+                }
+                else
+                {
+                    lblRanking.Text += ranking.UserId + ": " + ranking.Score + "\n";
+                }
+            }
+            pnlRanking.Visible = true;
+        }
+
+        internal void HideRanking()
+        {
+            pnlRanking.Visible = false;
+        }
+
         private void timerPaddle_Tick(object sender, EventArgs e)
         {
             Main.Player.Move();
@@ -70,7 +106,7 @@ namespace RetroTable.Bounce
         {
             Main.TimePassed++;
             var time = new TimeSpan(0, 0, Main.TimePassed);
-            lblTime.Text = (int)time.TotalMinutes + "Minuten " + time.Seconds + " Sekunden";
+            lblTime.NewText = (int)time.TotalMinutes + " Minuten " + time.Seconds + " Sekunden";
 
             foreach (var ball in Main.Balls)
             {
