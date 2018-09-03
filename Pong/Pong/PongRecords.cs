@@ -1,4 +1,5 @@
-﻿using RetroTable.MySql;
+﻿using RetroTable.Main;
+using RetroTable.MySql;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,8 @@ namespace RetroTable.Pong
 
         internal void Save()
         {
-            Database.Records.RecordsSave(this);
+            if (Retrotable.Databasemode)
+                Database.Records.RecordsSave(this);
         }
     }
 }
