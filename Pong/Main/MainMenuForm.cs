@@ -50,10 +50,10 @@ namespace RetroTable.Main
                 var userButton = new Button();
                 userButton.FlatStyle = FlatStyle.Flat;
                 userButton.Font = new Font("Microsoft Sans Serif", 20F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
-                userButton.Location = new Point(10 + (135 * i), 10);
+                userButton.Location = new Point(10 + 135 * (i + 1), 10);
                 userButton.Name = "btnUser" + user.Id;
                 userButton.Size = new Size(125, 125);
-                userButton.TabIndex = i;
+                userButton.TabIndex = 4 + i;
                 userButton.Text = user.Name;
                 userButton.UseVisualStyleBackColor = true;
                 userButton.MouseUp += new MouseEventHandler(btnUser_Click);
@@ -71,7 +71,7 @@ namespace RetroTable.Main
                 UserButtons.Add(userButton);
             }
 
-            btnAddUser.Location = new Point(10 + Users.Count * 135, 10);
+            btnAddUser.Location = new Point(10, 10);
         }
 
 

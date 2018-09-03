@@ -47,7 +47,7 @@
             this.btnAddUser.Location = new System.Drawing.Point(10, 10);
             this.btnAddUser.Name = "btnAddUser";
             this.btnAddUser.Size = new System.Drawing.Size(125, 125);
-            this.btnAddUser.TabIndex = 2;
+            this.btnAddUser.TabIndex = 3;
             this.btnAddUser.Text = "+";
             this.btnAddUser.UseVisualStyleBackColor = false;
             this.btnAddUser.Click += new System.EventHandler(this.btnAddUser_Click);
@@ -58,7 +58,7 @@
             this.btnPong.Location = new System.Drawing.Point(263, 187);
             this.btnPong.Name = "btnPong";
             this.btnPong.Size = new System.Drawing.Size(125, 125);
-            this.btnPong.TabIndex = 3;
+            this.btnPong.TabIndex = 1;
             this.btnPong.Text = "Pong";
             this.btnPong.UseVisualStyleBackColor = true;
             this.btnPong.Click += new System.EventHandler(this.btnPong_Click);
@@ -99,7 +99,7 @@
             this.btnBounce.Location = new System.Drawing.Point(413, 187);
             this.btnBounce.Name = "btnBounce";
             this.btnBounce.Size = new System.Drawing.Size(125, 125);
-            this.btnBounce.TabIndex = 8;
+            this.btnBounce.TabIndex = 2;
             this.btnBounce.Text = "Prellball";
             this.btnBounce.UseVisualStyleBackColor = true;
             this.btnBounce.Click += new System.EventHandler(this.btnBounce_Click);
