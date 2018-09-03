@@ -73,20 +73,22 @@ namespace RetroTable.Bounce
         internal void Finish()
         {
             Reset();
+            BounceHighscore ranking = null;
             if (Retrotable.Databasemode)
-                BounceHighscore.Create(UserManager.Player1, Player.Score, TimePassed);
+                ranking = BounceHighscore.Create(UserManager.Player1, Player.Score, TimePassed);
             else
             {
-                Ranking.Add(new BounceHighscore
+                ranking = new BounceHighscore
                 {
                     Score = Player.Score,
                     Duration = TimePassed,
                     UserId = UserManager.Player1.Id,
                     PanelSize = UserManager.Player1.PanelSize,
                     BallSpeed = UserManager.Player1.BallSpeed
-                });
+                };
+                Ranking.Add(ranking);
             }
-            BounceForm.ShowRanking();
+            BounceForm.ShowRanking(ranking);
         }
     }
 }

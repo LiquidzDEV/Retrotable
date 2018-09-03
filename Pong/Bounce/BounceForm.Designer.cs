@@ -38,11 +38,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lblRanking = new System.Windows.Forms.Label();
             this.pnlRanking = new System.Windows.Forms.Panel();
-            this.lblFirst = new System.Windows.Forms.Label();
-            this.lblSecond = new System.Windows.Forms.Label();
             this.lblThird = new System.Windows.Forms.Label();
+            this.lblSecond = new System.Windows.Forms.Label();
+            this.lblFirst = new System.Windows.Forms.Label();
             this.lblTime = new RetroTable.Main.RotatingLabel();
             this.lblScore = new RetroTable.Main.RotatingLabel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.lblOwnRecord = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.pnlRanking.SuspendLayout();
             this.SuspendLayout();
@@ -97,9 +99,9 @@
             this.label1.Font = new System.Drawing.Font("Arial", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(19, 12);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(197, 26);
+            this.label1.Size = new System.Drawing.Size(132, 26);
             this.label1.TabIndex = 6;
-            this.label1.Text = "Deine Platzierung:";
+            this.label1.Text = "Bestenliste:";
             // 
             // lblRanking
             // 
@@ -114,6 +116,8 @@
             // pnlRanking
             // 
             this.pnlRanking.BackColor = System.Drawing.Color.RosyBrown;
+            this.pnlRanking.Controls.Add(this.lblOwnRecord);
+            this.pnlRanking.Controls.Add(this.label2);
             this.pnlRanking.Controls.Add(this.lblThird);
             this.pnlRanking.Controls.Add(this.lblSecond);
             this.pnlRanking.Controls.Add(this.lblFirst);
@@ -125,16 +129,16 @@
             this.pnlRanking.TabIndex = 8;
             this.pnlRanking.Visible = false;
             // 
-            // lblFirst
+            // lblThird
             // 
-            this.lblFirst.AutoSize = true;
-            this.lblFirst.Font = new System.Drawing.Font("Arial", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFirst.ForeColor = System.Drawing.Color.Yellow;
-            this.lblFirst.Location = new System.Drawing.Point(21, 58);
-            this.lblFirst.Name = "lblFirst";
-            this.lblFirst.Size = new System.Drawing.Size(102, 18);
-            this.lblFirst.TabIndex = 9;
-            this.lblFirst.Text = "1. Pascal: 400";
+            this.lblThird.AutoSize = true;
+            this.lblThird.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblThird.ForeColor = System.Drawing.Color.SandyBrown;
+            this.lblThird.Location = new System.Drawing.Point(21, 97);
+            this.lblThird.Name = "lblThird";
+            this.lblThird.Size = new System.Drawing.Size(103, 16);
+            this.lblThird.TabIndex = 11;
+            this.lblThird.Text = "3. Herbert: 250";
             // 
             // lblSecond
             // 
@@ -147,16 +151,16 @@
             this.lblSecond.TabIndex = 10;
             this.lblSecond.Text = "2. Test: 300";
             // 
-            // lblThird
+            // lblFirst
             // 
-            this.lblThird.AutoSize = true;
-            this.lblThird.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblThird.ForeColor = System.Drawing.Color.SandyBrown;
-            this.lblThird.Location = new System.Drawing.Point(21, 97);
-            this.lblThird.Name = "lblThird";
-            this.lblThird.Size = new System.Drawing.Size(103, 16);
-            this.lblThird.TabIndex = 11;
-            this.lblThird.Text = "3. Herbert: 250";
+            this.lblFirst.AutoSize = true;
+            this.lblFirst.Font = new System.Drawing.Font("Arial", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFirst.ForeColor = System.Drawing.Color.Yellow;
+            this.lblFirst.Location = new System.Drawing.Point(21, 58);
+            this.lblFirst.Name = "lblFirst";
+            this.lblFirst.Size = new System.Drawing.Size(102, 18);
+            this.lblFirst.TabIndex = 9;
+            this.lblFirst.Text = "1. Pascal: 400";
             // 
             // lblTime
             // 
@@ -179,6 +183,26 @@
             this.lblScore.RotateAngle = 90;
             this.lblScore.Size = new System.Drawing.Size(21, 101);
             this.lblScore.TabIndex = 4;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(21, 405);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(106, 14);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "Deine Platzierung:";
+            // 
+            // lblOwnRecord
+            // 
+            this.lblOwnRecord.AutoSize = true;
+            this.lblOwnRecord.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblOwnRecord.Location = new System.Drawing.Point(21, 419);
+            this.lblOwnRecord.Name = "lblOwnRecord";
+            this.lblOwnRecord.Size = new System.Drawing.Size(81, 14);
+            this.lblOwnRecord.TabIndex = 13;
+            this.lblOwnRecord.Text = "12. Pascal: 500";
             // 
             // BounceForm
             // 
@@ -226,5 +250,7 @@
         private System.Windows.Forms.Label lblThird;
         private System.Windows.Forms.Label lblSecond;
         private System.Windows.Forms.Label lblFirst;
+        private System.Windows.Forms.Label lblOwnRecord;
+        private System.Windows.Forms.Label label2;
     }
 }
