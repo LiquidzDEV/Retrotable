@@ -97,12 +97,14 @@
     <Compile Include="Bounce\Player.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Main\LiveGameData.cs" />
     <Compile Include="Main\RotatingLabel.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Main\RotatingLabel.Designer.cs">
       <DependentUpon>RotatingLabel.cs</DependentUpon>
     </Compile>
+    <Compile Include="MySql\Tables\TableGame.cs" />
     <Compile Include="MySql\Tables\TableRankings.cs" />
     <Compile Include="MySql\Tables\TableRecords.cs" />
     <Compile Include="Pong\Pong.cs" />
@@ -141,6 +143,18 @@
     <Compile Include="MySql\Database.cs" />
     <Compile Include="Main\Retrotable.cs" />
     <Compile Include="Main\Program.cs" />
+    <Compile Include="Test\LiveGameDataTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Test\LiveGameDataTest.Designer.cs">
+      <DependentUpon>LiveGameDataTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Test\PongRecordsDataTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Test\PongRecordsDataTest.Designer.cs">
+      <DependentUpon>PongRecordsDataTest.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserSystem\User.cs" />
     <Compile Include="UserSystem\UserManager.cs" />
     <Compile Include="UserSystem\UserMenuForm.cs">
@@ -180,6 +194,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pong\PongForm.resx">
       <DependentUpon>PongForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Test\LiveGameDataTest.resx">
+      <DependentUpon>LiveGameDataTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Test\PongRecordsDataTest.resx">
+      <DependentUpon>PongRecordsDataTest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserSystem\UserMenuForm.resx">
       <DependentUpon>UserMenuForm.cs</DependentUpon>

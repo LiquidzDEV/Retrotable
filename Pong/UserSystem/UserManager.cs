@@ -59,5 +59,16 @@ namespace RetroTable.UserSystem
             UpdateUsers();
             return Users.ToList();
         }
+
+        internal static string GetName(int id)
+        {
+            UpdateUsers();
+
+            var user = Users.Find(x => x.Id == id);
+
+            if (user == null) return "Ungültiger Benutzer";
+
+            return user.Name;
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using RetroTable.UserSystem;
+﻿using RetroTable.Test;
+using RetroTable.UserSystem;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,6 +21,9 @@ namespace RetroTable.Main
         {
             InitializeComponent();
             UpdateUserBar();
+#if DEBUG
+            new LiveGameDataTest().Show();
+#endif
         }
 
         private void btnAddUser_Click(object sender, EventArgs e)

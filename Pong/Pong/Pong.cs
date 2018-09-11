@@ -2,6 +2,7 @@
 using RetroTable.Main;
 using RetroTable.MySql;
 using RetroTable.Pong.Components;
+using RetroTable.Test;
 using RetroTable.UserSystem;
 
 namespace RetroTable.Pong
@@ -34,6 +35,10 @@ namespace RetroTable.Pong
                 Records = Database.Records.RecordsLoad();
             else
                 Records = new PongRecords();
+
+#if DEBUG
+            new PongRecordsDataTest().Show();
+#endif
         }
 
         //Wenn Pong geöffnet wird
@@ -43,12 +48,20 @@ namespace RetroTable.Pong
             ResetRound();
             Pongform.Show();
             Pongform.UpdateRecordDisplay();
+
+            Retrotable.LiveGameData.running = 1;
+            Retrotable.LiveGameData.userId1 = UserManager.Player1.Id;
+            Retrotable.LiveGameData.userId2 = UserManager.Player2.Id;
+            Retrotable.UpdateLiveGameData();
         }
 
         //Immer wenn Pong über ESC geschlossen wird
         internal void Hide()
         {
             Pongform.Hide();
+
+            Retrotable.LiveGameData.running = 0;
+            Retrotable.UpdateLiveGameData();
         }
 
         // Jedes mal wenn Leertaste oder Start gedrückt wird
@@ -84,7 +97,12 @@ namespace RetroTable.Pong
             Player2.ScorePoints = 0;
             BallSwitchesGame = 0;
             TimeLeft = UserManager.Player1.TimeLimit * 60;
-            Pongform.UpdateTime();        
+            Pongform.UpdateTime();
+
+            Retrotable.LiveGameData.score1 = 0;
+            Retrotable.LiveGameData.score2 = 0;
+            Retrotable.LiveGameData.timeleft = TimeLeft;
+            Retrotable.UpdateLiveGameData();
         }
 
         internal void ResetRound()

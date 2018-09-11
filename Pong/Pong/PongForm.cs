@@ -145,6 +145,8 @@ namespace RetroTable.Pong
         {
             Main.Ball.IncreaseSpeed();
             Main.TimeLeft--;
+            Retrotable.LiveGameData.timeleft--;
+            Retrotable.UpdateLiveGameData();
             UserManager.Player1.PlayTimePong++;
             UserManager.Player2.PlayTimePong++;
 
@@ -249,29 +251,29 @@ namespace RetroTable.Pong
             Main.Hide();
         }
 
-        private void PongForm_VisibleChanged(object sender, EventArgs e)
+        internal new void Show()
+        {           
+            //Main.ResetRound();
+            timerPaddle.Start();
+
+            Main.Player1.SetPanelHeight(UserManager.Player1.PanelSize);
+            Main.Player2.SetPanelHeight(UserManager.Player2.PanelSize);
+            Ball.SetSpeedLevel(UserManager.Player1.BallSpeed);
+            lblWinner.Text = Retrotable.ArduinoMode ? "Drücken zum Starten" : "Leertaste zum Starten";
+            tsBallSpeed.Text = "Ballgeschwindigkeit: " + UserManager.Player1.BallSpeed;
+            tsPlayer1.Text = "Balkengröße Spieler1: " + UserManager.Player1.PanelSize + "px";
+            tsPlayer2.Text = "Balkengröße Spieler2: " + UserManager.Player2.PanelSize + "px";
+
+            base.Show();
+        }
+
+        internal new void Hide()
         {
-            if (Visible)
-            {
-                Main.ResetRound();
-                timerPaddle.Start();
+            base.Hide();
 
-
-                Main.Player1.SetPanelHeight(UserManager.Player1.PanelSize);
-                Main.Player2.SetPanelHeight(UserManager.Player2.PanelSize);
-                Ball.SetSpeedLevel(UserManager.Player1.BallSpeed);
-                lblWinner.Text = Retrotable.ArduinoMode ? "Drücken zum Starten" : "Leertaste zum Starten";
-                tsBallSpeed.Text = "Ballgeschwindigkeit: " + UserManager.Player1.BallSpeed;
-                tsPlayer1.Text = "Balkengröße Spieler1: " + UserManager.Player1.PanelSize + "px";
-                tsPlayer2.Text = "Balkengröße Spieler2: " + UserManager.Player2.PanelSize + "px";
-            }
-            else
-            {
-                timerPaddle.Stop();
-                timerBall.Stop();
-                timerMain.Stop();
-            }
-            System.Diagnostics.Debug.WriteLine("Pongform Visible -> " + Visible);
+            timerPaddle.Stop();
+            timerBall.Stop();
+            timerMain.Stop();           
         }
 
         internal void UpdateRecordDisplay()

@@ -12,6 +12,7 @@ namespace RetroTable.MySql
         internal static TableUser User;
         internal static TableRecords Records;
         internal static TableRankings Rankings;
+        internal static TableGame Game;
 
         internal static void Init()
         {
@@ -21,13 +22,14 @@ namespace RetroTable.MySql
 
             connection.Server = "85.214.66.124";
             connection.UserID = "pong";
-            connection.Password = "zkXAj'5rM!vC{,9W";
+            connection.Password = "BQnmDXC74p_WRT$8";
             connection.Port = 3306;
             connection.Database = "pong";
 
             User = connection.Connection().AsParallel<TableUser>();
             Records = connection.Connection().AsParallel<TableRecords>();
             Rankings = connection.Connection().AsParallel<TableRankings>();
+            Game = connection.Connection().AsParallel<TableGame>();
         }
     }
 }

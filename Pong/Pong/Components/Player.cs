@@ -67,7 +67,7 @@ namespace RetroTable.Pong.Components
             _lblScore.Text = ScorePoints + "\n" + (Player1 ? UserManager.Player1.Name : UserManager.Player2.Name);
 
             if (Player1)
-            {
+            {              
                 UserManager.Player1.MadeGoalsPong++;
                 UserManager.Player2.TakenGoalsPong++;
             }
