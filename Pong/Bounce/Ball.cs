@@ -62,6 +62,9 @@ namespace RetroTable.Bounce
                 Speed *= -1;
                 LastTouched = 0;
                 Main.Player.SetScore(Main.Player.Score + 1);
+
+                Retrotable.LiveGameData.score1 = Main.Player.Score;
+                Retrotable.UpdateLiveGameData();
             }
 
             if (LastTouched != 1 && Location.X <= Main.Player.Bounds.Right)

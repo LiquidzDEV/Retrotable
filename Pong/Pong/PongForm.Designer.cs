@@ -265,7 +265,7 @@ namespace RetroTable.Pong
             this.lblWinner.Location = new System.Drawing.Point(262, 159);
             this.lblWinner.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblWinner.Name = "lblWinner";
-            this.lblWinner.Size = new System.Drawing.Size(524, 209);
+            this.lblWinner.Size = new System.Drawing.Size(524, 415);
             this.lblWinner.TabIndex = 8;
             this.lblWinner.Text = "0";
             this.lblWinner.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -308,7 +308,6 @@ namespace RetroTable.Pong
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainFormLoad);
             this.SizeChanged += new System.EventHandler(this.MainFormSizeChanged);
-            this.VisibleChanged += new System.EventHandler(this.PongForm_VisibleChanged);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainFormKeyDown);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.MainForm_KeyPress);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MainFormKeyUp);

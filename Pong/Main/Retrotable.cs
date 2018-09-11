@@ -64,6 +64,8 @@ namespace RetroTable.Main
 
         internal static Random Random { get; } = new Random();
 
+        internal static LiveGameData LiveGameData = new LiveGameData();
+
         /// <summary> True, if the Singleton Class is initialized. </summary>
         private bool _initialized;
 
@@ -74,7 +76,10 @@ namespace RetroTable.Main
                 return;
 
             if (Databasemode)
+            {
                 Database.Init();
+                UpdateLiveGameData();
+            }
             else
             {
                 UserManager.CreateUser("Pascal");
@@ -148,6 +153,12 @@ namespace RetroTable.Main
         {
             if (pin == PinMapping.Player1Bar || pin == PinMapping.Player2Bar)
                 onValueChanged?.Invoke(pin, value.Map(0, 1023, 0, 100));
+        }
+
+        internal static void UpdateLiveGameData()
+        {
+            if (Databasemode)
+                Database.Game.UpdateGameData(LiveGameData);
         }
     }
 }
