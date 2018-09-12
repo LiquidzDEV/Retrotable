@@ -73,11 +73,11 @@ namespace RetroTable.Pong
             Ball.Start();
             Started = true;
 
-            Pongform.lblWinner.Text = "";
             Pongform.timerMain.Start();
             Pongform.timerBall.Start();
 
             Pongform.UpdateRecordDisplay();
+            Pongform.ClearWinnerDisplay(true);
 
             if (TimeLeft <= 0)
             {

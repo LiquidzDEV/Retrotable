@@ -43,6 +43,18 @@ namespace RetroTable.Pong
             }
         }
 
+        internal void ClearWinnerDisplay(bool withInfo)
+        {
+            lblMidPlayer1.NewText = "";
+            lblMidPlayer2.NewText = "";
+
+            if (withInfo)
+            {
+                lblInfoPlayer1.NewText = "";
+                lblInfoPlayer2.NewText = "";
+            }
+        }
+
         ///// <summary> This Event is triggered when a digital pin is updated. </summary>
         ///// <param name="pin"> The updated Pin </param>
         ///// <param name="state"> the changed Value (HIGH or LOW) </param>
@@ -157,35 +169,43 @@ namespace RetroTable.Pong
             {
                 if (Main.Player1.ScorePoints > Main.Player2.ScorePoints)
                 {
-                    lblWinner.Text = "Spieler 1 hat gewonnen!";
-                    lblWinner.ForeColor = Color.FromArgb(255, 255, 0, 0);
+                    lblMidPlayer1.NewText = "Gewonnen!";
+                    lblMidPlayer1.ForeColor = Color.FromArgb(255, 0, 192, 0);
+                    lblMidPlayer2.NewText = "Verloren!";
+                    lblMidPlayer2.ForeColor = Color.FromArgb(255, 192, 0, 0);
                     if (Main.Player1.ScorePoints > Main.Records.MostScores)
                     {
-                        lblWinner.Text += "\nNeuer Rekord Meiste Tore (Einzeln)";
+                        lblInfoPlayer1.NewText += "Neuer Rekord Meiste Tore (Einzeln)\n";
+
                         Main.Records.MostScores = Main.Player1.ScorePoints;
                         Main.Records.MostScoresId = UserManager.Player1.Id;
                     }
                 }
                 else if (Main.Player1.ScorePoints < Main.Player2.ScorePoints)
                 {
-                    lblWinner.Text = "Spieler 2 hat gewonnen!";
-                    lblWinner.ForeColor = Color.FromArgb(255, 0, 0, 255);
+                    lblMidPlayer1.NewText = "Verloren!";
+                    lblMidPlayer1.ForeColor = Color.FromArgb(255, 192, 0, 0);
+                    lblMidPlayer2.NewText = "Gewonnen!";
+                    lblMidPlayer2.ForeColor = Color.FromArgb(255, 0, 192, 0);
                     if (Main.Player2.ScorePoints > Main.Records.MostScores)
                     {
-                        lblWinner.Text += "\nNeuer Rekord Meiste Tore (Einzeln)";
+                        lblInfoPlayer2.NewText += "Neuer Rekord Meiste Tore (Einzeln)\n";
                         Main.Records.MostScores = Main.Player2.ScorePoints;
                         Main.Records.MostScoresId = UserManager.Player2.Id;
                     }
                 }
                 else
                 {
-                    lblWinner.Text = "Unentschieden!";
-                    lblWinner.ForeColor = Color.FromArgb(255, 180, 180, 180);
+                    lblMidPlayer1.NewText = "Unentschieden!";
+                    lblMidPlayer1.ForeColor = Color.FromArgb(255, 180, 180, 180);
+                    lblMidPlayer2.NewText = "Unentschieden!";
+                    lblMidPlayer2.ForeColor = Color.FromArgb(255, 180, 180, 180);
                 }
 
                 if (Main.BallSwitchesGame > Main.Records.BallSwitchesGame)
                 {
-                    lblWinner.Text += "\nNeuer Rekord Meiste Ballwechsel (Spiel)";
+                    lblInfoPlayer1.NewText += "Neuer Rekord Meiste Ballwechsel (Spiel)\n";
+                    lblInfoPlayer2.NewText += "Neuer Rekord Meiste Ballwechsel (Spiel)\n";
                     Main.Records.BallSwitchesGame = Main.BallSwitchesGame;
                     Main.Records.BallSwitchesGameId1 = UserManager.Player1.Id;
                     Main.Records.BallSwitchesGameId2 = UserManager.Player2.Id;
@@ -194,13 +214,14 @@ namespace RetroTable.Pong
 
                 if (Main.Player1.ScorePoints + Main.Player2.ScorePoints > Main.Records.MostScoresInGame)
                 {
-                    lblWinner.Text += "\nNeuer Rekord Meiste Tore (Spiel)";
+                    lblInfoPlayer1.NewText += "Neuer Rekord Meiste Tore (Spiel)\n";
+                    lblInfoPlayer2.NewText += "Neuer Rekord Meiste Tore (Spiel)\n";
                     Main.Records.MostScoresInGame = Main.Player1.ScorePoints + Main.Player2.ScorePoints;
                     Main.Records.MostScoresInGameId1 = UserManager.Player1.Id;
                     Main.Records.MostScoresInGameId2 = UserManager.Player2.Id;
+                    Main.Records.Save();
                 }
 
-                //lblWinner.Visible = true;
                 Main.ResetRound();
             }
         }
@@ -252,14 +273,22 @@ namespace RetroTable.Pong
         }
 
         internal new void Show()
-        {           
+        {
             //Main.ResetRound();
             timerPaddle.Start();
 
             Main.Player1.SetPanelHeight(UserManager.Player1.PanelSize);
             Main.Player2.SetPanelHeight(UserManager.Player2.PanelSize);
             Ball.SetSpeedLevel(UserManager.Player1.BallSpeed);
-            lblWinner.Text = Retrotable.ArduinoMode ? "Drücken zum Starten" : "Leertaste zum Starten";
+
+            lblMidPlayer1.NewText = Retrotable.ArduinoMode ? "Drücken zum Starten" : "Leertaste zum Starten";
+            lblMidPlayer1.ForeColor = Color.FromArgb(255, 180, 180, 0);
+            lblMidPlayer2.NewText = Retrotable.ArduinoMode ? "Drücken zum Starten" : "Leertaste zum Starten";
+            lblMidPlayer2.ForeColor = Color.FromArgb(255, 180, 180, 0);
+
+            lblInfoPlayer1.NewText = " ";
+            lblInfoPlayer2.NewText = " ";
+
             tsBallSpeed.Text = "Ballgeschwindigkeit: " + UserManager.Player1.BallSpeed;
             tsPlayer1.Text = "Balkengröße Spieler1: " + UserManager.Player1.PanelSize + "px";
             tsPlayer2.Text = "Balkengröße Spieler2: " + UserManager.Player2.PanelSize + "px";
@@ -273,7 +302,7 @@ namespace RetroTable.Pong
 
             timerPaddle.Stop();
             timerBall.Stop();
-            timerMain.Stop();           
+            timerMain.Stop();
         }
 
         internal void UpdateRecordDisplay()

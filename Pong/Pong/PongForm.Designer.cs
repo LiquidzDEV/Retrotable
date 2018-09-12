@@ -58,8 +58,11 @@ namespace RetroTable.Pong
             this.tsMostScores = new System.Windows.Forms.ToolStripMenuItem();
             this.tsMostScoresTotal = new System.Windows.Forms.ToolStripMenuItem();
             this.lblTime = new System.Windows.Forms.Label();
-            this.lblWinner = new System.Windows.Forms.Label();
             this.lblDebug = new System.Windows.Forms.Label();
+            this.lblInfoPlayer2 = new RetroTable.Main.RotatingLabel();
+            this.lblInfoPlayer1 = new RetroTable.Main.RotatingLabel();
+            this.lblMidPlayer2 = new RetroTable.Main.RotatingLabel();
+            this.lblMidPlayer1 = new RetroTable.Main.RotatingLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pBall)).BeginInit();
             this.ctxtMenu.SuspendLayout();
             this.SuspendLayout();
@@ -256,20 +259,6 @@ namespace RetroTable.Pong
             this.lblTime.Text = "10:00";
             this.lblTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // lblWinner
-            // 
-            this.lblWinner.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.lblWinner.BackColor = System.Drawing.Color.Transparent;
-            this.lblWinner.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblWinner.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblWinner.Location = new System.Drawing.Point(262, 159);
-            this.lblWinner.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblWinner.Name = "lblWinner";
-            this.lblWinner.Size = new System.Drawing.Size(524, 415);
-            this.lblWinner.TabIndex = 8;
-            this.lblWinner.Text = "0";
-            this.lblWinner.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
             // lblDebug
             // 
             this.lblDebug.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -282,11 +271,75 @@ namespace RetroTable.Pong
             this.lblDebug.Size = new System.Drawing.Size(0, 13);
             this.lblDebug.TabIndex = 9;
             // 
+            // lblInfoPlayer2
+            // 
+            this.lblInfoPlayer2.AlignText = true;
+            this.lblInfoPlayer2.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblInfoPlayer2.BackColor = System.Drawing.Color.Transparent;
+            this.lblInfoPlayer2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblInfoPlayer2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(150)))));
+            this.lblInfoPlayer2.Location = new System.Drawing.Point(614, 236);
+            this.lblInfoPlayer2.Name = "lblInfoPlayer2";
+            this.lblInfoPlayer2.NewText = "Neuer Rekord! ";
+            this.lblInfoPlayer2.RotateAngle = 270;
+            this.lblInfoPlayer2.Size = new System.Drawing.Size(20, 112);
+            this.lblInfoPlayer2.TabIndex = 13;
+            this.lblInfoPlayer2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblInfoPlayer1
+            // 
+            this.lblInfoPlayer1.AlignText = true;
+            this.lblInfoPlayer1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblInfoPlayer1.BackColor = System.Drawing.Color.Transparent;
+            this.lblInfoPlayer1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblInfoPlayer1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.lblInfoPlayer1.Location = new System.Drawing.Point(410, 272);
+            this.lblInfoPlayer1.Name = "lblInfoPlayer1";
+            this.lblInfoPlayer1.NewText = "Test\r\nTest\r\nTest\r\n";
+            this.lblInfoPlayer1.RotateAngle = 90;
+            this.lblInfoPlayer1.Size = new System.Drawing.Size(58, 39);
+            this.lblInfoPlayer1.TabIndex = 12;
+            this.lblInfoPlayer1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblMidPlayer2
+            // 
+            this.lblMidPlayer2.AlignText = true;
+            this.lblMidPlayer2.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblMidPlayer2.BackColor = System.Drawing.Color.Transparent;
+            this.lblMidPlayer2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMidPlayer2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.lblMidPlayer2.Location = new System.Drawing.Point(582, 176);
+            this.lblMidPlayer2.Name = "lblMidPlayer2";
+            this.lblMidPlayer2.NewText = "Leertaste zum Starten";
+            this.lblMidPlayer2.RotateAngle = 270;
+            this.lblMidPlayer2.Size = new System.Drawing.Size(26, 231);
+            this.lblMidPlayer2.TabIndex = 11;
+            this.lblMidPlayer2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblMidPlayer1
+            // 
+            this.lblMidPlayer1.AlignText = true;
+            this.lblMidPlayer1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblMidPlayer1.BackColor = System.Drawing.Color.Transparent;
+            this.lblMidPlayer1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMidPlayer1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.lblMidPlayer1.Location = new System.Drawing.Point(438, 175);
+            this.lblMidPlayer1.Name = "lblMidPlayer1";
+            this.lblMidPlayer1.NewText = "Leertaste zum Starten";
+            this.lblMidPlayer1.RotateAngle = 90;
+            this.lblMidPlayer1.Size = new System.Drawing.Size(28, 233);
+            this.lblMidPlayer1.TabIndex = 10;
+            this.lblMidPlayer1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // PongForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(1044, 583);
+            this.Controls.Add(this.lblInfoPlayer2);
+            this.Controls.Add(this.lblInfoPlayer1);
+            this.Controls.Add(this.lblMidPlayer2);
+            this.Controls.Add(this.lblMidPlayer1);
             this.Controls.Add(this.pnlPlayer2);
             this.Controls.Add(this.pnlPlayer1);
             this.Controls.Add(this.lblDebug);
@@ -295,7 +348,6 @@ namespace RetroTable.Pong
             this.Controls.Add(this.lblPlayer1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblTime);
-            this.Controls.Add(this.lblWinner);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -333,7 +385,6 @@ namespace RetroTable.Pong
         private System.Windows.Forms.ToolStripMenuItem tsClose;
         internal System.Windows.Forms.Timer timerBall;
         internal System.Windows.Forms.Timer timerMain;
-        internal System.Windows.Forms.Label lblWinner;
         internal System.Windows.Forms.Label lblTime;
         private System.Windows.Forms.ToolStripMenuItem spieleinstellungenToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tsPlayer1;
@@ -345,5 +396,9 @@ namespace RetroTable.Pong
         private System.Windows.Forms.ToolStripMenuItem tsMostScores;
         private System.Windows.Forms.ToolStripMenuItem tsMostScoresTotal;
         private System.Windows.Forms.Label lblDebug;
+        private Main.RotatingLabel lblMidPlayer1;
+        private Main.RotatingLabel lblMidPlayer2;
+        private Main.RotatingLabel lblInfoPlayer1;
+        private Main.RotatingLabel lblInfoPlayer2;
     }
 }
