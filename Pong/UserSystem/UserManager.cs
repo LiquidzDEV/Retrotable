@@ -28,7 +28,7 @@ namespace RetroTable.UserSystem
             }
             else
             {
-                if (Users.Find(x => x.Name == name) != null) return null;
+                if (Users.Find(x => x.Name.ToLower() == name.ToLower()) != null) return null;
 
                 var user = new User(name);
 

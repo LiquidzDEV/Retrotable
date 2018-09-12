@@ -105,5 +105,16 @@ namespace RetroTable.UserSystem
                 lblInfo.Text = "";
             };
         }
+
+        private void txtName_TextChanged(object sender, EventArgs e)
+        {
+            if (User != null && User.Name == txtName.Text)
+            {
+                btnSave.Enabled = true;
+                return;
+            }
+
+            btnSave.Enabled = UserManager.GetUsers().Find(x => x.Name.ToLower() == txtName.Text.ToLower()) == null;
+        }
     }
 }
