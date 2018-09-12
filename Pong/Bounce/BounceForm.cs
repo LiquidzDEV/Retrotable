@@ -75,24 +75,24 @@ namespace RetroTable.Bounce
                 var ranking = rankings[i];
                 if (i == 0)
                 {
-                    lblFirst.Text = "1. " + ranking.UserId + ": " + ranking.Score;
+                    lblFirst.Text = "1. " + UserManager.GetName(ranking.UserId) + ": " + ranking.Score;
                 }
                 else if (i == 1)
                 {
-                    lblSecond.Text = "2. " + ranking.UserId + ": " + ranking.Score;
+                    lblSecond.Text = "2. " + UserManager.GetName(ranking.UserId) + ": " + ranking.Score;
                 }
                 else if (i == 2)
                 {
-                    lblThird.Text = "3. " + ranking.UserId + ": " + ranking.Score;
+                    lblThird.Text = "3. " + UserManager.GetName(ranking.UserId) + ": " + ranking.Score;
                 }
                 else if(i < 5)
                 {
-                    lblRanking.Text += (i + 1) + ". " + ranking.UserId + ": " + ranking.Score + "\n";
+                    lblRanking.Text += (i + 1) + ". " + UserManager.GetName(ranking.UserId) + ": " + ranking.Score + "\n";
                 }
 
                 if(personalRanking != null && ranking == personalRanking)
                 {
-                    lblOwnRecord.Text = (i + 1) + ". " + ranking.UserId + ": " + ranking.Score;
+                    lblOwnRecord.Text = (i + 1) + ". " + UserManager.GetName(ranking.UserId) + ": " + ranking.Score;
                 }
             }
 
