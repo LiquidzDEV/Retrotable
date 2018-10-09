@@ -21,7 +21,7 @@ namespace RetroTable.UserSystem
             {
                 if (Database.User.UserHasName(name) != null) return null;
 
-                var user = Database.User.UserCreate(name);
+                var user = Database.User.UserCreate(name, DateTime.Now);
 
                 System.Diagnostics.Debug.WriteLine("User " + user.Id + " " + user.Name + " erstellt");
                 return user;

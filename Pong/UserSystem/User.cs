@@ -20,6 +20,7 @@ namespace RetroTable.UserSystem
         internal int MadeGoalsPong { get; set; }
         internal int TakenGoalsPong { get; set; }
         internal int DefendTimesPong { get; set; }
+        internal DateTime Created { get; }
 
         /// <summary> Creates a pseudo User, only used when no Database is connected</summary>
         internal User(string name)
@@ -32,6 +33,7 @@ namespace RetroTable.UserSystem
             BallSpeed = 2f;
             PanelSize = 150;
             TimeLimit = 3;
+            Created = DateTime.Now;
         }
 
         internal void Save()
