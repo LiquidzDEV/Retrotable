@@ -85,11 +85,7 @@ namespace RetroTable.Main
 
             if (AlignText && Location.Y != Convert.ToInt32(Parent.Size.Height / 2f - Size.Height / 2f))
             {
-                Align();
-            }
-
-            if (RotateAngle == 90)
-            {
+                Location = new Point(Location.X, Convert.ToInt32(Parent.Size.Height / 2f - Size.Height / 2f));
             }
 
             int numQuadrants =
@@ -126,14 +122,6 @@ namespace RetroTable.Main
 
             e.Graphics.DrawString(this.NewText, this.Font, b, 0f, 0f);
             base.OnPaint(e);
-        }
-
-        private void Align()
-        {
-            System.Diagnostics.Debug.WriteLine("Alte Location: " + Location.X + " | " + Location.Y);
-            System.Diagnostics.Debug.WriteLine("Parent Height: " + Parent.Size.Height + " Component Height : " + Size.Height);
-            Location = new Point(Location.X, Convert.ToInt32(Parent.Size.Height / 2f - Size.Height / 2f));
-            System.Diagnostics.Debug.WriteLine("Neue Location: " + Location.X + " | " + Location.Y);
         }
 
         //internal void ChangeText(string newText)
