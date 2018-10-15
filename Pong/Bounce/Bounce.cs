@@ -8,7 +8,7 @@ namespace RetroTable.Bounce
 {
     public class Bounce
     {
-        internal List<BounceHighscore> Ranking = new List<BounceHighscore>();
+        internal List<HistoryEntry> LastRanking = new List<HistoryEntry>();
 
         internal List<Ball> Balls { get; }
 
@@ -23,7 +23,7 @@ namespace RetroTable.Bounce
         public Bounce()
         {
             if (Retrotable.Databasemode)
-                Ranking = Database.Rankings.RankingsLoad();
+                LastRanking = Database.History.HistoryGetBounceRanking();
 
             Balls = new List<Ball>();
             BounceForm = new BounceForm(this);
@@ -36,7 +36,7 @@ namespace RetroTable.Bounce
             BounceForm.Show();
 
             Retrotable.LiveGameData.running = 2;
-            Retrotable.LiveGameData.userId1 = UserManager.Player1.Id;
+            Retrotable.LiveGameData.user_Id1 = UserManager.Player1.User_Id;
             Retrotable.LiveGameData.score1 = 0;
             Retrotable.LiveGameData.timeleft = 0;
             Retrotable.UpdateLiveGameData();
@@ -87,22 +87,16 @@ namespace RetroTable.Bounce
         internal void Finish()
         {
             Reset();
-            BounceHighscore ranking = null;
+            HistoryEntry history = HistoryEntry.Create(UserManager.Player1, Player.Score, TimePassed);               
+            LastRanking.Add(history);
+            TryUpdateRanking();
+            BounceForm.ShowRanking(history);
+        }
+
+        private void TryUpdateRanking()
+        {
             if (Retrotable.Databasemode)
-                ranking = BounceHighscore.Create(UserManager.Player1, Player.Score, TimePassed);
-            else
-            {
-                ranking = new BounceHighscore
-                {
-                    Score = Player.Score,
-                    Duration = TimePassed,
-                    UserId = UserManager.Player1.Id,
-                    PanelSize = UserManager.Player1.PanelSize,
-                    BallSpeed = UserManager.Player1.BallSpeed
-                };
-                Ranking.Add(ranking);
-            }
-            BounceForm.ShowRanking(ranking);
+                LastRanking = Database.History.HistoryGetBounceRanking();
         }
     }
 }
