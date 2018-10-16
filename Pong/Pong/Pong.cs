@@ -49,9 +49,9 @@ namespace RetroTable.Pong
             Pongform.Show();
             Pongform.UpdateRecordDisplay();
 
-            Retrotable.LiveGameData.running = 1;
-            Retrotable.LiveGameData.userId1 = UserManager.Player1.Id;
-            Retrotable.LiveGameData.userId2 = UserManager.Player2.Id;
+            Retrotable.LiveGameData.Running = 1;
+            Retrotable.LiveGameData.User_Id1 = UserManager.Player1.User_Id;
+            Retrotable.LiveGameData.User_Id2 = UserManager.Player2.User_Id;
             Retrotable.UpdateLiveGameData();
         }
 
@@ -60,7 +60,7 @@ namespace RetroTable.Pong
         {
             Pongform.Hide();
 
-            Retrotable.LiveGameData.running = 0;
+            Retrotable.LiveGameData.Running = 0;
             Retrotable.UpdateLiveGameData();
         }
 
@@ -96,12 +96,12 @@ namespace RetroTable.Pong
             Player1.ScorePoints = 0;
             Player2.ScorePoints = 0;
             BallSwitchesGame = 0;
-            TimeLeft = UserManager.Player1.TimeLimit * 60;
+            TimeLeft = UserManager.Player1.Time_Limit * 60;
             Pongform.UpdateTime();
 
-            Retrotable.LiveGameData.score1 = 0;
-            Retrotable.LiveGameData.score2 = 0;
-            Retrotable.LiveGameData.timeleft = TimeLeft;
+            Retrotable.LiveGameData.Score1 = 0;
+            Retrotable.LiveGameData.Score2 = 0;
+            Retrotable.LiveGameData.Timeleft = TimeLeft;
             Retrotable.UpdateLiveGameData();
         }
 

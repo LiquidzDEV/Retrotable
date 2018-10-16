@@ -42,12 +42,12 @@ namespace RetroTable.Main
 
         internal static HistoryEntry Create(User user, int score, User user2, int score2, int time)
         {
-            return Create(1, user.User_Id, score, user.PanelSize, user.BallSpeed, user2?.User_Id, score2, user2 == null ? 0 : user2.PanelSize, user2 == null ? 0f : user2.BallSpeed, time);
+            return Create(1, user.User_Id, score, user.Panel_Size, user.Ball_Speed, user2?.User_Id, score2, user2 == null ? 0 : user2.Panel_Size, user2 == null ? 0f : user2.Ball_Speed, time);
         }
 
         internal static HistoryEntry Create(User user, int score, int time)
         {
-            return Create(2, user.User_Id, score, user.PanelSize, user.BallSpeed, null, 0, 0, 0f, time);
+            return Create(2, user.User_Id, score, user.Panel_Size, user.Ball_Speed, null, 0, 0, 0f, time);
         }
     }
 

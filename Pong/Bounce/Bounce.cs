@@ -32,13 +32,13 @@ namespace RetroTable.Bounce
 
         internal void Show()
         {
-            Player.Height = UserManager.Player1.PanelSize;
+            Player.Height = UserManager.Player1.Panel_Size;
             BounceForm.Show();
 
-            Retrotable.LiveGameData.running = 2;
-            Retrotable.LiveGameData.user_Id1 = UserManager.Player1.User_Id;
-            Retrotable.LiveGameData.score1 = 0;
-            Retrotable.LiveGameData.timeleft = 0;
+            Retrotable.LiveGameData.Running = 2;
+            Retrotable.LiveGameData.User_Id1 = UserManager.Player1.User_Id;
+            Retrotable.LiveGameData.Score1 = 0;
+            Retrotable.LiveGameData.Timeleft = 0;
             Retrotable.UpdateLiveGameData();
         }
 
@@ -47,7 +47,7 @@ namespace RetroTable.Bounce
             Reset();
             BounceForm.Hide();
 
-            Retrotable.LiveGameData.running = 0;
+            Retrotable.LiveGameData.Running = 0;
             Retrotable.UpdateLiveGameData();
         }
 
@@ -59,8 +59,8 @@ namespace RetroTable.Bounce
             TimePassed = 0;
 
             
-            Retrotable.LiveGameData.score1 = 0;
-            Retrotable.LiveGameData.timeleft = 0;
+            Retrotable.LiveGameData.Score1 = 0;
+            Retrotable.LiveGameData.Timeleft = 0;
             Retrotable.UpdateLiveGameData();
 
             Balls.Add(new Ball(BounceForm));

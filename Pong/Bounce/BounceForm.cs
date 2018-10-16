@@ -113,7 +113,7 @@ namespace RetroTable.Bounce
         private void timerMain_Tick(object sender, EventArgs e)
         {
             Main.TimePassed++;
-            Retrotable.LiveGameData.timeleft++;
+            Retrotable.LiveGameData.Timeleft++;
             Retrotable.UpdateLiveGameData();
             var time = new TimeSpan(0, 0, Main.TimePassed);
             lblTime.NewText = (int)time.TotalMinutes + " Minuten " + time.Seconds + " Sekunden";

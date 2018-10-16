@@ -23,7 +23,7 @@ namespace RetroTable.UserSystem
 
                 var user = Database.User.UserCreate(name, DateTime.Now);
 
-                System.Diagnostics.Debug.WriteLine("User " + user.Id + " " + user.Name + " erstellt");
+                System.Diagnostics.Debug.WriteLine("User " + user.User_Id + " " + user.Name + " erstellt");
                 return user;
             }
             else
@@ -33,7 +33,7 @@ namespace RetroTable.UserSystem
                 var user = new User(name);
 
                 Users.Add(user);
-                System.Diagnostics.Debug.WriteLine("User " + user.Id + " " + user.Name + " LOKAL erstellt");
+                System.Diagnostics.Debug.WriteLine("User " + user.User_Id + " " + user.Name + " LOKAL erstellt");
                 return user;
             }
         }
@@ -64,7 +64,7 @@ namespace RetroTable.UserSystem
         {
             UpdateUsers();
 
-            var user = Users.Find(x => x.Id == id);
+            var user = Users.Find(x => x.User_Id == id);
 
             if (user == null) return "Ungültiger Benutzer";
 

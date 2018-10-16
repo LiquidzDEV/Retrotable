@@ -68,21 +68,21 @@ namespace RetroTable.Pong.Components
 
             if (Player1)
             {              
-                UserManager.Player1.MadeGoalsPong++;
-                UserManager.Player2.TakenGoalsPong++;
+                UserManager.Player1.MadeGoals_Pong++;
+                UserManager.Player2.TakenGoals_Pong++;
             }
             else
             {
-                UserManager.Player2.MadeGoalsPong++;
-                UserManager.Player1.TakenGoalsPong++;
+                UserManager.Player2.MadeGoals_Pong++;
+                UserManager.Player1.TakenGoals_Pong++;
             }
 
             var pong = Retrotable.Instance.Pong;
-            if (pong.BallSwitchesRound > pong.Records.BallSwitchesRound)
+            if (pong.BallSwitchesRound > pong.Records.BallSwitches_Round)
             {
-                pong.Records.BallSwitchesRound = pong.BallSwitchesRound;
-                pong.Records.BallSwitchesRoundId1 = UserManager.Player1.Id;
-                pong.Records.BallSwitchesRoundId2 = UserManager.Player2.Id;
+                pong.Records.BallSwitches_Round = pong.BallSwitchesRound;
+                pong.Records.BallSwitches_Round_Id1 = UserManager.Player1.User_Id;
+                pong.Records.BallSwitches_Round_Id2 = UserManager.Player2.User_Id;
                 pong.Records.Save();
             }
 

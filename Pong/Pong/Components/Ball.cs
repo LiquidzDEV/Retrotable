@@ -74,7 +74,7 @@ namespace RetroTable.Pong.Components
 
                 ArduinoHelper.StartBlinking(true);
                 Main.Player1.Score();
-                Retrotable.LiveGameData.score1++;
+                Retrotable.LiveGameData.Score1++;
             }
             else if (_pBall.Location.X <= 36)
             {
@@ -87,7 +87,7 @@ namespace RetroTable.Pong.Components
 
                 ArduinoHelper.StartBlinking(false);
                 Main.Player2.Score();
-                Retrotable.LiveGameData.score2++;
+                Retrotable.LiveGameData.Score2++;
             }
         }
 
@@ -118,9 +118,9 @@ namespace RetroTable.Pong.Components
 
             //incrementing statistics
             if (player == 1)
-                UserManager.Player1.DefendTimesPong++;
+                UserManager.Player1.DefendTimes_Pong++;
             else
-                UserManager.Player2.DefendTimesPong++;
+                UserManager.Player2.DefendTimes_Pong++;
 
             Main.BallSwitchesRound++;
             Main.BallSwitchesGame++;

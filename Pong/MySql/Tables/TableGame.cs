@@ -1,13 +1,8 @@
 ﻿using RetroTable.Main;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RetroTable.MySql.Tables
 {
-    public interface TableGame
+    internal interface TableGame
     {
         void UpdateGameData(LiveGameData gameData);
     }
