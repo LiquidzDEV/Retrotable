@@ -157,10 +157,10 @@ namespace RetroTable.Pong
         {
             Main.Ball.IncreaseSpeed();
             Main.TimeLeft--;
-            Retrotable.LiveGameData.timeleft--;
+            Retrotable.LiveGameData.Timeleft--;
             Retrotable.UpdateLiveGameData();
-            UserManager.Player1.PlayTimePong++;
-            UserManager.Player2.PlayTimePong++;
+            UserManager.Player1.PlayTime_Pong++;
+            UserManager.Player2.PlayTime_Pong++;
 
             UpdateTime();
 
@@ -178,7 +178,7 @@ namespace RetroTable.Pong
                         lblInfoPlayer1.NewText += "Neuer Rekord Meiste Tore (Einzeln)\n";
 
                         Main.Records.MostScores = Main.Player1.ScorePoints;
-                        Main.Records.MostScoresId = UserManager.Player1.Id;
+                        Main.Records.MostScores_Id = UserManager.Player1.User_Id;
                     }
                 }
                 else if (Main.Player1.ScorePoints < Main.Player2.ScorePoints)
@@ -191,7 +191,7 @@ namespace RetroTable.Pong
                     {
                         lblInfoPlayer2.NewText += "Neuer Rekord Meiste Tore (Einzeln)\n";
                         Main.Records.MostScores = Main.Player2.ScorePoints;
-                        Main.Records.MostScoresId = UserManager.Player2.Id;
+                        Main.Records.MostScores_Id = UserManager.Player2.User_Id;
                     }
                 }
                 else
@@ -202,23 +202,23 @@ namespace RetroTable.Pong
                     lblMidPlayer2.ForeColor = Color.FromArgb(255, 180, 180, 180);
                 }
 
-                if (Main.BallSwitchesGame > Main.Records.BallSwitchesGame)
+                if (Main.BallSwitchesGame > Main.Records.BallSwitches_Game)
                 {
                     lblInfoPlayer1.NewText += "Neuer Rekord Meiste Ballwechsel (Spiel)\n";
                     lblInfoPlayer2.NewText += "Neuer Rekord Meiste Ballwechsel (Spiel)\n";
-                    Main.Records.BallSwitchesGame = Main.BallSwitchesGame;
-                    Main.Records.BallSwitchesGameId1 = UserManager.Player1.Id;
-                    Main.Records.BallSwitchesGameId2 = UserManager.Player2.Id;
+                    Main.Records.BallSwitches_Game = Main.BallSwitchesGame;
+                    Main.Records.BallSwitches_Game_Id1 = UserManager.Player1.User_Id;
+                    Main.Records.BallSwitches_Game_Id2 = UserManager.Player2.User_Id;
                     Main.Records.Save();
                 }
 
-                if (Main.Player1.ScorePoints + Main.Player2.ScorePoints > Main.Records.MostScoresInGame)
+                if (Main.Player1.ScorePoints + Main.Player2.ScorePoints > Main.Records.MostScores_Game)
                 {
                     lblInfoPlayer1.NewText += "Neuer Rekord Meiste Tore (Spiel)\n";
                     lblInfoPlayer2.NewText += "Neuer Rekord Meiste Tore (Spiel)\n";
-                    Main.Records.MostScoresInGame = Main.Player1.ScorePoints + Main.Player2.ScorePoints;
-                    Main.Records.MostScoresInGameId1 = UserManager.Player1.Id;
-                    Main.Records.MostScoresInGameId2 = UserManager.Player2.Id;
+                    Main.Records.MostScores_Game = Main.Player1.ScorePoints + Main.Player2.ScorePoints;
+                    Main.Records.MostScores_Game_Id1 = UserManager.Player1.User_Id;
+                    Main.Records.MostScores_Game_Id2 = UserManager.Player2.User_Id;
                     Main.Records.Save();
                 }
 
@@ -277,9 +277,9 @@ namespace RetroTable.Pong
             //Main.ResetRound();
             timerPaddle.Start();
 
-            Main.Player1.SetPanelHeight(UserManager.Player1.PanelSize);
-            Main.Player2.SetPanelHeight(UserManager.Player2.PanelSize);
-            Ball.SetSpeedLevel(UserManager.Player1.BallSpeed);
+            Main.Player1.SetPanelHeight(UserManager.Player1.Panel_Size);
+            Main.Player2.SetPanelHeight(UserManager.Player2.Panel_Size);
+            Ball.SetSpeedLevel(UserManager.Player1.Ball_Speed);
 
             lblMidPlayer1.NewText = Retrotable.ArduinoMode ? "Drücken zum Starten" : "Leertaste zum Starten";
             lblMidPlayer1.ForeColor = Color.FromArgb(255, 180, 180, 0);
@@ -289,9 +289,9 @@ namespace RetroTable.Pong
             lblInfoPlayer1.NewText = " ";
             lblInfoPlayer2.NewText = " ";
 
-            tsBallSpeed.Text = "Ballgeschwindigkeit: " + UserManager.Player1.BallSpeed;
-            tsPlayer1.Text = "Balkengröße Spieler1: " + UserManager.Player1.PanelSize + "px";
-            tsPlayer2.Text = "Balkengröße Spieler2: " + UserManager.Player2.PanelSize + "px";
+            tsBallSpeed.Text = "Ballgeschwindigkeit: " + UserManager.Player1.Ball_Speed;
+            tsPlayer1.Text = "Balkengröße Spieler1: " + UserManager.Player1.Panel_Size + "px";
+            tsPlayer2.Text = "Balkengröße Spieler2: " + UserManager.Player2.Panel_Size + "px";
 
             base.Show();
         }
@@ -307,8 +307,8 @@ namespace RetroTable.Pong
 
         internal void UpdateRecordDisplay()
         {
-            tsBallSwitchGame.Text = "Meiste Ballwechsel (Spiel): " + Main.Records.BallSwitchesGame;
-            tsBallSwitchRound.Text = "Meiste Ballwechsel (Runde): " + Main.Records.BallSwitchesRound;
+            tsBallSwitchGame.Text = "Meiste Ballwechsel (Spiel): " + Main.Records.BallSwitches_Game;
+            tsBallSwitchRound.Text = "Meiste Ballwechsel (Runde): " + Main.Records.BallSwitches_Round;
         }
 
         #endregion

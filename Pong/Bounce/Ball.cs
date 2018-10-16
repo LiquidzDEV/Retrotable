@@ -63,7 +63,7 @@ namespace RetroTable.Bounce
                 LastTouched = 0;
                 Main.Player.SetScore(Main.Player.Score + 1);
 
-                Retrotable.LiveGameData.score1 = Main.Player.Score;
+                Retrotable.LiveGameData.Score1 = Main.Player.Score;
                 Retrotable.UpdateLiveGameData();
             }
 
@@ -93,7 +93,7 @@ namespace RetroTable.Bounce
 
         internal void IncreaseSpeed()
         {
-            Speed = Speed < 0 ? Speed - SpeedGain * UserManager.Player1.BallSpeed : Speed + SpeedGain * UserManager.Player1.BallSpeed;
+            Speed = Speed < 0 ? Speed - SpeedGain * UserManager.Player1.Ball_Speed : Speed + SpeedGain * UserManager.Player1.Ball_Speed;
         }
     }
 }

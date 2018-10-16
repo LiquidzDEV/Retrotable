@@ -1,26 +1,27 @@
 ﻿using RetroTable.Main;
 using RetroTable.MySql;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RetroTable.UserSystem
 {
 
     public class User
     {
-        internal int Id { get; private set; }
+        internal int User_Id { get; private set; }
         internal string Name { get; set; }
-        internal float BallSpeed { get; set; }
-        internal int PanelSize { get; set; }
-        internal int TimeLimit { get; set; }
-        internal int PlayTimePong { get; set; }
-        internal int MadeGoalsPong { get; set; }
-        internal int TakenGoalsPong { get; set; }
-        internal int DefendTimesPong { get; set; }
-        internal DateTime Created { get; }
+        internal float Ball_Speed { get; set; }
+        internal int Panel_Size { get; set; }
+        internal int Time_Limit { get; set; }
+        internal int PlayTime_Pong { get; set; }
+        internal int MadeGoals_Pong { get; set; }
+        internal int TakenGoals_Pong { get; set; }
+        internal int DefendTimes_Pong { get; set; }
+        internal DateTime Created { get; private set; }
+
+        public User()
+        {
+
+        }
 
         /// <summary> Creates a pseudo User, only used when no Database is connected</summary>
         internal User(string name)
@@ -28,11 +29,11 @@ namespace RetroTable.UserSystem
             if (Retrotable.Databasemode)
                 throw new Exception("Im Datenbankmodus können keine Instanzen von User selber erstellt werden!");
 
-            Id = Retrotable.Random.Next(1, 100000);
+            User_Id = Retrotable.Random.Next(1, 100000);
             Name = name;
-            BallSpeed = 2f;
-            PanelSize = 150;
-            TimeLimit = 3;
+            Ball_Speed = 2f;
+            Panel_Size = 150;
+            Time_Limit = 3;
             Created = DateTime.Now;
         }
 
@@ -51,7 +52,7 @@ namespace RetroTable.UserSystem
 
             if (ReferenceEquals(u2, null)) return false;
 
-            return u1.Id.Equals(u2.Id);
+            return u1.User_Id.Equals(u2.User_Id);
         }
 
         public static bool operator !=(User u1, User u2)

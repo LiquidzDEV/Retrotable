@@ -16,20 +16,20 @@ namespace RetroTable.Test
         {
             var records = Retrotable.Instance.Pong.Records;
 
-            lblBallSwitchesGameId1.Text = UserManager.GetName(records.BallSwitchesGameId1) + "(" + records.BallSwitchesGameId1 + ")";
-            lblBallSwitchesGameId2.Text = UserManager.GetName(records.BallSwitchesGameId2) + "(" + records.BallSwitchesGameId2 + ")";
-            lblBallSwitchesGame.Text = records.BallSwitchesGame.ToString();
+            lblBallSwitchesGameId1.Text = UserManager.GetName(records.BallSwitches_Game_Id1) + "(" + records.BallSwitches_Game_Id1 + ")";
+            lblBallSwitchesGameId2.Text = UserManager.GetName(records.BallSwitches_Game_Id2) + "(" + records.BallSwitches_Game_Id2 + ")";
+            lblBallSwitchesGame.Text = records.BallSwitches_Game.ToString();
 
-            lblBallSwitchesRoundId1.Text = UserManager.GetName(records.BallSwitchesRoundId1) + "(" + records.BallSwitchesRoundId1 + ")";
-            lblBallSwitchesRoundId2.Text = UserManager.GetName(records.BallSwitchesRoundId2) + "(" + records.BallSwitchesRoundId2 + ")";
-            lblBallSwitchesRound.Text = records.BallSwitchesRound.ToString();
+            lblBallSwitchesRoundId1.Text = UserManager.GetName(records.BallSwitches_Round_Id1) + "(" + records.BallSwitches_Round_Id1 + ")";
+            lblBallSwitchesRoundId2.Text = UserManager.GetName(records.BallSwitches_Round_Id2) + "(" + records.BallSwitches_Round_Id2 + ")";
+            lblBallSwitchesRound.Text = records.BallSwitches_Round.ToString();
 
-            lblMostScoresId.Text = UserManager.GetName(records.MostScoresId) + "(" + records.MostScoresId + ")";
+            lblMostScoresId.Text = UserManager.GetName(records.MostScores_Id) + "(" + records.MostScores_Id + ")";
             lblMostScores.Text = records.MostScores.ToString();
 
-            lblMostScoresInGameId1.Text = UserManager.GetName(records.MostScoresInGameId1) + "(" + records.MostScoresInGameId1 + ")";
-            lblMostScoresInGameId2.Text = UserManager.GetName(records.MostScoresInGameId2) + "(" + records.MostScoresInGameId2 + ")";
-            lblMostScoresInGame.Text = records.MostScoresInGame.ToString();
+            lblMostScoresInGameId1.Text = UserManager.GetName(records.MostScores_Game_Id1) + "(" + records.MostScores_Game_Id1 + ")";
+            lblMostScoresInGameId2.Text = UserManager.GetName(records.MostScores_Game_Id2) + "(" + records.MostScores_Game_Id2 + ")";
+            lblMostScoresInGame.Text = records.MostScores_Game.ToString();
         }
     }
 }

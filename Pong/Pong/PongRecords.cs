@@ -5,20 +5,20 @@ namespace RetroTable.Pong
 {
     public class PongRecords
     {
-        internal int BallSwitchesGameId1;
-        internal int BallSwitchesGameId2;
-        internal int BallSwitchesGame;
+        internal int BallSwitches_Game_Id1;
+        internal int BallSwitches_Game_Id2;
+        internal int BallSwitches_Game;
 
-        internal int BallSwitchesRoundId1;
-        internal int BallSwitchesRoundId2;
-        internal int BallSwitchesRound;
+        internal int BallSwitches_Round_Id1;
+        internal int BallSwitches_Round_Id2;
+        internal int BallSwitches_Round;
 
-        internal int MostScoresId;
+        internal int MostScores_Id;
         internal int MostScores;
 
-        internal int MostScoresInGameId1;
-        internal int MostScoresInGameId2;
-        internal int MostScoresInGame;
+        internal int MostScores_Game_Id1;
+        internal int MostScores_Game_Id2;
+        internal int MostScores_Game;
 
         internal void Save()
         {

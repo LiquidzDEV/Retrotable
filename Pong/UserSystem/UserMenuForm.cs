@@ -16,16 +16,16 @@ namespace RetroTable.UserSystem
 
             if (User != null)
             {
-                Text = "Benutzer bearbeiten | ID: " + User.Id;
+                Text = "Benutzer bearbeiten | ID: " + User.User_Id;
                 txtName.Text = User.Name;
-                trbBallSpeed.Value = (int)(User.BallSpeed * 100);
-                trbPanelSize.Value = User.PanelSize;
-                trbTimeLimit.Value = User.TimeLimit;
+                trbBallSpeed.Value = (int)(User.Ball_Speed * 100);
+                trbPanelSize.Value = User.Panel_Size;
+                trbTimeLimit.Value = User.Time_Limit;
 
-                lblMadeGoals.Text = "Erzielte Tore: " + User.MadeGoalsPong;
-                lblTakenGoals.Text = "Kassierte Tore: " + User.TakenGoalsPong;
-                lblDefended.Text = "Abgewehrte Bälle: " + User.DefendTimesPong;
-                TimeSpan playTime = new TimeSpan(0, 0, User.PlayTimePong);
+                lblMadeGoals.Text = "Erzielte Tore: " + User.MadeGoals_Pong;
+                lblTakenGoals.Text = "Kassierte Tore: " + User.TakenGoals_Pong;
+                lblDefended.Text = "Abgewehrte Bälle: " + User.DefendTimes_Pong;
+                TimeSpan playTime = new TimeSpan(0, 0, User.PlayTime_Pong);
                 lblPlayTime.Text = Math.Floor(playTime.TotalMinutes) + " Minuten " + playTime.Seconds + " Sekunden";
             }
         }
@@ -75,9 +75,9 @@ namespace RetroTable.UserSystem
                     User.Name = txtName.Text;
                 }
             }
-            User.BallSpeed = trbBallSpeed.Value / 100f;
-            User.PanelSize = trbPanelSize.Value;
-            User.TimeLimit = trbTimeLimit.Value;
+            User.Ball_Speed = trbBallSpeed.Value / 100f;
+            User.Panel_Size = trbPanelSize.Value;
+            User.Time_Limit = trbTimeLimit.Value;
             User.Save();
             DialogResult = DialogResult.OK;
             Close();

@@ -5,8 +5,7 @@
 
 using RetroTable.Board;
 using RetroTable.MySql;
-using RetroTable.Pong;
-using RetroTable.Pong.Components;
+using RetroTable.Main;
 using RetroTable.UserSystem;
 using System;
 using System.Windows.Forms;
@@ -78,7 +77,7 @@ namespace RetroTable.Main
             if (Databasemode)
             {
                 Database.Init();
-                UpdateLiveGameData();
+                Retrotable.UpdateLiveGameData();
             }
             else
             {

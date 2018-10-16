@@ -55,7 +55,7 @@ namespace RetroTable.Main
                 userButton.FlatStyle = FlatStyle.Flat;
                 userButton.Font = new Font("Microsoft Sans Serif", 20F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
                 userButton.Location = new Point(10 + 135 * (i + 1), 10);
-                userButton.Name = "btnUser" + user.Id;
+                userButton.Name = "btnUser" + user.User_Id;
                 userButton.Size = new Size(125, 125);
                 userButton.TabIndex = 4 + i;
                 userButton.Text = user.Name;
@@ -82,7 +82,7 @@ namespace RetroTable.Main
         private void btnUser_Click(object sender, MouseEventArgs e)
         {
             int userid = Int32.Parse(Regex.Match(((Button)sender).Name, @"\d+").Value);
-            var user = UserManager.GetUsers().Find(x => x.Id == userid);
+            var user = UserManager.GetUsers().Find(x => x.User_Id == userid);
 
             if (user == null) return;
 
