@@ -104,6 +104,9 @@
     <Compile Include="Main\RotatingLabel.Designer.cs">
       <DependentUpon>RotatingLabel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Main\UserButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="MySql\Tables\TableGame.cs" />
     <Compile Include="MySql\Tables\TableHistory.cs" />
     <Compile Include="MySql\Tables\TableRecords.cs" />
@@ -143,6 +146,12 @@
     <Compile Include="MySql\Database.cs" />
     <Compile Include="Main\Retrotable.cs" />
     <Compile Include="Main\Program.cs" />
+    <Compile Include="Test\ArduinoDataTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Test\ArduinoDataTest.Designer.cs">
+      <DependentUpon>ArduinoDataTest.cs</DependentUpon>
+    </Compile>
     <Compile Include="Test\LiveGameDataTest.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -194,6 +203,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pong\PongForm.resx">
       <DependentUpon>PongForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Test\ArduinoDataTest.resx">
+      <DependentUpon>ArduinoDataTest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Test\LiveGameDataTest.resx">
       <DependentUpon>LiveGameDataTest.cs</DependentUpon>

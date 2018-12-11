@@ -1,4 +1,5 @@
-﻿using RetroTable.Main;
+﻿using RetroTable.Board;
+using RetroTable.Main;
 using RetroTable.UserSystem;
 using System;
 using System.Windows.Forms;
@@ -31,9 +32,10 @@ namespace RetroTable.Bounce
             parent.Controls.Add(this);
         }
 
-        private void Retrotable_onValueChanged(Board.PinMapping button, int newValue)
+        private void Retrotable_onValueChanged(PinMapping pin, int newValue)
         {
-            Location = new System.Drawing.Point(Location.X, (int)(Parent.Bounds.Height - Bounds.Height * (newValue / 100f)));
+            if (pin == PinMapping.Player1SliderTotal)
+                Location = new System.Drawing.Point(Location.X, (int)(Parent.Bounds.Height - Bounds.Height * (newValue / 100f)));
         }
 
         internal void SetMoveSet(bool up, bool keyDown)

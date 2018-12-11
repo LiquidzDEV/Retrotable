@@ -15,7 +15,7 @@ namespace RetroTable.Main
 {
     public partial class MainMenuForm : Form
     {
-        private List<Button> UserButtons = new List<Button>();
+        private List<UserButton> UserButtons = new List<UserButton>();
 
         public MainMenuForm()
         {
@@ -23,7 +23,32 @@ namespace RetroTable.Main
             UpdateUserBar();
 #if DEBUG
             new LiveGameDataTest().Show();
+            new ArduinoDataTest().Show();
 #endif
+
+            Retrotable.onButtonReleased += Retrotable_onButtonReleased;
+        }
+
+        private void Retrotable_onButtonReleased(Board.PinMapping button)
+        {
+            if(button == Board.PinMapping.EncoderSW)
+            {
+                if(FindFocusedControl(this) is Button btn)
+                {
+                    btn.PerformClick();
+                }
+            }
+        }
+
+        public static Control FindFocusedControl(Control control)
+        {
+            var container = control as IContainerControl;
+            while (container != null)
+            {
+                control = container.ActiveControl;
+                container = control as IContainerControl;
+            }
+            return control;
         }
 
         private void btnAddUser_Click(object sender, EventArgs e)
@@ -34,24 +59,25 @@ namespace RetroTable.Main
 
         internal void UpdateUserBar()
         {
-            var Users = UserManager.GetUsers();
-
             //pnlUser.Width = 145 + Users.Count * 125;
+            var users = UserManager.GetUsers();
 
-            foreach (var button in UserButtons)
+            for (int i = UserButtons.Count - 1; i > 0; i--)
             {
+                var button = UserButtons[i];
+                if (users.Find(x => x.User_Id == button.GetUserId()) != null) continue;
                 pnlUser.Controls.Remove(button);
                 button.Dispose();
+                UserButtons.Remove(button);
             }
-            UserButtons = new List<Button>();
-
-            var users = UserManager.GetUsers();
 
             for (int i = 0; i < users.Count; i++)
             {
                 var user = users[i];
 
-                var userButton = new Button();
+                if (UserButtons.Find(x => x.GetUserId() == user.User_Id) != null) continue;
+
+                var userButton = new UserButton();
                 userButton.FlatStyle = FlatStyle.Flat;
                 userButton.Font = new Font("Microsoft Sans Serif", 20F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
                 userButton.Location = new Point(10 + 135 * (i + 1), 10);
@@ -62,17 +88,19 @@ namespace RetroTable.Main
                 userButton.UseVisualStyleBackColor = true;
                 userButton.MouseUp += new MouseEventHandler(btnUser_Click);
 
-                if (UserManager.Player1 != null && UserManager.Player1 == user)
-                {
-                    userButton.BackColor = Color.FromArgb(255, 119, 0, 0);
-                }
-                else if (UserManager.Player2 != null && UserManager.Player2 == user)
-                {
-                    userButton.BackColor = Color.FromArgb(255, 0, 0, 119);
-                }
-
                 pnlUser.Controls.Add(userButton);
                 UserButtons.Add(userButton);
+            }
+
+            UserButtons.ForEach(x => x.BackColor = System.Drawing.SystemColors.Control);
+
+            if (UserManager.Player1 != null)
+            {
+                UserButtons.Find(x => x.GetUserId() == UserManager.Player1.User_Id).BackColor = Color.FromArgb(255, 119, 0, 0);
+            }
+            if (UserManager.Player2 != null)
+            {
+                UserButtons.Find(x => x.GetUserId() == UserManager.Player2.User_Id).BackColor = Color.FromArgb(255, 0, 0, 119);
             }
 
             btnAddUser.Location = new Point(10, 10);
@@ -81,7 +109,7 @@ namespace RetroTable.Main
 
         private void btnUser_Click(object sender, MouseEventArgs e)
         {
-            int userid = Int32.Parse(Regex.Match(((Button)sender).Name, @"\d+").Value);
+            int userid = Int32.Parse(Regex.Match(((UserButton)sender).Name, @"\d+").Value);
             var user = UserManager.GetUsers().Find(x => x.User_Id == userid);
 
             if (user == null) return;

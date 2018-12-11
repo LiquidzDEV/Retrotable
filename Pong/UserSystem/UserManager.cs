@@ -43,12 +43,12 @@ namespace RetroTable.UserSystem
             if (Retrotable.Databasemode)
                 Users = Database.User.UserGet();
 
-            if (Player1 != null && !Users.Contains(Player1))
+            if (Player1 != null && Users.Where(x => x.User_Id == Player1.User_Id).Count() == 0)
             {
                 Player1 = null;
             }
 
-            if (Player2 != null && !Users.Contains(Player2))
+            if (Player2 != null && Users.Where(x => x.User_Id == Player2.User_Id).Count() == 0)
             {
                 Player2 = null;
             }
@@ -62,11 +62,19 @@ namespace RetroTable.UserSystem
 
         internal static string GetName(int id)
         {
-            UpdateUsers();
-
             var user = Users.Find(x => x.User_Id == id);
 
-            if (user == null) return "Ungültiger Benutzer";
+            if (user == null)
+            {
+                UpdateUsers();
+
+                user = Users.Find(x => x.User_Id == id);
+
+                if (user == null)
+                {
+                    return "Ungültiger Benutzer";
+                }
+            }
 
             return user.Name;
         }

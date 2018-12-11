@@ -115,6 +115,7 @@
             this.Controls.Add(this.pnlUser);
             this.Controls.Add(this.btnPong);
             this.Controls.Add(this.pictureBox1);
+            this.KeyPreview = true;
             this.Name = "MainMenuForm";
             this.Text = "MainMenuForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainMenuForm_FormClosing);

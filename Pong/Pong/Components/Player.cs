@@ -40,7 +40,7 @@ namespace RetroTable.Pong.Components
 
         private void RetroTable_onValueChanged(PinMapping button, int newValue)
         {
-            if (button == PinMapping.Player1Bar)
+            if (button == PinMapping.Player1SliderTotal)
                 newValue = 100 - newValue;
 
             double position = (World.Bottom - _pnl.Size.Height - World.Upper) / 100f * newValue;

@@ -2,7 +2,7 @@
 
 namespace RetroTable.MySql.Tables
 {
-    internal interface TableGame
+    public interface TableGame
     {
         void UpdateGameData(LiveGameData gameData);
     }
