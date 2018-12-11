@@ -9,17 +9,17 @@ namespace RetroTable.Board
         /// <summary> Configures the pins from the arduino for the project. </summary>
         public static void Setup()
         {
-            Retrotable.Arduino.PinMode(PinMapping.ButtonStart, Arduino.INPUT);
-            Retrotable.Arduino.PinMode(PinMapping.Player1ButtonLed, Arduino.OUTPUT);
-            Retrotable.Arduino.PinMode(PinMapping.Player2ButtonLed, Arduino.OUTPUT);
+            Retrotable.Arduino.PinMode(PinMapping.Player1Buttons, Arduino.INPUT);
+            Retrotable.Arduino.PinMode(PinMapping.Player2Buttons, Arduino.INPUT);
 
-            Retrotable.Arduino.PinMode(PinMapping.Player1LedGreen, Arduino.OUTPUT);
-            Retrotable.Arduino.PinMode(PinMapping.Player1LedRed, Arduino.OUTPUT);
-            Retrotable.Arduino.PinMode(PinMapping.Player2LedGreen, Arduino.OUTPUT);
-            Retrotable.Arduino.PinMode(PinMapping.Player2LedRed, Arduino.OUTPUT);
+            Retrotable.Arduino.PinMode(PinMapping.EncoderSW, Arduino.INPUT);
+            Retrotable.Arduino.PinMode(PinMapping.EncoderDT, Arduino.INPUT);
+            Retrotable.Arduino.PinMode(PinMapping.EncoderCLK, Arduino.INPUT);
 
-            Retrotable.Arduino.PinMode(PinMapping.Player1Bar, Arduino.ANALOG);
-            Retrotable.Arduino.PinMode(PinMapping.Player2Bar, Arduino.ANALOG);
+            Retrotable.Arduino.PinMode(PinMapping.Player1ButtonLeftLed, Arduino.OUTPUT);
+            Retrotable.Arduino.PinMode(PinMapping.Player1ButtonRightLed, Arduino.OUTPUT);
+            Retrotable.Arduino.PinMode(PinMapping.Player2ButtonLeftLed, Arduino.OUTPUT);
+            Retrotable.Arduino.PinMode(PinMapping.Player2ButtonRightLed, Arduino.OUTPUT);
 
             SetStartLeds(true, true);
 
@@ -30,9 +30,11 @@ namespace RetroTable.Board
 
             _blinkTimer.Elapsed += delegate
             {
-                var pin = _blinkPlayer ? PinMapping.Player1ButtonLed : PinMapping.Player2ButtonLed;
+                var pin1 = _blinkPlayer ? PinMapping.Player1ButtonLeftLed : PinMapping.Player2ButtonLeftLed;
+                var pin2 = _blinkPlayer ? PinMapping.Player1ButtonRightLed : PinMapping.Player2ButtonRightLed;
                 _blinkState = !_blinkState;
-                Retrotable.Arduino.DigitalWrite(pin, _blinkState ? Arduino.HIGH : Arduino.LOW);
+                Retrotable.Arduino.DigitalWrite(pin1, _blinkState ? Arduino.HIGH : Arduino.LOW);
+                Retrotable.Arduino.DigitalWrite(pin2, _blinkState ? Arduino.HIGH : Arduino.LOW);
             };
         }
 
@@ -41,32 +43,32 @@ namespace RetroTable.Board
         /// </summary>
         /// <param name="player1">If true, the player1 LED is green, otherwise red</param>
         /// <param name="player2">If true, the player2 LED is green, otherwise red</param>
-        [System.Obsolete("DUO-LEDs are not implemented!", true)]
-        public static void SetLeds(bool player1, bool player2)
-        {
-            if (!Retrotable.ArduinoMode) return;
+        //[System.Obsolete("DUO-LEDs are not implemented!", true)]
+        //public static void SetLeds(bool player1, bool player2)
+        //{
+        //    if (!Retrotable.ArduinoMode) return;
 
-            if (player1)
-            {
-                Retrotable.Arduino.DigitalWrite(PinMapping.Player1LedRed, Arduino.LOW);
-                Retrotable.Arduino.DigitalWrite(PinMapping.Player1LedGreen, Arduino.HIGH);
-            }
-            else
-            {
-                Retrotable.Arduino.DigitalWrite(PinMapping.Player1LedGreen, Arduino.LOW);
-                Retrotable.Arduino.DigitalWrite(PinMapping.Player1LedRed, Arduino.HIGH);
-            }
-            if (player2)
-            {
-                Retrotable.Arduino.DigitalWrite(PinMapping.Player2LedRed, Arduino.LOW);
-                Retrotable.Arduino.DigitalWrite(PinMapping.Player2LedGreen, Arduino.HIGH);
-            }
-            else
-            {
-                Retrotable.Arduino.DigitalWrite(PinMapping.Player2LedGreen, Arduino.LOW);
-                Retrotable.Arduino.DigitalWrite(PinMapping.Player2LedRed, Arduino.HIGH);
-            }
-        }
+        //    if (player1)
+        //    {
+        //        Retrotable.Arduino.DigitalWrite(PinMapping.Player1LedRed, Arduino.LOW);
+        //        Retrotable.Arduino.DigitalWrite(PinMapping.Player1LedGreen, Arduino.HIGH);
+        //    }
+        //    else
+        //    {
+        //        Retrotable.Arduino.DigitalWrite(PinMapping.Player1LedGreen, Arduino.LOW);
+        //        Retrotable.Arduino.DigitalWrite(PinMapping.Player1LedRed, Arduino.HIGH);
+        //    }
+        //    if (player2)
+        //    {
+        //        Retrotable.Arduino.DigitalWrite(PinMapping.Player2LedRed, Arduino.LOW);
+        //        Retrotable.Arduino.DigitalWrite(PinMapping.Player2LedGreen, Arduino.HIGH);
+        //    }
+        //    else
+        //    {
+        //        Retrotable.Arduino.DigitalWrite(PinMapping.Player2LedGreen, Arduino.LOW);
+        //        Retrotable.Arduino.DigitalWrite(PinMapping.Player2LedRed, Arduino.HIGH);
+        //    }
+        //}
 
         /// <summary>
         /// Sets the LEDs from the player startbuttons to on or off, depending on the given bool.
@@ -77,8 +79,10 @@ namespace RetroTable.Board
         {
             if (!Retrotable.ArduinoMode) return;
 
-            Retrotable.Arduino.DigitalWrite(PinMapping.Player1ButtonLed, player1 ? Arduino.HIGH : Arduino.LOW);
-            Retrotable.Arduino.DigitalWrite(PinMapping.Player2ButtonLed, player2 ? Arduino.HIGH : Arduino.LOW);
+            Retrotable.Arduino.DigitalWrite(PinMapping.Player1ButtonLeftLed, player1 ? Arduino.HIGH : Arduino.LOW);
+            Retrotable.Arduino.DigitalWrite(PinMapping.Player1ButtonRightLed, player1 ? Arduino.HIGH : Arduino.LOW);
+            Retrotable.Arduino.DigitalWrite(PinMapping.Player2ButtonLeftLed, player2 ? Arduino.HIGH : Arduino.LOW);
+            Retrotable.Arduino.DigitalWrite(PinMapping.Player2ButtonRightLed, player2 ? Arduino.HIGH : Arduino.LOW);
         }
 
         private static Timer _blinkTimer;

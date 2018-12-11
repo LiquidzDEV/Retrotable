@@ -6,14 +6,20 @@
     /// </summary>
     public enum PinMapping
     {
-        ButtonStart = 4, // Closingcontact of the startbuttons
-        Player1ButtonLed = 2, // Led Startbutton Player 1
-        Player2ButtonLed = 3, // Led Startbutton Player 2
-        Player1LedGreen = 6, //
-        Player1LedRed = 5, //
-        Player2LedGreen = 11, //
-        Player2LedRed = 12, // 
-        Player1Bar = 0, // Analog value from the Player 1 potentiometer
-        Player2Bar = 1 // Analog value from the Player 2 potentiometer
+        Player1Buttons = 7,
+        Player2Buttons = 8,
+        EncoderSW = 1,
+        EncoderDT = 2,
+        EncoderCLK = 3,
+        Player1SliderSensLeft = 4,
+        Player1SliderSensRight = 5,
+        Player1SliderTotal = 100,
+        Player2SliderSensLeft = 14,
+        Player2SliderSensRight = 15,
+        Player2SliderTotal = 101,
+        Player1ButtonLeftLed = 9,
+        Player1ButtonRightLed = 10,
+        Player2ButtonLeftLed = 11,
+        Player2ButtonRightLed = 12,
     }
 }

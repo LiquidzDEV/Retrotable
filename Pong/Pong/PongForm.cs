@@ -1,11 +1,10 @@
-﻿using System;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
-using RetroTable.Board;
+﻿using RetroTable.Board;
 using RetroTable.Main;
 using RetroTable.Pong.Components;
 using RetroTable.UserSystem;
+using System;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace RetroTable.Pong
 {
@@ -23,7 +22,8 @@ namespace RetroTable.Pong
         {
             Main = main;
 
-            Retrotable.onButtonReleased += RetroTable_onButtonReleased;
+            Retrotable.onButtonPressed += RetroTable_onButtonPressed;
+            Retrotable.onButtonReleased += Retrotable_onButtonReleased;
 
             InitializeComponent();
             World.SetBounds(ClientSize.Height, ClientSize.Width);
@@ -33,14 +33,29 @@ namespace RetroTable.Pong
             Hide();
         }
 
-        private void RetroTable_onButtonReleased(PinMapping button)
+        private bool Player1Pressed, Player2Pressed;
+
+        private void RetroTable_onButtonPressed(PinMapping button)
         {
             if (!Visible) return;
 
-            if (button == PinMapping.ButtonStart)
+            if (button == PinMapping.Player1Buttons)
+                Player1Pressed = true;
+            else if (button == PinMapping.Player2Buttons)
+                Player2Pressed = true;
+
+            if (Player1Pressed && Player2Pressed)
             {
                 Main.Start();
             }
+        }
+
+        private void Retrotable_onButtonReleased(PinMapping button)
+        {
+            if (button == PinMapping.Player1Buttons)
+                Player1Pressed = false;
+            else if (button == PinMapping.Player2Buttons)
+                Player2Pressed = false;
         }
 
         internal void ClearWinnerDisplay(bool withInfo)
@@ -87,12 +102,12 @@ namespace RetroTable.Pong
 
         #region Bewegen der Balken
 
-        void MainFormKeyDown(object sender, KeyEventArgs e)
+        private void MainFormKeyDown(object sender, KeyEventArgs e)
         {
             SetMovingState(e.KeyCode, true);
         }
 
-        void MainFormKeyUp(object sender, KeyEventArgs e)
+        private void MainFormKeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
                 Main.Hide();
@@ -128,7 +143,7 @@ namespace RetroTable.Pong
             }
         }
 
-        void timerPaddle_Tick(object sender, EventArgs e)
+        private void timerPaddle_Tick(object sender, EventArgs e)
         {
             Main.Player1.Move();
             Main.Player2.Move();
@@ -221,6 +236,8 @@ namespace RetroTable.Pong
                     Main.Records.MostScores_Game_Id2 = UserManager.Player2.User_Id;
                     Main.Records.Save();
                 }
+
+                HistoryEntry.Create(UserManager.Player1, Main.Player1.ScorePoints, UserManager.Player2, Main.Player2.ScorePoints);
 
                 Main.ResetRound();
             }

@@ -1,6 +1,6 @@
 ﻿namespace RetroTable.Main
 {
-    internal class LiveGameData
+    public class LiveGameData
     {
         internal int Running { get; set; }
         internal int User_Id1 { get; set; }

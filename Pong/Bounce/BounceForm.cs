@@ -1,9 +1,10 @@
-﻿using RetroTable.Main;
-using System;
-using System.Linq;
-using System.Drawing;
-using System.Windows.Forms;
+﻿using RetroTable.Board;
+using RetroTable.Main;
 using RetroTable.UserSystem;
+using System;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace RetroTable.Bounce
 {
@@ -15,6 +16,8 @@ namespace RetroTable.Bounce
         {
             Main = main;
             InitializeComponent();
+
+            Retrotable.onButtonPressed += Retrotable_onButtonPressed;
         }
 
         public new void Hide()
@@ -64,8 +67,14 @@ namespace RetroTable.Bounce
             }
         }
 
+        private void Retrotable_onButtonPressed(PinMapping button)
+        {
+            if (button == PinMapping.Player1Buttons)
+                Main.Start();
+        }
+
         internal void ShowRanking(HistoryEntry personalRanking = null)
-        {           
+        {
             var rankings = Main.LastRanking.OrderByDescending(x => x.Score).ToList();
 
             lblRanking.Text = "";
@@ -85,16 +94,18 @@ namespace RetroTable.Bounce
                 {
                     lblThird.Text = "3. " + UserManager.GetName(ranking.User_Id) + ": " + ranking.Score;
                 }
-                else if(i < 5)
+                else if (i < 20)
                 {
                     lblRanking.Text += (i + 1) + ". " + UserManager.GetName(ranking.User_Id) + ": " + ranking.Score + "\n";
                 }
 
-                if(personalRanking != null && ranking == personalRanking)
+                if (personalRanking != null && ranking.Created == personalRanking.Created)
                 {
                     lblOwnRecord.Text = (i + 1) + ". " + UserManager.GetName(ranking.User_Id) + ": " + ranking.Score;
                 }
             }
+
+
 
             pnlRanking.Visible = true;
         }

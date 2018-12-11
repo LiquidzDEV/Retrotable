@@ -4,7 +4,7 @@ using System;
 
 namespace RetroTable.Main
 {
-    internal class HistoryEntry
+    public class HistoryEntry
     {
         internal int History_Id { get; private set; }
         internal int Game { get; private set; }
@@ -40,9 +40,9 @@ namespace RetroTable.Main
                 };
         }
 
-        internal static HistoryEntry Create(User user, int score, User user2, int score2, int time)
+        internal static HistoryEntry Create(User user, int score, User user2, int score2)
         {
-            return Create(1, user.User_Id, score, user.Panel_Size, user.Ball_Speed, user2?.User_Id, score2, user2 == null ? 0 : user2.Panel_Size, user2 == null ? 0f : user2.Ball_Speed, time);
+            return Create(1, user.User_Id, score, user.Panel_Size, user.Ball_Speed, user2?.User_Id, score2, user2 == null ? 0 : user2.Panel_Size, user2 == null ? 0f : user2.Ball_Speed, user.Time_Limit);
         }
 
         internal static HistoryEntry Create(User user, int score, int time)
