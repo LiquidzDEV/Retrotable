@@ -30,11 +30,16 @@ namespace RetroTable.Board
 
             _blinkTimer.Elapsed += delegate
             {
-                var pin1 = _blinkPlayer ? PinMapping.Player1ButtonLeftLed : PinMapping.Player2ButtonLeftLed;
-                var pin2 = _blinkPlayer ? PinMapping.Player1ButtonRightLed : PinMapping.Player2ButtonRightLed;
                 _blinkState = !_blinkState;
-                Retrotable.Arduino.DigitalWrite(pin1, _blinkState ? Arduino.HIGH : Arduino.LOW);
-                Retrotable.Arduino.DigitalWrite(pin2, _blinkState ? Arduino.HIGH : Arduino.LOW);
+                Retrotable.Arduino.DigitalWrite(_blinkPlayer ? PinMapping.Player1ButtonLeftLed : PinMapping.Player2ButtonLeftLed, _blinkState ? Arduino.HIGH : Arduino.LOW);
+                Retrotable.Arduino.DigitalWrite(_blinkPlayer ? PinMapping.Player1ButtonRightLed : PinMapping.Player2ButtonRightLed, _blinkState ? Arduino.HIGH : Arduino.LOW);
+
+                if(_blinkTimes > 0)
+                {
+                    _blinkTimes--;
+                    if (_blinkTimes == 0)
+                        StopBlinking();
+                }
             };
         }
 
@@ -88,15 +93,27 @@ namespace RetroTable.Board
         private static Timer _blinkTimer;
         private static bool _blinkPlayer = false;
         private static bool _blinkState = false;
+        private static int _blinkTimes = 0;
 
         /// <summary>
         /// Starts the blinking for a players startbutton.
         /// </summary>
         /// <param name="player1">If true, the player 1 startbutton will blink, otherwise the player 2 startbutton</param>
-        public static void StartBlinking(bool player1)
+        public static void StartBlinking(bool player1, int intervall = 500)
         {
             if (!Retrotable.ArduinoMode) return;
             _blinkPlayer = player1;
+            _blinkTimes = 0;
+            _blinkTimer.Interval = intervall;
+            _blinkTimer.Enabled = true;
+        }
+
+        public static void StartBlinking(bool player1, int times, int intervall = 500)
+        {
+            if (!Retrotable.ArduinoMode) return;
+            _blinkPlayer = player1;
+            _blinkTimes = times;
+            _blinkTimer.Interval = intervall;
             _blinkTimer.Enabled = true;
         }
 
