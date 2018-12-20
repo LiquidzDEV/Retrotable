@@ -44,6 +44,9 @@ namespace RetroTable.Pong
         //Wenn Pong geöffnet wird
         internal void Show()
         {
+            ArduinoHelper.StopBlinking();
+            ArduinoHelper.SetStartLeds(true, true);
+
             ClearPoints();
             ResetRound();
             Pongform.Show();

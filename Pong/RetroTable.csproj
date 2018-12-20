@@ -128,7 +128,7 @@
     <Compile Include="Pong\Components\Ball.cs" />
     <Compile Include="Pong\Components\Player.cs" />
     <Compile Include="Pong\Components\World.cs" />
-    <Compile Include="Board\Extensions.cs" />
+    <Compile Include="Main\Extensions.cs" />
     <Compile Include="Main\MainMenuForm.cs">
       <SubType>Form</SubType>
     </Compile>

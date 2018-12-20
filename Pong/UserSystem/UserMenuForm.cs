@@ -7,7 +7,9 @@ namespace RetroTable.UserSystem
 {
     public partial class UserMenuForm : Form
     {
-        User User;
+        private User User;
+
+        private Timer InputDelay = new Timer();
 
         public UserMenuForm(User user)
         {
@@ -28,6 +30,46 @@ namespace RetroTable.UserSystem
                 TimeSpan playTime = new TimeSpan(0, 0, User.PlayTime_Pong);
                 lblPlayTime.Text = Math.Floor(playTime.TotalMinutes) + " Minuten " + playTime.Seconds + " Sekunden";
             }
+
+            Retrotable.onEncoderRotated += Retrotable_onEncoderRotated;
+            Retrotable.onButtonReleased += Retrotable_onButtonReleased;
+
+            InputDelay.Interval = 1000;
+            InputDelay.Tick += InputDelay_Tick;
+            InputDelay.Start();
+        }
+
+        private void InputDelay_Tick(object sender, EventArgs e)
+        {
+            InputDelay.Enabled = false;
+        }
+
+        private void Retrotable_onButtonReleased(Board.PinMapping button)
+        {
+            if (!Visible || ActiveForm != this || InputDelay.Enabled) return;
+
+            if (button == Board.PinMapping.EncoderSW)
+            {
+                this.Invoke((MethodInvoker)delegate
+                {
+                    if (this.FindFocusedControl() is Button btn)
+                    {
+                        btn.PerformClick();
+                    }
+                });
+            }
+        }
+
+        private void Retrotable_onEncoderRotated(bool clockwise)
+        {
+            if (!Visible || ActiveForm != this) return;
+            this.Invoke((MethodInvoker)delegate
+            {
+                if (clockwise)
+                    SelectNextControl(this.FindFocusedControl(), true, true, true, true);
+                else
+                    SelectNextControl(this.FindFocusedControl(), false, true, true, true);
+            });
         }
 
         private void trbBallSpeed_ValueChanged(object sender, EventArgs e)
@@ -115,6 +157,11 @@ namespace RetroTable.UserSystem
             }
 
             btnSave.Enabled = UserManager.GetUsers().Find(x => x.Name.ToLower() == txtName.Text.ToLower()) == null;
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

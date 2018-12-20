@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Windows.Forms;
 
-namespace RetroTable.Board
+namespace RetroTable.Main
 {
     /// <summary> Static Helperclass to extend the int-Class </summary>
     public static class Extensions
@@ -17,6 +18,17 @@ namespace RetroTable.Board
         public static int Map(this int value, decimal fromSource, decimal toSource, decimal fromTarget, decimal toTarget)
         {
             return (int)Math.Round((value - fromSource) / (toSource - fromSource) * (toTarget - fromTarget) + fromTarget);
+        }
+
+        public static Control FindFocusedControl(this Control control)
+        {
+            var container = control as IContainerControl;
+            while (container != null)
+            {
+                control = container.ActiveControl;
+                container = control as IContainerControl;
+            }
+            return control;
         }
     }
 }

@@ -46,12 +46,14 @@ namespace RetroTable.Main
         public delegate void ButtonReleased(PinMapping button);
         public static event ValueChanged onValueChanged;
         public delegate void ValueChanged(PinMapping button, int newValue);
+        public static event EncoderRotated onEncoderRotated;
+        public delegate void EncoderRotated(bool clockwise);
 
         /// <summary> False, if no Arduino is found. </summary>
         internal static bool ArduinoMode = true;
 
         /// <summary> False, wenn die Software ohne Datenbank betrieben werden soll. </summary>
-        internal const bool Databasemode = true;
+        internal const bool Databasemode = false;
 
         /// <summary> Static Field that represents the connection to the Arduino. </summary>
         internal static Arduino Arduino { get; private set; }
@@ -90,7 +92,7 @@ namespace RetroTable.Main
 
             try
             {
-                Arduino = new Arduino("COM5");
+                Arduino = new Arduino("COM7");//COM5
             }
             catch (Exception)
             {
@@ -125,11 +127,23 @@ namespace RetroTable.Main
         /// <summary> This Event is triggered when a digital pin is updated. </summary>
         /// <param name="pin"> The updated Pin </param>
         /// <param name="state"> the changed Value (HIGH or LOW) </param>
-        private static void DigitalPinUpdated(PinMapping pin, byte state)
+        private void DigitalPinUpdated(PinMapping pin, byte state)
         {
-#if DEBUG
-            ArduinoDataTest.AddData((int)pin, state);
+
+#if DEBUG           
+            ArduinoDataTest.AddData(pin, state);
 #endif
+
+            if (pin == PinMapping.EncoderDT)
+            {
+                DT = state == Arduino.HIGH ? true : false;
+                UpdateEncoder();
+            }
+            else if (pin == PinMapping.EncoderCLK)
+            {
+                CLK = state == Arduino.HIGH ? true : false;
+                UpdateEncoder();
+            }
 
             if (state == Arduino.HIGH)
             {
@@ -175,7 +189,8 @@ namespace RetroTable.Main
         private void AnalogPinUpdated(PinMapping pin, int value)
         {
 #if DEBUG
-            ArduinoDataTest.AddData((int)pin, value);
+            if (pin == PinMapping.Player1SliderSensLeft || pin == PinMapping.Player1SliderSensRight || pin == PinMapping.Player2SliderSensLeft || pin == PinMapping.Player2SliderSensRight)
+                ArduinoDataTest.AddData(pin, value);
 #endif
 
             if (pin == PinMapping.Player1SliderSensLeft)
@@ -215,8 +230,45 @@ namespace RetroTable.Main
                     Player2RightSample.RemoveAt(0);
                 UpdatePlayer2Position();
             }
+        }
 
+        private bool? first;
+        private bool DT, CLK, counted;
+        private void UpdateEncoder()
+        {
+            // Wurde gerade ein drehvorgang beendet und sind beide signale wieder 0, kann ein neuer drehvorgang beginnen
 
+            if (!DT && !CLK && counted)
+            {
+                first = null;
+                counted = false;
+            }
+
+            // Im Uhrzeigersinn zuerst CLK dann DT (Links = 1)
+
+            if (first == null && CLK)
+            {
+                first = false;
+            }
+            else if (!counted && first == false && DT)
+            {
+                //LINKS
+                onEncoderRotated?.Invoke(false);
+                counted = true;
+            }
+
+            // Gegen den Uhrzeigersinn zuerst DT dann CLK (Rechts = 2)
+
+            else if (first == null && DT)
+            {
+                first = true;
+            }
+            else if (!counted && first == true && CLK)
+            {
+                //RECHTS
+                onEncoderRotated?.Invoke(true);
+                counted = true;
+            }
         }
 
         private void UpdatePlayer1Position()
@@ -227,7 +279,7 @@ namespace RetroTable.Main
             if (Player1LastLeftValue > 500 || Player1LastRightValue > 500)
             {
                 int total = rightAverage - leftAverage;
-                total = total.Map(-1300, 1200, 0, 100);
+                total = Math.Max(0, Math.Min(100, total.Map(-1300, 1200, 0, 100)));
 
                 onValueChanged.Invoke(PinMapping.Player1SliderTotal, total);
                 //pnlSlider.Location = new Point(Math.Max(0, Math.Min(800, total)), pnlSlider.Location.Y);
@@ -242,7 +294,7 @@ namespace RetroTable.Main
             if (Player2LastLeftValue > 500 || Player2LastRightValue > 500)
             {
                 int total = rightAverage - leftAverage;
-                total = total.Map(-1300, 1200, 0, 100);
+                total = Math.Max(0, Math.Min(100, total.Map(-1300, 1200, 0, 100)));
 
                 onValueChanged.Invoke(PinMapping.Player2SliderTotal, total);
                 //pnlSlider.Location = new Point(Math.Max(0, Math.Min(800, total)), pnlSlider.Location.Y);

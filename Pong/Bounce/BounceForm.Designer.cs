@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BounceForm));
             this.timerPaddle = new System.Windows.Forms.Timer(this.components);
             this.timerMain = new System.Windows.Forms.Timer(this.components);
             this.timerBalls = new System.Windows.Forms.Timer(this.components);
@@ -38,27 +38,17 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lblRanking = new System.Windows.Forms.Label();
             this.pnlRanking = new System.Windows.Forms.Panel();
+            this.lblOwnRecord = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.lblThird = new System.Windows.Forms.Label();
             this.lblSecond = new System.Windows.Forms.Label();
             this.lblFirst = new System.Windows.Forms.Label();
             this.lblTime = new RetroTable.Main.RotatingLabel();
             this.lblScore = new RetroTable.Main.RotatingLabel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.lblOwnRecord = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pnlRanking.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.pictureBox1.Location = new System.Drawing.Point(850, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(150, 600);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
             // 
             // timerPaddle
             // 
@@ -129,6 +119,26 @@
             this.pnlRanking.TabIndex = 8;
             this.pnlRanking.Visible = false;
             // 
+            // lblOwnRecord
+            // 
+            this.lblOwnRecord.AutoSize = true;
+            this.lblOwnRecord.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblOwnRecord.Location = new System.Drawing.Point(21, 419);
+            this.lblOwnRecord.Name = "lblOwnRecord";
+            this.lblOwnRecord.Size = new System.Drawing.Size(81, 14);
+            this.lblOwnRecord.TabIndex = 13;
+            this.lblOwnRecord.Text = "12. Pascal: 500";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(21, 405);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(106, 14);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "Deine Platzierung:";
+            // 
             // lblThird
             // 
             this.lblThird.AutoSize = true;
@@ -164,7 +174,9 @@
             // 
             // lblTime
             // 
+            this.lblTime.AlignText = false;
             this.lblTime.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.lblTime.BackColor = System.Drawing.Color.LightGray;
             this.lblTime.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTime.Location = new System.Drawing.Point(874, 299);
             this.lblTime.Name = "lblTime";
@@ -175,40 +187,35 @@
             // 
             // lblScore
             // 
+            this.lblScore.AlignText = false;
             this.lblScore.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.lblScore.BackColor = System.Drawing.Color.LightGray;
             this.lblScore.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblScore.Location = new System.Drawing.Point(874, 119);
+            this.lblScore.Location = new System.Drawing.Point(874, 131);
             this.lblScore.Name = "lblScore";
-            this.lblScore.NewText = " Pascal: 300";
+            this.lblScore.NewText = "Pascal: 300";
             this.lblScore.RotateAngle = 90;
-            this.lblScore.Size = new System.Drawing.Size(21, 101);
+            this.lblScore.Size = new System.Drawing.Size(21, 97);
             this.lblScore.TabIndex = 4;
             // 
-            // label2
+            // pictureBox1
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(21, 405);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(106, 14);
-            this.label2.TabIndex = 12;
-            this.label2.Text = "Deine Platzierung:";
-            // 
-            // lblOwnRecord
-            // 
-            this.lblOwnRecord.AutoSize = true;
-            this.lblOwnRecord.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblOwnRecord.Location = new System.Drawing.Point(21, 419);
-            this.lblOwnRecord.Name = "lblOwnRecord";
-            this.lblOwnRecord.Size = new System.Drawing.Size(81, 14);
-            this.lblOwnRecord.TabIndex = 13;
-            this.lblOwnRecord.Text = "12. Pascal: 500";
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.BackColor = System.Drawing.Color.LightGray;
+            this.pictureBox1.Location = new System.Drawing.Point(850, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(150, 600);
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
             // 
             // BounceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1000, 600);
             this.ControlBox = false;
             this.Controls.Add(this.pnlRanking);
@@ -226,23 +233,20 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.BounceForm_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.BounceForm_KeyUp);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.pnlRanking.ResumeLayout(false);
             this.pnlRanking.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Timer timerPaddle;
         internal System.Windows.Forms.Timer timerMain;
         internal System.Windows.Forms.Timer timerBalls;
         private System.Windows.Forms.Label lblDebug;
         internal System.Windows.Forms.Timer timerAddBall;
-        private Main.RotatingLabel lblScore;
         private Main.RotatingLabel lblTime;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblRanking;
@@ -252,5 +256,7 @@
         private System.Windows.Forms.Label lblFirst;
         private System.Windows.Forms.Label lblOwnRecord;
         private System.Windows.Forms.Label label2;
+        private Main.RotatingLabel lblScore;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

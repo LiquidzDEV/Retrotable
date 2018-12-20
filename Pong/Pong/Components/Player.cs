@@ -2,7 +2,6 @@
 using RetroTable.Main;
 using RetroTable.UserSystem;
 using System;
-using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -22,7 +21,7 @@ namespace RetroTable.Pong.Components
         private readonly Panel _pnl;
         private readonly Label _lblScore;
 
-        private bool Player1;
+        private readonly bool Player1;
 
         public bool PlayerUp;
         public bool PlayerDown;
@@ -38,13 +37,20 @@ namespace RetroTable.Pong.Components
             Retrotable.onValueChanged += RetroTable_onValueChanged;
         }
 
-        private void RetroTable_onValueChanged(PinMapping button, int newValue)
+        private void RetroTable_onValueChanged(PinMapping pin, int newValue)
         {
-            if (button == PinMapping.Player1SliderTotal)
+            if (!_pnl.Parent.Visible) return;
+            if (Player1 && pin != PinMapping.Player1SliderTotal) return;
+            if (!Player1 && pin != PinMapping.Player2SliderTotal) return;
+
+            if (pin == PinMapping.Player1SliderTotal)
                 newValue = 100 - newValue;
 
             double position = (World.Bottom - _pnl.Size.Height - World.Upper) / 100f * newValue;
-            _pnl.Location = new Point(_pnl.Location.X, Math.Min(World.Bottom - _pnl.Size.Height, Convert.ToInt32(position) + World.Upper));
+            _pnl.Invoke((MethodInvoker)delegate
+            {
+                _pnl.Location = new Point(_pnl.Location.X, Math.Min(World.Bottom - _pnl.Size.Height, Convert.ToInt32(position) + World.Upper));
+            });
         }
 
         /// <summary> Let the player move, depending which button is pressed, when no Arduino is connected. </summary>
@@ -67,7 +73,7 @@ namespace RetroTable.Pong.Components
             _lblScore.Text = ScorePoints + "\n" + (Player1 ? UserManager.Player1.Name : UserManager.Player2.Name);
 
             if (Player1)
-            {              
+            {
                 UserManager.Player1.MadeGoals_Pong++;
                 UserManager.Player2.TakenGoals_Pong++;
             }

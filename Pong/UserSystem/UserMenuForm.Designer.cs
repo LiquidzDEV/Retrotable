@@ -56,7 +56,7 @@
             this.txtName.Location = new System.Drawing.Point(174, 6);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(164, 20);
-            this.txtName.TabIndex = 0;
+            this.txtName.TabIndex = 3;
             this.txtName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
             // 
             // trbBallSpeed
@@ -68,7 +68,8 @@
             this.trbBallSpeed.Name = "trbBallSpeed";
             this.trbBallSpeed.Size = new System.Drawing.Size(267, 45);
             this.trbBallSpeed.SmallChange = 5;
-            this.trbBallSpeed.TabIndex = 1;
+            this.trbBallSpeed.TabIndex = 4;
+            this.trbBallSpeed.TabStop = false;
             this.trbBallSpeed.TickFrequency = 25;
             this.trbBallSpeed.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.trbBallSpeed.Value = 200;
@@ -82,7 +83,8 @@
             this.trbPanelSize.Minimum = 30;
             this.trbPanelSize.Name = "trbPanelSize";
             this.trbPanelSize.Size = new System.Drawing.Size(266, 45);
-            this.trbPanelSize.TabIndex = 2;
+            this.trbPanelSize.TabIndex = 5;
+            this.trbPanelSize.TabStop = false;
             this.trbPanelSize.TickFrequency = 20;
             this.trbPanelSize.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.trbPanelSize.Value = 150;
@@ -149,7 +151,7 @@
             this.btnSave.Location = new System.Drawing.Point(12, 304);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(180, 23);
-            this.btnSave.TabIndex = 9;
+            this.btnSave.TabIndex = 1;
             this.btnSave.Text = "Speichern";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -161,9 +163,10 @@
             this.btnCancel.Location = new System.Drawing.Point(208, 304);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(180, 23);
-            this.btnCancel.TabIndex = 10;
+            this.btnCancel.TabIndex = 2;
             this.btnCancel.Text = "Abbrechen";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // lblTimeLimit
             // 
@@ -191,7 +194,8 @@
             this.trbTimeLimit.Minimum = 1;
             this.trbTimeLimit.Name = "trbTimeLimit";
             this.trbTimeLimit.Size = new System.Drawing.Size(266, 45);
-            this.trbTimeLimit.TabIndex = 11;
+            this.trbTimeLimit.TabIndex = 6;
+            this.trbTimeLimit.TabStop = false;
             this.trbTimeLimit.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.trbTimeLimit.Value = 3;
             this.trbTimeLimit.ValueChanged += new System.EventHandler(this.trbTimeLimit_ValueChanged);

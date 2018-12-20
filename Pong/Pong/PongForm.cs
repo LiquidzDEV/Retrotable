@@ -16,6 +16,8 @@ namespace RetroTable.Pong
     {
         private readonly Pong Main;
 
+        private Timer InputDelay = new Timer();
+
         /// <inheritdoc />
         /// <summary> Constructor of the <see cref="T:Pong.Source.MainForm" />. Initializes the components and adds the DigitalPinUpdated Event. </summary>
         public PongForm(Pong main)
@@ -31,31 +33,69 @@ namespace RetroTable.Pong
             Main.Player2 = new Player(false, pnlPlayer2, lblPlayer2);
             Main.Ball = new Ball(main, pBall);
             Hide();
+
+            InputDelay.Interval = 1000;
+            InputDelay.Start();
+            InputDelay.Tick += Delay_Tick;
+        }
+
+        private void Delay_Tick(object sender, EventArgs e)
+        {
+            InputDelay.Enabled = false;
         }
 
         private bool Player1Pressed, Player2Pressed;
 
         private void RetroTable_onButtonPressed(PinMapping button)
         {
-            if (!Visible) return;
+            if (!Visible || ActiveForm != this || InputDelay.Enabled) return;
 
-            if (button == PinMapping.Player1Buttons)
-                Player1Pressed = true;
-            else if (button == PinMapping.Player2Buttons)
-                Player2Pressed = true;
-
-            if (Player1Pressed && Player2Pressed)
+            this.Invoke((MethodInvoker)delegate
             {
-                Main.Start();
-            }
+                if (button == PinMapping.Player1Buttons)
+                {
+                    Player1Pressed = true;
+                    lblMidPlayer1.ForeColor = Color.FromArgb(255, 0, 180, 0);
+                }
+                else if (button == PinMapping.Player2Buttons)
+                {
+                    Player2Pressed = true;
+                    lblMidPlayer2.ForeColor = Color.FromArgb(255, 0, 180, 0);
+                }
+
+                if (Player1Pressed && Player2Pressed)
+                {
+                    Main.Start();
+                }
+            });
         }
 
         private void Retrotable_onButtonReleased(PinMapping button)
         {
-            if (button == PinMapping.Player1Buttons)
-                Player1Pressed = false;
-            else if (button == PinMapping.Player2Buttons)
-                Player2Pressed = false;
+            if (!Visible || ActiveForm != this || InputDelay.Enabled) return;
+
+            this.Invoke((MethodInvoker)delegate
+            {
+                if (button == PinMapping.Player1Buttons)
+                {
+                    Player1Pressed = false;
+                    lblMidPlayer1.ForeColor = Color.FromArgb(255, 180, 180, 0);
+                }
+
+                else if (button == PinMapping.Player2Buttons)
+                {
+                    Player2Pressed = false;
+                    lblMidPlayer2.ForeColor = Color.FromArgb(255, 180, 180, 0);
+                }
+
+                else if (button == PinMapping.EncoderSW)
+                {
+                    this.Invoke((MethodInvoker)delegate
+                    {
+                        Main.Hide();
+                    });
+                }
+            });
         }
 
         internal void ClearWinnerDisplay(bool withInfo)
@@ -289,6 +329,8 @@ namespace RetroTable.Pong
             Main.Hide();
         }
 
+        #endregion
+
         internal new void Show()
         {
             //Main.ResetRound();
@@ -311,6 +353,8 @@ namespace RetroTable.Pong
             tsPlayer2.Text = "Balkengröße Spieler2: " + UserManager.Player2.Panel_Size + "px";
 
             base.Show();
+
+            InputDelay.Start();
         }
 
         internal new void Hide()
@@ -327,8 +371,6 @@ namespace RetroTable.Pong
             tsBallSwitchGame.Text = "Meiste Ballwechsel (Spiel): " + Main.Records.BallSwitches_Game;
             tsBallSwitchRound.Text = "Meiste Ballwechsel (Runde): " + Main.Records.BallSwitches_Round;
         }
-
-        #endregion
     }
 }
 
