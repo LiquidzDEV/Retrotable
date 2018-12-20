@@ -46,6 +46,8 @@ namespace RetroTable.Board
         public const byte I2C_MODE_READ_CONTINUOUSLY = 0x10;
         public const byte I2C_MODE_STOP_READING = 0x18;
 
+        public const int BAUDRATE = 57600;
+
         public event DidI2CDataReveive didI2CDataReveive;
         public event DigitalPinUpdated DigitalPinUpdated;
         public event AnalogPinUpdated AnalogPinUpdated;
@@ -80,7 +82,7 @@ namespace RetroTable.Board
         /// and automatically opens the specified serial connection.
         /// </summary>
         /// <param name="serialPortName">String specifying the name of the serial port. eg COM4</param>
-        public Arduino(string serialPortName) : this(serialPortName, 57600, true, 8000) { }
+        public Arduino(string serialPortName) : this(serialPortName, BAUDRATE, true, 8000) { }
 
         /// <summary>
         /// Creates an instance of the Arduino object, based on user-specified serial port and baud rate.
@@ -97,7 +99,7 @@ namespace RetroTable.Board
         /// default baud rate (57600), and a reboot delay (8 seconds).
         /// and automatically opens the specified serial connection.
         /// </summary>
-        public Arduino() : this(Arduino.list().ElementAt(list().Length - 1), 57600, true, 8000) { }
+        public Arduino() : this(Arduino.list().ElementAt(list().Length - 1), BAUDRATE, true, 8000) { }
         /// <summary>
         /// Opens the serial port connection, should it be required. By default the port is
         /// opened when the object is first created.

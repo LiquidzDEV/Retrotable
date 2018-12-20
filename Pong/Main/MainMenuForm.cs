@@ -1,14 +1,10 @@
-﻿using RetroTable.Test;
+﻿using RetroTable.Board;
+using RetroTable.Test;
 using RetroTable.UserSystem;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace RetroTable.Main
@@ -17,44 +13,89 @@ namespace RetroTable.Main
     {
         private List<UserButton> UserButtons = new List<UserButton>();
 
+        private Timer InputDelay = new Timer();
+
         public MainMenuForm()
         {
             InitializeComponent();
             UpdateUserBar();
+
 #if DEBUG
             new LiveGameDataTest().Show();
             new ArduinoDataTest().Show();
 #endif
 
             Retrotable.onButtonReleased += Retrotable_onButtonReleased;
+            Retrotable.onEncoderRotated += Retrotable_onEncoderRotated;
+
+            InputDelay.Interval = 1000;
+            InputDelay.Tick += InputDelay_Tick;
+            InputDelay.Start();
+        }
+
+        private void InputDelay_Tick(object sender, EventArgs e)
+        {
+            InputDelay.Enabled = false;
+        }
+
+        private void Retrotable_onEncoderRotated(bool clockwise)
+        {
+            if (!Visible || ActiveForm != this) return;
+            this.Invoke((MethodInvoker)delegate
+            {
+                if (clockwise)
+                    SelectNextControl(this.FindFocusedControl(), true, true, true, true);
+                else
+                    SelectNextControl(this.FindFocusedControl(), false, true, true, true);
+            });
         }
 
         private void Retrotable_onButtonReleased(Board.PinMapping button)
         {
-            if(button == Board.PinMapping.EncoderSW)
+            if (!Visible || ActiveForm != this || InputDelay.Enabled) return;
+            if (button == PinMapping.EncoderSW)
             {
-                if(FindFocusedControl(this) is Button btn)
+                this.Invoke((MethodInvoker)delegate
                 {
-                    btn.PerformClick();
-                }
+                    //if (this.FindFocusedControl() is UserButton btn2)
+                    //{
+                    //    btn2.PerformClick();
+                    //}
+                    if (this.FindFocusedControl() is Button btn)
+                    {
+                        btn.PerformClick();
+                    }
+                });
             }
-        }
-
-        public static Control FindFocusedControl(Control control)
-        {
-            var container = control as IContainerControl;
-            while (container != null)
+            else if (button == PinMapping.Player1Buttons)
             {
-                control = container.ActiveControl;
-                container = control as IContainerControl;
+                this.Invoke((MethodInvoker)delegate
+                {
+                    if (this.FindFocusedControl() is UserButton btn)
+                    {
+                        int userid = Int32.Parse(Regex.Match(btn.Name, @"\d+").Value);
+                        var user = UserManager.GetUsers().Find(x => x.User_Id == userid);
+                        ApplyPlayer1(user);
+                    }
+                });
             }
-            return control;
+            else if (button == PinMapping.Player2Buttons)
+            {
+                this.Invoke((MethodInvoker)delegate
+                {
+                    if (this.FindFocusedControl() is UserButton btn)
+                    {
+                        int userid = Int32.Parse(Regex.Match(btn.Name, @"\d+").Value);
+                        var user = UserManager.GetUsers().Find(x => x.User_Id == userid);
+                        ApplyPlayer2(user);
+                    }
+                });
+            }
         }
 
         private void btnAddUser_Click(object sender, EventArgs e)
         {
-            if (new UserMenuForm(null).ShowDialog() == DialogResult.OK)
-                UpdateUserBar();
+            new UserMenuForm(null).Show();
         }
 
         internal void UpdateUserBar()
@@ -79,15 +120,15 @@ namespace RetroTable.Main
 
                 var userButton = new UserButton();
                 userButton.FlatStyle = FlatStyle.Flat;
-                userButton.Font = new Font("Microsoft Sans Serif", 20F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
+                userButton.Font = new Font("Microsoft Sans Serif", 20F, FontStyle.Regular, GraphicsUnit.Point, 0);
                 userButton.Location = new Point(10 + 135 * (i + 1), 10);
                 userButton.Name = "btnUser" + user.User_Id;
                 userButton.Size = new Size(125, 125);
                 userButton.TabIndex = 4 + i;
                 userButton.Text = user.Name;
                 userButton.UseVisualStyleBackColor = true;
-                userButton.MouseUp += new MouseEventHandler(btnUser_Click);
-
+                userButton.Click += UserButton_Click;
+                userButton.MouseUp += UserButton_MouseUp;
                 pnlUser.Controls.Add(userButton);
                 UserButtons.Add(userButton);
             }
@@ -106,8 +147,18 @@ namespace RetroTable.Main
             btnAddUser.Location = new Point(10, 10);
         }
 
+        private void UserButton_Click(object sender, EventArgs e)
+        {
+            int userid = Int32.Parse(Regex.Match(((UserButton)sender).Name, @"\d+").Value);
+            var user = UserManager.GetUsers().Find(x => x.User_Id == userid);
 
-        private void btnUser_Click(object sender, MouseEventArgs e)
+            if (user == null) return;
+
+            System.Diagnostics.Debug.WriteLine("Button3");
+            new UserMenuForm(user).Show();
+        }
+
+        private void UserButton_MouseUp(object sender, MouseEventArgs e)
         {
             int userid = Int32.Parse(Regex.Match(((UserButton)sender).Name, @"\d+").Value);
             var user = UserManager.GetUsers().Find(x => x.User_Id == userid);
@@ -116,30 +167,33 @@ namespace RetroTable.Main
 
             switch (e.Button)
             {
-                case MouseButtons.Left:
-                    new UserMenuForm(user).ShowDialog();
-                    break;
                 case MouseButtons.Middle:
                     System.Diagnostics.Debug.WriteLine("Middle");
-                    UserManager.Player1 = user;
-                    if (UserManager.Player2 == user)
-                        UserManager.Player2 = null;
-                    UpdateUserBar();
+                    ApplyPlayer1(user);
                     break;
                 case MouseButtons.Right:
                     System.Diagnostics.Debug.WriteLine("Rechts");
-                    UserManager.Player2 = user;
-                    if (UserManager.Player1 == user)
-                        UserManager.Player1 = null;
-                    UpdateUserBar();
+                    ApplyPlayer2(user);
                     break;
             }
         }
 
-        private void MainMenuForm_FormClosing(object sender, FormClosingEventArgs e)
+        private void ApplyPlayer1(User user)
         {
-            if (Retrotable.ArduinoMode)
-                Retrotable.Arduino.Close();
+            ArduinoHelper.StartBlinking(true, 10, 100);
+            UserManager.Player1 = user;
+            if (UserManager.Player2 == user)
+                UserManager.Player2 = null;
+            UpdateUserBar();
+        }
+
+        private void ApplyPlayer2(User user)
+        {
+            ArduinoHelper.StartBlinking(false, 10, 100);
+            UserManager.Player2 = user;
+            if (UserManager.Player1 == user)
+                UserManager.Player1 = null;
+            UpdateUserBar();
         }
 
         private void btnPong_Click(object sender, EventArgs e)
@@ -185,6 +239,32 @@ namespace RetroTable.Main
             {
                 lblInfo.Text = "";
             };
+        }
+
+        private void MainMenuForm_Activated(object sender, EventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("MainForm Aktiv");
+            UpdateUserBar();
+        }
+
+        private void MainMenuForm_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                ctxClick.Show(Location.X + e.Location.X, Location.Y + e.Location.Y);
+            }
+        }
+
+        private void vollbildToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            WindowState = WindowState == FormWindowState.Normal ? FormWindowState.Maximized : FormWindowState.Normal;
+            vollbildToolStripMenuItem.Checked = WindowState == FormWindowState.Maximized;
+        }
+
+        private void schliessenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Retrotable.Arduino.Close();
+            Application.Exit();
         }
     }
 }

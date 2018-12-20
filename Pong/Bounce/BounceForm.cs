@@ -12,12 +12,37 @@ namespace RetroTable.Bounce
     {
         private Bounce Main;
 
+        private Timer InputDelay = new Timer();
+
         public BounceForm(Bounce main)
         {
             Main = main;
             InitializeComponent();
 
             Retrotable.onButtonPressed += Retrotable_onButtonPressed;
+            Retrotable.onButtonReleased += Retrotable_onButtonReleased;
+
+            InputDelay.Interval = 1000;
+            InputDelay.Start();
+            InputDelay.Tick += Delay_Tick;
+        }
+
+        private void Delay_Tick(object sender, EventArgs e)
+        {
+            InputDelay.Enabled = false;
+        }
+
+        private void Retrotable_onButtonReleased(PinMapping button)
+        {
+            if (!Visible || ActiveForm != this || InputDelay.Enabled) return;
+
+            if (button == PinMapping.EncoderSW)
+            {
+                this.Invoke((MethodInvoker)delegate
+                {
+                    Main.Hide();
+                });
+            }
         }
 
         public new void Hide()
@@ -28,6 +53,7 @@ namespace RetroTable.Bounce
 
         public new void Show()
         {
+            InputDelay.Start();
             Main.Player.Location = new Point(16, Height / 2 - Main.Player.Bounds.Height / 2);
             lblTime.NewText = "0 Minuten 0 Sekunden";
             lblScore.NewText = UserManager.Player1.Name + ": 0";
@@ -69,8 +95,13 @@ namespace RetroTable.Bounce
 
         private void Retrotable_onButtonPressed(PinMapping button)
         {
-            if (button == PinMapping.Player1Buttons)
-                Main.Start();
+            if (button == PinMapping.Player1Buttons && this.Visible)
+            {
+                this.Invoke((MethodInvoker)delegate
+                {
+                    Main.Start();
+                });
+            }
         }
 
         internal void ShowRanking(HistoryEntry personalRanking = null)

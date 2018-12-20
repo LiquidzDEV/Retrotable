@@ -34,8 +34,14 @@ namespace RetroTable.Bounce
 
         private void Retrotable_onValueChanged(PinMapping pin, int newValue)
         {
+            if (!Parent.Visible) return;
             if (pin == PinMapping.Player1SliderTotal)
-                Location = new System.Drawing.Point(Location.X, (int)(Parent.Bounds.Height - Bounds.Height * (newValue / 100f)));
+            {
+                this.Invoke((MethodInvoker)delegate
+                {
+                    Location = new System.Drawing.Point(Location.X, (int)((Parent.Bounds.Height - Bounds.Height) /100f * newValue));
+                });
+            }
         }
 
         internal void SetMoveSet(bool up, bool keyDown)

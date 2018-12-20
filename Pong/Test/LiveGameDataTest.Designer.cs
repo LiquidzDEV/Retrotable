@@ -172,7 +172,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(276, 149);
+            this.ClientSize = new System.Drawing.Size(260, 144);
             this.Controls.Add(this.lblScore1);
             this.Controls.Add(this.lblUser2);
             this.Controls.Add(this.lblScore2);
@@ -187,6 +187,8 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.MaximumSize = new System.Drawing.Size(276, 183);
+            this.MinimumSize = new System.Drawing.Size(276, 183);
             this.Name = "LiveGameDataTest";
             this.Text = "LiveGameDataTest";
             this.ResumeLayout(false);

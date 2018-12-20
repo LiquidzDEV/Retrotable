@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainMenuForm));
             this.btnAddUser = new System.Windows.Forms.Button();
             this.btnPong = new System.Windows.Forms.Button();
@@ -35,8 +36,12 @@
             this.pnlUser = new System.Windows.Forms.Panel();
             this.lblInfo = new System.Windows.Forms.Label();
             this.btnBounce = new System.Windows.Forms.Button();
+            this.ctxClick = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.vollbildToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.schliessenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.pnlUser.SuspendLayout();
+            this.ctxClick.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnAddUser
@@ -54,19 +59,20 @@
             // 
             // btnPong
             // 
+            this.btnPong.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnPong.BackColor = System.Drawing.SystemColors.Control;
             this.btnPong.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPong.Location = new System.Drawing.Point(263, 187);
             this.btnPong.Name = "btnPong";
             this.btnPong.Size = new System.Drawing.Size(125, 125);
             this.btnPong.TabIndex = 1;
             this.btnPong.Text = "Pong";
-            this.btnPong.UseVisualStyleBackColor = true;
+            this.btnPong.UseVisualStyleBackColor = false;
             this.btnPong.Click += new System.EventHandler(this.btnPong_Click);
             // 
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(12, 12);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(776, 149);
@@ -76,8 +82,11 @@
             // 
             // pnlUser
             // 
+            this.pnlUser.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlUser.AutoScroll = true;
             this.pnlUser.AutoScrollMargin = new System.Drawing.Size(10, 0);
+            this.pnlUser.BackColor = System.Drawing.Color.Transparent;
             this.pnlUser.Controls.Add(this.btnAddUser);
             this.pnlUser.Location = new System.Drawing.Point(12, 341);
             this.pnlUser.Name = "pnlUser";
@@ -86,6 +95,9 @@
             // 
             // lblInfo
             // 
+            this.lblInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblInfo.BackColor = System.Drawing.Color.Transparent;
             this.lblInfo.ForeColor = System.Drawing.Color.OrangeRed;
             this.lblInfo.Location = new System.Drawing.Point(12, 501);
             this.lblInfo.Name = "lblInfo";
@@ -95,6 +107,7 @@
             // 
             // btnBounce
             // 
+            this.btnBounce.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnBounce.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBounce.Location = new System.Drawing.Point(413, 187);
             this.btnBounce.Name = "btnBounce";
@@ -104,23 +117,54 @@
             this.btnBounce.UseVisualStyleBackColor = true;
             this.btnBounce.Click += new System.EventHandler(this.btnBounce_Click);
             // 
+            // ctxClick
+            // 
+            this.ctxClick.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.vollbildToolStripMenuItem,
+            this.schliessenToolStripMenuItem});
+            this.ctxClick.Name = "ctxClick";
+            this.ctxClick.Size = new System.Drawing.Size(129, 48);
+            // 
+            // vollbildToolStripMenuItem
+            // 
+            this.vollbildToolStripMenuItem.Name = "vollbildToolStripMenuItem";
+            this.vollbildToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.vollbildToolStripMenuItem.Text = "Vollbild";
+            this.vollbildToolStripMenuItem.Click += new System.EventHandler(this.vollbildToolStripMenuItem_Click);
+            // 
+            // schliessenToolStripMenuItem
+            // 
+            this.schliessenToolStripMenuItem.Name = "schliessenToolStripMenuItem";
+            this.schliessenToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.schliessenToolStripMenuItem.Text = "Schliessen";
+            this.schliessenToolStripMenuItem.Click += new System.EventHandler(this.schliessenToolStripMenuItem_Click);
+            // 
             // MainMenuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 522);
+            this.ControlBox = false;
             this.Controls.Add(this.btnBounce);
             this.Controls.Add(this.lblInfo);
             this.Controls.Add(this.pnlUser);
             this.Controls.Add(this.btnPong);
             this.Controls.Add(this.pictureBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.KeyPreview = true;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "MainMenuForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MainMenuForm";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainMenuForm_FormClosing);
+            this.Activated += new System.EventHandler(this.MainMenuForm_Activated);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainMenuForm_MouseUp);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.pnlUser.ResumeLayout(false);
+            this.ctxClick.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -133,5 +177,8 @@
         private System.Windows.Forms.Panel pnlUser;
         private System.Windows.Forms.Label lblInfo;
         private System.Windows.Forms.Button btnBounce;
+        private System.Windows.Forms.ContextMenuStrip ctxClick;
+        private System.Windows.Forms.ToolStripMenuItem vollbildToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem schliessenToolStripMenuItem;
     }
 }

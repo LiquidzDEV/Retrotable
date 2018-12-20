@@ -1,4 +1,5 @@
-﻿using RetroTable.Main;
+﻿using RetroTable.Board;
+using RetroTable.Main;
 using RetroTable.MySql;
 using RetroTable.UserSystem;
 using System;
@@ -32,6 +33,9 @@ namespace RetroTable.Bounce
 
         internal void Show()
         {
+            ArduinoHelper.StopBlinking();
+            ArduinoHelper.SetStartLeds(true, false);
+
             Player.Height = UserManager.Player1.Panel_Size;
             BounceForm.Show();
 
@@ -58,7 +62,8 @@ namespace RetroTable.Bounce
             Player.SetScore(0);          
             TimePassed = 0;
 
-            
+            ArduinoHelper.SetStartLeds(false, false);
+
             Retrotable.LiveGameData.Score1 = 0;
             Retrotable.LiveGameData.Timeleft = 0;
             Retrotable.UpdateLiveGameData();
