@@ -92,13 +92,13 @@ namespace RetroTable.Main
 
             try
             {
-                Arduino = new Arduino("COM7");//COM5
+                Arduino = new Arduino("COM5");//COM7
             }
             catch (Exception)
             {
                 try
                 {
-                    Arduino = new Arduino("COM1");
+                    Arduino = new Arduino();
                 }
                 catch (Exception)
                 {
