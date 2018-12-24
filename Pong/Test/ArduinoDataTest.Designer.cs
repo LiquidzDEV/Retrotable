@@ -44,7 +44,11 @@
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3});
+            this.lvwData.FullRowSelect = true;
+            this.lvwData.GridLines = true;
+            this.lvwData.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lvwData.Location = new System.Drawing.Point(12, 55);
+            this.lvwData.MultiSelect = false;
             this.lvwData.Name = "lvwData";
             this.lvwData.Size = new System.Drawing.Size(283, 216);
             this.lvwData.TabIndex = 0;
@@ -54,17 +58,17 @@
             // columnHeader1
             // 
             this.columnHeader1.Text = "Pin";
-            this.columnHeader1.Width = 52;
+            this.columnHeader1.Width = 173;
             // 
             // columnHeader2
             // 
             this.columnHeader2.Text = "Value";
-            this.columnHeader2.Width = 83;
+            this.columnHeader2.Width = 52;
             // 
             // columnHeader3
             // 
             this.columnHeader3.Text = "Time";
-            this.columnHeader3.Width = 144;
+            this.columnHeader3.Width = 52;
             // 
             // lblSenseLeft
             // 
