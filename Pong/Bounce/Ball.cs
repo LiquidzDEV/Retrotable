@@ -40,8 +40,8 @@ namespace RetroTable.Bounce
 
             parent.Controls.Add(this);
 
-            Location = new System.Drawing.Point(Retrotable.Random.Next(30, Parent.Width - 100 - Width / 2), Retrotable.Random.Next(0, Parent.Height - Height / 2));
-            Start();
+            Location = new System.Drawing.Point(Retrotable.Random.Next(150 + Width / 2, Parent.Width - 30), Retrotable.Random.Next(0, Parent.Height - Height / 2));
+            Start();            
         }
 
         private void Start()
@@ -52,12 +52,12 @@ namespace RetroTable.Bounce
 
         internal new void Move()
         {
-            Location = new System.Drawing.Point(Location.X + (int)Speed, Math.Min(Parent.Height - Height, Math.Max(0, Location.Y + (int)Angle)));
+            Location = new System.Drawing.Point(Location.X - (int)Speed, Math.Min(Parent.Height - Height, Math.Max(0, Location.Y + (int)Angle)));
 
             if (Location.Y == 0 || Location.Y == Parent.Height - Height)
                 Angle *= -1;
 
-            if (LastTouched != 0 && Bounds.Right > Parent.Width - 150)
+            if (LastTouched != 0 && Bounds.Left < 150)
             {
                 Speed *= -1;
                 LastTouched = 0;
@@ -67,11 +67,11 @@ namespace RetroTable.Bounce
                 Retrotable.UpdateLiveGameData();
             }
 
-            if (LastTouched != 1 && Location.X <= Main.Player.Bounds.Right)
+            if (LastTouched != 1 && Location.X + Bounds.Width / 2 > Main.Player.Location.X)
             {
                 if (Bounds.Bottom > Main.Player.Bounds.Top && Bounds.Top < Main.Player.Bounds.Bottom)
                 {
-                    Location = new System.Drawing.Point(Main.Player.Bounds.Right, Location.Y);
+                    Location = new System.Drawing.Point(Main.Player.Location.X - Bounds.Width, Location.Y);
                     Speed *= -1;
                     LastTouched = 1;
 

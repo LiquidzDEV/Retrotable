@@ -21,7 +21,7 @@ namespace RetroTable.Bounce
         {
             Index = index;
 
-            Anchor = AnchorStyles.Left;
+            Anchor = AnchorStyles.Right;
             BackColor = System.Drawing.Color.FromArgb(192, 0, 0);
             Margin = new Padding(4);
             Name = "pnlPlayer" + Index;
@@ -39,7 +39,8 @@ namespace RetroTable.Bounce
             {
                 this.Invoke((MethodInvoker)delegate
                 {
-                    Location = new System.Drawing.Point(Location.X, (int)((Parent.Bounds.Height - Bounds.Height) /100f * newValue));
+                    newValue = 100 - newValue;
+                    Location = new System.Drawing.Point(Location.X, (int)((Parent.Bounds.Height - Bounds.Height) / 100f * newValue));
                 });
             }
         }

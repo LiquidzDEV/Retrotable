@@ -71,7 +71,7 @@ namespace RetroTable.Pong
             // 
             this.pnlPlayer1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.pnlPlayer1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pnlPlayer1.Location = new System.Drawing.Point(16, 214);
+            this.pnlPlayer1.Location = new System.Drawing.Point(1011, 214);
             this.pnlPlayer1.Margin = new System.Windows.Forms.Padding(4);
             this.pnlPlayer1.Name = "pnlPlayer1";
             this.pnlPlayer1.Size = new System.Drawing.Size(20, 154);
@@ -81,7 +81,7 @@ namespace RetroTable.Pong
             // 
             this.pnlPlayer2.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.pnlPlayer2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.pnlPlayer2.Location = new System.Drawing.Point(1008, 214);
+            this.pnlPlayer2.Location = new System.Drawing.Point(97, 214);
             this.pnlPlayer2.Margin = new System.Windows.Forms.Padding(4);
             this.pnlPlayer2.Name = "pnlPlayer2";
             this.pnlPlayer2.Size = new System.Drawing.Size(20, 154);
@@ -107,10 +107,11 @@ namespace RetroTable.Pong
             // 
             // lblPlayer1
             // 
+            this.lblPlayer1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblPlayer1.BackColor = System.Drawing.Color.Transparent;
             this.lblPlayer1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPlayer1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblPlayer1.Location = new System.Drawing.Point(258, 9);
+            this.lblPlayer1.Location = new System.Drawing.Point(581, 9);
             this.lblPlayer1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPlayer1.Name = "lblPlayer1";
             this.lblPlayer1.Size = new System.Drawing.Size(199, 46);
@@ -120,11 +121,10 @@ namespace RetroTable.Pong
             // 
             // lblPlayer2
             // 
-            this.lblPlayer2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblPlayer2.BackColor = System.Drawing.Color.Transparent;
             this.lblPlayer2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPlayer2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.lblPlayer2.Location = new System.Drawing.Point(587, 9);
+            this.lblPlayer2.Location = new System.Drawing.Point(265, 9);
             this.lblPlayer2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPlayer2.Name = "lblPlayer2";
             this.lblPlayer2.Size = new System.Drawing.Size(199, 46);
@@ -278,11 +278,11 @@ namespace RetroTable.Pong
             this.lblInfoPlayer2.BackColor = System.Drawing.Color.Transparent;
             this.lblInfoPlayer2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblInfoPlayer2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(150)))));
-            this.lblInfoPlayer2.Location = new System.Drawing.Point(614, 236);
+            this.lblInfoPlayer2.Location = new System.Drawing.Point(412, 234);
             this.lblInfoPlayer2.Name = "lblInfoPlayer2";
             this.lblInfoPlayer2.NewText = "Neuer Rekord! ";
-            this.lblInfoPlayer2.RotateAngle = 270;
-            this.lblInfoPlayer2.Size = new System.Drawing.Size(20, 112);
+            this.lblInfoPlayer2.RotateAngle = 90;
+            this.lblInfoPlayer2.Size = new System.Drawing.Size(22, 114);
             this.lblInfoPlayer2.TabIndex = 13;
             this.lblInfoPlayer2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -293,11 +293,11 @@ namespace RetroTable.Pong
             this.lblInfoPlayer1.BackColor = System.Drawing.Color.Transparent;
             this.lblInfoPlayer1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblInfoPlayer1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.lblInfoPlayer1.Location = new System.Drawing.Point(410, 272);
+            this.lblInfoPlayer1.Location = new System.Drawing.Point(614, 273);
             this.lblInfoPlayer1.Name = "lblInfoPlayer1";
             this.lblInfoPlayer1.NewText = "Test\r\nTest\r\nTest\r\n";
-            this.lblInfoPlayer1.RotateAngle = 90;
-            this.lblInfoPlayer1.Size = new System.Drawing.Size(58, 39);
+            this.lblInfoPlayer1.RotateAngle = 270;
+            this.lblInfoPlayer1.Size = new System.Drawing.Size(56, 37);
             this.lblInfoPlayer1.TabIndex = 12;
             this.lblInfoPlayer1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -308,11 +308,11 @@ namespace RetroTable.Pong
             this.lblMidPlayer2.BackColor = System.Drawing.Color.Transparent;
             this.lblMidPlayer2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMidPlayer2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.lblMidPlayer2.Location = new System.Drawing.Point(582, 176);
+            this.lblMidPlayer2.Location = new System.Drawing.Point(438, 175);
             this.lblMidPlayer2.Name = "lblMidPlayer2";
             this.lblMidPlayer2.NewText = "Leertaste zum Starten";
-            this.lblMidPlayer2.RotateAngle = 270;
-            this.lblMidPlayer2.Size = new System.Drawing.Size(26, 231);
+            this.lblMidPlayer2.RotateAngle = 90;
+            this.lblMidPlayer2.Size = new System.Drawing.Size(28, 233);
             this.lblMidPlayer2.TabIndex = 11;
             this.lblMidPlayer2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -323,11 +323,11 @@ namespace RetroTable.Pong
             this.lblMidPlayer1.BackColor = System.Drawing.Color.Transparent;
             this.lblMidPlayer1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMidPlayer1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.lblMidPlayer1.Location = new System.Drawing.Point(438, 175);
+            this.lblMidPlayer1.Location = new System.Drawing.Point(580, 176);
             this.lblMidPlayer1.Name = "lblMidPlayer1";
             this.lblMidPlayer1.NewText = "Leertaste zum Starten";
-            this.lblMidPlayer1.RotateAngle = 90;
-            this.lblMidPlayer1.Size = new System.Drawing.Size(28, 233);
+            this.lblMidPlayer1.RotateAngle = 270;
+            this.lblMidPlayer1.Size = new System.Drawing.Size(26, 231);
             this.lblMidPlayer1.TabIndex = 10;
             this.lblMidPlayer1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -336,6 +336,7 @@ namespace RetroTable.Pong
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(1044, 583);
+            this.Controls.Add(this.pBall);
             this.Controls.Add(this.lblInfoPlayer2);
             this.Controls.Add(this.lblInfoPlayer1);
             this.Controls.Add(this.lblMidPlayer2);
@@ -343,7 +344,6 @@ namespace RetroTable.Pong
             this.Controls.Add(this.pnlPlayer2);
             this.Controls.Add(this.pnlPlayer1);
             this.Controls.Add(this.lblDebug);
-            this.Controls.Add(this.pBall);
             this.Controls.Add(this.lblPlayer2);
             this.Controls.Add(this.lblPlayer1);
             this.Controls.Add(this.label1);

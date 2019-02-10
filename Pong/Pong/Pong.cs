@@ -37,7 +37,7 @@ namespace RetroTable.Pong
                 Records = new PongRecords();
 
 #if DEBUG
-            new PongRecordsDataTest().Show();
+            //new PongRecordsDataTest().Show();
 #endif
         }
 

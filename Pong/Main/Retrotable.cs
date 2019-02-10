@@ -52,11 +52,14 @@ namespace RetroTable.Main
         /// <summary> False, if no Arduino is found. </summary>
         internal static bool ArduinoMode = true;
 
-        /// <summary> False, wenn die Software ohne Datenbank betrieben werden soll. </summary>
-        internal const bool Databasemode = false;
+        internal static bool DesktopMode = false;
 
-        /// <summary> Static Field that represents the connection to the Arduino. </summary>
-        internal static Arduino Arduino { get; private set; }
+        /// <summary> False, wenn die Software ohne Datenbank betrieben werden soll. </summary>
+        internal const bool Databasemode = true;
+
+        /// <summary> Static Field that represents the connection to the Arduinos. </summary>
+        internal static Arduino ArduinoLeonardo { get; private set; }
+        internal static Arduino ArduinoUno { get; private set; }
 
         /// <summary> Holds the Instance for the MainMenu </summary>
         internal MainMenuForm MainMenuform { get; private set; }
@@ -92,19 +95,14 @@ namespace RetroTable.Main
 
             try
             {
-                Arduino = new Arduino("COM5");//COM7
+                if (!DesktopMode)
+                    ArduinoLeonardo = new Arduino("COM5");//COM5
+                ArduinoUno = new Arduino(DesktopMode ? "COM3" : "COM7");//COM7
             }
             catch (Exception)
             {
-                try
-                {
-                    Arduino = new Arduino();
-                }
-                catch (Exception)
-                {
-                    ArduinoMode = false;
-                    MessageBox.Show("Es kann über W,S und Up,Down gespielt werden.\nMit Leertaste startet die Runde.", "Kein Arduino gefunden!");
-                }
+                ArduinoMode = false;
+                MessageBox.Show("Es kann über W,S und Up,Down gespielt werden.\nMit Leertaste startet die Runde.", "Kein Arduino gefunden!");
             }
 
             MainMenuform = new MainMenuForm(); //Instantiating MainMenu
@@ -115,8 +113,9 @@ namespace RetroTable.Main
             if (ArduinoMode)
             {
                 ArduinoHelper.Setup();
-                Arduino.AnalogPinUpdated += AnalogPinUpdated;
-                Arduino.DigitalPinUpdated += DigitalPinUpdated;
+                ArduinoUno.AnalogPinUpdated += AnalogPinUpdated;
+                if (!DesktopMode)
+                    ArduinoLeonardo.DigitalPinUpdated += DigitalPinUpdated;
             }
 
             Application.Run(MainMenuform);
@@ -131,7 +130,7 @@ namespace RetroTable.Main
         {
 
 #if DEBUG           
-            ArduinoDataTest.AddData(pin, state);
+            ArduinoDataTest.AddDigitalData(pin, state);
 #endif
 
             if (pin == PinMapping.EncoderDT)
@@ -173,15 +172,54 @@ namespace RetroTable.Main
             }
         }
 
-        private int Player1LastLeftValue, Player1LastRightValue;
-        private int Player2LastLeftValue, Player2LastRightValue;
+        private int[] SliderLastValue = new int[4];
+        public static List<int>[] SliderSample = new List<int>[] {
+            new List<int>(),
+            new List<int>(),
+            new List<int>(),
+            new List<int>(),
+        };
+        public static int[] SliderDistorted = new int[4];
 
-        private List<int> Player1LeftSample = new List<int>();
-        private List<int> Player1RightSample = new List<int>();
-        private List<int> Player2LeftSample = new List<int>();
-        private List<int> Player2RightSample = new List<int>();
+        private readonly int SamplesForAverage = 1;
 
-        private readonly int AverageValue = 5;
+        private void CleanValue(Slider slider, int value, int dampening, int minimumValue)
+        {
+            SliderLastValue[(int)slider] = value;
+
+            if (value < minimumValue) return;
+
+            double average = SliderSample[(int)slider].Count == 0 ? 0 : SliderSample[(int)slider].Average();
+
+            //if (value > average + 500)
+            //{
+            //    SliderDistorted[(int)slider]++;
+
+            //    if (SliderDistorted[(int)slider] < 5)
+            //        return;
+            //}
+            //else
+            //{
+            //    SliderDistorted[(int)slider] = 0;
+            //}
+
+            if (value > average + dampening)
+            {
+                System.Diagnostics.Debug.WriteLine("Hohe Schwankung " + (value - average));
+                value = value - dampening;
+            }
+            else if (value < average - dampening)
+            {
+                System.Diagnostics.Debug.WriteLine("Niedrige Schwankung " + (average - value));
+                value = value + dampening;
+            }
+
+            if (value != -1)
+                SliderSample[(int)slider].Add(value);
+
+            if (SliderSample[(int)slider].Count > SamplesForAverage)
+                SliderSample[(int)slider].RemoveAt(0);
+        }
 
         /// <summary> Event that triggers, when the value of an analog pin from a Player was changed. </summary>
         /// <param name="pin"> The updated Pin </param>
@@ -190,44 +228,28 @@ namespace RetroTable.Main
         {
 #if DEBUG
             if (pin == PinMapping.Player1SliderSensLeft || pin == PinMapping.Player1SliderSensRight || pin == PinMapping.Player2SliderSensLeft || pin == PinMapping.Player2SliderSensRight)
-                ArduinoDataTest.AddData(pin, value);
+                ArduinoDataTest.AddAnalogData(pin, value);
 #endif
 
             if (pin == PinMapping.Player1SliderSensLeft)
             {
-                Player1LastLeftValue = value;
-                if (value > 500)
-                    Player1LeftSample.Add(value);
-                if (Player1LeftSample.Count >= AverageValue)
-                    Player1LeftSample.RemoveAt(0);
+                CleanValue(Slider.Player1Left, value, 300, 400);
                 UpdatePlayer1Position();
             }
             else if (pin == PinMapping.Player1SliderSensRight)
             {
-                Player1LastRightValue = value;
-                if (value > 500)
-                    Player1RightSample.Add(value);
-                if (Player1RightSample.Count >= AverageValue)
-                    Player1RightSample.RemoveAt(0);
+                CleanValue(Slider.Player1Right, value, 300, 400);
                 UpdatePlayer1Position();
             }
 
             else if (pin == PinMapping.Player2SliderSensLeft)
             {
-                Player2LastLeftValue = value;
-                if (value > 500)
-                    Player2LeftSample.Add(value);
-                if (Player2LeftSample.Count >= AverageValue)
-                    Player2LeftSample.RemoveAt(0);
+                CleanValue(Slider.Player2Left, value, 350, 400);
                 UpdatePlayer2Position();
             }
             else if (pin == PinMapping.Player2SliderSensRight)
             {
-                Player2LastRightValue = value;
-                if (value > 500)
-                    Player2RightSample.Add(value);
-                if (Player2RightSample.Count >= AverageValue)
-                    Player2RightSample.RemoveAt(0);
+                CleanValue(Slider.Player2Right, value, 350, 400);
                 UpdatePlayer2Position();
             }
         }
@@ -271,30 +293,43 @@ namespace RetroTable.Main
             }
         }
 
+        private const int lowest1Value = -2200;
+        private const int highest1Value = 2400;
+        private List<int> TotalSample1 = new List<int>();
         private void UpdatePlayer1Position()
         {
-            int leftAverage = Player1LeftSample.Count == 0 ? 0 : (int)Player1LeftSample.Average();
-            int rightAverage = Player1RightSample.Count == 0 ? 0 : (int)Player1RightSample.Average();
+            //int leftAverage = SliderSample[(int)Slider.Player1Left].Count == 0 ? 0 : (int)SliderSample[(int)Slider.Player1Left].Average();
+            //int rightAverage = SliderSample[(int)Slider.Player1Right].Count == 0 ? 0 : (int)SliderSample[(int)Slider.Player1Right].Average();
 
-            if (Player1LastLeftValue > 500 || Player1LastRightValue > 500)
+            int leftAverage = SliderSample[(int)Slider.Player1Left].Count == 0 ? 0 : (int)SliderSample[(int)Slider.Player1Left][0];
+            int rightAverage = SliderSample[(int)Slider.Player1Right].Count == 0 ? 0 : (int)SliderSample[(int)Slider.Player1Right][0];
+
+            if (SliderLastValue[(int)Slider.Player1Left] > 500 || SliderLastValue[(int)Slider.Player1Right] > 500)
             {
                 int total = rightAverage - leftAverage;
-                total = Math.Max(0, Math.Min(100, total.Map(-1300, 1200, 0, 100)));
+                total = Math.Max(0, Math.Min(100, total.Map(lowest1Value, highest1Value, 0, 100)));
 
-                onValueChanged.Invoke(PinMapping.Player1SliderTotal, total);
+                TotalSample1.Add(total);
+
+                if (TotalSample1.Count > 5)
+                    TotalSample1.RemoveAt(0);
+
+                onValueChanged.Invoke(PinMapping.Player1SliderTotal, (int)TotalSample1.Average());
                 //pnlSlider.Location = new Point(Math.Max(0, Math.Min(800, total)), pnlSlider.Location.Y);
             }
         }
 
+        private const int lowest2Value = -2400;
+        private const int highest2Value = 2400;
         private void UpdatePlayer2Position()
         {
-            int leftAverage = Player2LeftSample.Count == 0 ? 0 : (int)Player2LeftSample.Average();
-            int rightAverage = Player2RightSample.Count == 0 ? 0 : (int)Player2RightSample.Average();
+            int leftAverage = SliderSample[(int)Slider.Player2Left].Count == 0 ? 0 : (int)SliderSample[(int)Slider.Player2Left].Average();
+            int rightAverage = SliderSample[(int)Slider.Player2Right].Count == 0 ? 0 : (int)SliderSample[(int)Slider.Player2Right].Average();
 
-            if (Player2LastLeftValue > 500 || Player2LastRightValue > 500)
+            if (SliderLastValue[(int)Slider.Player2Left] > 500 || SliderLastValue[(int)Slider.Player2Right] > 500)
             {
                 int total = rightAverage - leftAverage;
-                total = Math.Max(0, Math.Min(100, total.Map(-1300, 1200, 0, 100)));
+                total = Math.Max(0, Math.Min(100, total.Map(lowest2Value, highest2Value, 0, 100)));
 
                 onValueChanged.Invoke(PinMapping.Player2SliderTotal, total);
                 //pnlSlider.Location = new Point(Math.Max(0, Math.Min(800, total)), pnlSlider.Location.Y);

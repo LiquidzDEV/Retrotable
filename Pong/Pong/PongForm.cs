@@ -166,17 +166,17 @@ namespace RetroTable.Pong
             {
                 switch (keycode)
                 {
-                    case Keys.W:
+                    case Keys.Up:
                         Main.Player1.PlayerUp = isKeyDown;
                         break;
-                    case Keys.S:
+                    case Keys.Down:
                         Main.Player1.PlayerDown = isKeyDown;
                         break;
 
-                    case Keys.Up:
+                    case Keys.W:
                         Main.Player2.PlayerUp = isKeyDown;
                         break;
-                    case Keys.Down:
+                    case Keys.S:
                         Main.Player2.PlayerDown = isKeyDown;
                         break;
                 }
@@ -277,6 +277,8 @@ namespace RetroTable.Pong
                     Main.Records.Save();
                 }
 
+                UserManager.Player1.Save();
+                UserManager.Player2.Save();
                 HistoryEntry.Create(UserManager.Player1, Main.Player1.ScorePoints, UserManager.Player2, Main.Player2.ScorePoints);
 
                 Main.ResetRound();

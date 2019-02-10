@@ -20,9 +20,9 @@ namespace RetroTable.MySql
 
             _connection = new MySqlConnectionStringBuilder
             {
-                Server = "85.214.66.124",
-                UserID = "retrotable",
-                Password = "BQnmDXC74p_WRT$8",
+                Server = "",
+                UserID = "",
+                Password = "",
                 Port = 3306,
                 Database = "retrotable",
                 SslMode = MySqlSslMode.None

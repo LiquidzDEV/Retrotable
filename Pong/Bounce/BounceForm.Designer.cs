@@ -43,9 +43,9 @@
             this.lblThird = new System.Windows.Forms.Label();
             this.lblSecond = new System.Windows.Forms.Label();
             this.lblFirst = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblTime = new RetroTable.Main.RotatingLabel();
             this.lblScore = new RetroTable.Main.RotatingLabel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pnlRanking.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -105,6 +105,7 @@
             // 
             // pnlRanking
             // 
+            this.pnlRanking.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pnlRanking.BackColor = System.Drawing.Color.RosyBrown;
             this.pnlRanking.Controls.Add(this.lblOwnRecord);
             this.pnlRanking.Controls.Add(this.label2);
@@ -172,42 +173,42 @@
             this.lblFirst.TabIndex = 9;
             this.lblFirst.Text = "1. Pascal: 400";
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.pictureBox1.BackColor = System.Drawing.Color.LightGray;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(150, 600);
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            // 
             // lblTime
             // 
             this.lblTime.AlignText = false;
-            this.lblTime.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.lblTime.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblTime.BackColor = System.Drawing.Color.LightGray;
             this.lblTime.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTime.Location = new System.Drawing.Point(874, 299);
+            this.lblTime.Location = new System.Drawing.Point(107, 299);
             this.lblTime.Name = "lblTime";
             this.lblTime.NewText = "3 Minuten 50 Sekunden";
-            this.lblTime.RotateAngle = 90;
-            this.lblTime.Size = new System.Drawing.Size(21, 190);
+            this.lblTime.RotateAngle = 270;
+            this.lblTime.Size = new System.Drawing.Size(19, 188);
             this.lblTime.TabIndex = 5;
             // 
             // lblScore
             // 
             this.lblScore.AlignText = false;
-            this.lblScore.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.lblScore.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblScore.BackColor = System.Drawing.Color.LightGray;
             this.lblScore.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblScore.Location = new System.Drawing.Point(874, 131);
+            this.lblScore.Location = new System.Drawing.Point(107, 131);
             this.lblScore.Name = "lblScore";
             this.lblScore.NewText = "Pascal: 300";
-            this.lblScore.RotateAngle = 90;
-            this.lblScore.Size = new System.Drawing.Size(21, 97);
+            this.lblScore.RotateAngle = 270;
+            this.lblScore.Size = new System.Drawing.Size(19, 95);
             this.lblScore.TabIndex = 4;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.BackColor = System.Drawing.Color.LightGray;
-            this.pictureBox1.Location = new System.Drawing.Point(850, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(150, 600);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
             // 
             // BounceForm
             // 

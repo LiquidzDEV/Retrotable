@@ -39,6 +39,7 @@
             this.ctxClick = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.vollbildToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.schliessenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.pnlUser.SuspendLayout();
             this.ctxClick.SuspendLayout();
@@ -139,6 +140,19 @@
             this.schliessenToolStripMenuItem.Text = "Schliessen";
             this.schliessenToolStripMenuItem.Click += new System.EventHandler(this.schliessenToolStripMenuItem_Click);
             // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Pricedown Bl", 60F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(73, 5);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(654, 118);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Retrospieletisch";
+            // 
             // MainMenuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -148,6 +162,7 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 522);
             this.ControlBox = false;
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnBounce);
             this.Controls.Add(this.lblInfo);
             this.Controls.Add(this.pnlUser);
@@ -166,6 +181,7 @@
             this.pnlUser.ResumeLayout(false);
             this.ctxClick.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -180,5 +196,6 @@
         private System.Windows.Forms.ContextMenuStrip ctxClick;
         private System.Windows.Forms.ToolStripMenuItem vollbildToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem schliessenToolStripMenuItem;
+        private System.Windows.Forms.Label label1;
     }
 }

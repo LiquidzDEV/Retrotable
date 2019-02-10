@@ -8,9 +8,9 @@
     {
         Player1Buttons = 7,
         Player2Buttons = 8,
-        EncoderSW = 0,
-        EncoderDT = 15,
-        EncoderCLK = 14,
+        EncoderSW = 9,
+        EncoderDT = 10,
+        EncoderCLK = 11,
         Player1SliderSensLeft = 9,
         Player1SliderSensRight = 10,
         Player1SliderTotal = 100,

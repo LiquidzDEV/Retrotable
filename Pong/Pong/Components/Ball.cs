@@ -65,19 +65,6 @@ namespace RetroTable.Pong.Components
             //If the ball goes behind a player, give the other player a point
             if (_pBall.Location.X >= World.Right - _pBall.Size.Width - 36)
             {
-                if (Main.Player2.GetRelativeHitPosition(Main.Ball) != -1)
-                {
-                    //Ball ist durch den Spieler durch geflogen
-                    Reverse(2);
-                    return;
-                }
-
-                ArduinoHelper.StartBlinking(true);
-                Main.Player1.Score();
-                Retrotable.LiveGameData.Score1++;
-            }
-            else if (_pBall.Location.X <= 36)
-            {
                 if (Main.Player1.GetRelativeHitPosition(Main.Ball) != -1)
                 {
                     //Ball ist durch den Spieler durch geflogen
@@ -85,9 +72,22 @@ namespace RetroTable.Pong.Components
                     return;
                 }
 
-                ArduinoHelper.StartBlinking(false);
+                ArduinoHelper.StartBlinking(true);
                 Main.Player2.Score();
                 Retrotable.LiveGameData.Score2++;
+            }
+            else if (_pBall.Location.X <= 36)
+            {
+                if (Main.Player2.GetRelativeHitPosition(Main.Ball) != -1)
+                {
+                    //Ball ist durch den Spieler durch geflogen
+                    Reverse(2);
+                    return;
+                }
+
+                ArduinoHelper.StartBlinking(false);
+                Main.Player1.Score();
+                Retrotable.LiveGameData.Score1++;
             }
         }
 
