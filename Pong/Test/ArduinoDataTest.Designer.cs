@@ -47,7 +47,7 @@
             this.lvwData.FullRowSelect = true;
             this.lvwData.GridLines = true;
             this.lvwData.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.lvwData.Location = new System.Drawing.Point(12, 55);
+            this.lvwData.Location = new System.Drawing.Point(12, 200);
             this.lvwData.MultiSelect = false;
             this.lvwData.Name = "lvwData";
             this.lvwData.Size = new System.Drawing.Size(283, 216);
@@ -75,9 +75,9 @@
             this.lblSenseLeft.AutoSize = true;
             this.lblSenseLeft.Location = new System.Drawing.Point(12, 9);
             this.lblSenseLeft.Name = "lblSenseLeft";
-            this.lblSenseLeft.Size = new System.Drawing.Size(35, 13);
+            this.lblSenseLeft.Size = new System.Drawing.Size(35, 39);
             this.lblSenseLeft.TabIndex = 1;
-            this.lblSenseLeft.Text = "label1";
+            this.lblSenseLeft.Text = "label1\r\ndd\r\ndd";
             // 
             // lblSenseRight
             // 
@@ -91,7 +91,7 @@
             // lblSenseLeft2
             // 
             this.lblSenseLeft2.AutoSize = true;
-            this.lblSenseLeft2.Location = new System.Drawing.Point(12, 30);
+            this.lblSenseLeft2.Location = new System.Drawing.Point(12, 104);
             this.lblSenseLeft2.Name = "lblSenseLeft2";
             this.lblSenseLeft2.Size = new System.Drawing.Size(35, 13);
             this.lblSenseLeft2.TabIndex = 3;
@@ -100,7 +100,7 @@
             // lblSenseRight2
             // 
             this.lblSenseRight2.AutoSize = true;
-            this.lblSenseRight2.Location = new System.Drawing.Point(152, 30);
+            this.lblSenseRight2.Location = new System.Drawing.Point(152, 104);
             this.lblSenseRight2.Name = "lblSenseRight2";
             this.lblSenseRight2.Size = new System.Drawing.Size(35, 13);
             this.lblSenseRight2.TabIndex = 4;
@@ -110,7 +110,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(307, 281);
+            this.ClientSize = new System.Drawing.Size(307, 428);
             this.Controls.Add(this.lblSenseRight2);
             this.Controls.Add(this.lblSenseLeft2);
             this.Controls.Add(this.lblSenseRight);

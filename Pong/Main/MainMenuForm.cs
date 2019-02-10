@@ -21,14 +21,14 @@ namespace RetroTable.Main
             UpdateUserBar();
 
 #if DEBUG
-            new LiveGameDataTest().Show();
+            //new LiveGameDataTest().Show();
             new ArduinoDataTest().Show();
 #endif
 
             Retrotable.onButtonReleased += Retrotable_onButtonReleased;
             Retrotable.onEncoderRotated += Retrotable_onEncoderRotated;
 
-            InputDelay.Interval = 1000;
+            InputDelay.Interval = 2000;
             InputDelay.Tick += InputDelay_Tick;
             InputDelay.Start();
         }
@@ -116,12 +116,13 @@ namespace RetroTable.Main
             {
                 var user = users[i];
 
+                if (user.User_Id == 0) continue;
                 if (UserButtons.Find(x => x.GetUserId() == user.User_Id) != null) continue;
 
                 var userButton = new UserButton();
                 userButton.FlatStyle = FlatStyle.Flat;
                 userButton.Font = new Font("Microsoft Sans Serif", 20F, FontStyle.Regular, GraphicsUnit.Point, 0);
-                userButton.Location = new Point(10 + 135 * (i + 1), 10);
+                
                 userButton.Name = "btnUser" + user.User_Id;
                 userButton.Size = new Size(125, 125);
                 userButton.TabIndex = 4 + i;
@@ -130,6 +131,9 @@ namespace RetroTable.Main
                 userButton.Click += UserButton_Click;
                 userButton.MouseUp += UserButton_MouseUp;
                 pnlUser.Controls.Add(userButton);
+
+                userButton.Location = new Point(10 + 135 * (i), 10);
+
                 UserButtons.Add(userButton);
             }
 
@@ -263,7 +267,12 @@ namespace RetroTable.Main
 
         private void schliessenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Retrotable.Arduino.Close();
+            if (Retrotable.ArduinoMode)
+            {
+                if (!Retrotable.DesktopMode)
+                    Retrotable.ArduinoLeonardo.Close();
+                Retrotable.ArduinoUno.Close();
+            }            
             Application.Exit();
         }
     }

@@ -9,17 +9,20 @@ namespace RetroTable.Board
         /// <summary> Configures the pins from the arduino for the project. </summary>
         public static void Setup()
         {
-            Retrotable.Arduino.PinMode(PinMapping.Player1Buttons, Arduino.INPUT);
-            Retrotable.Arduino.PinMode(PinMapping.Player2Buttons, Arduino.INPUT);
+            if (!Retrotable.DesktopMode)
+            {
+                Retrotable.ArduinoLeonardo.PinMode(PinMapping.Player1Buttons, Arduino.INPUT);
+                Retrotable.ArduinoLeonardo.PinMode(PinMapping.Player2Buttons, Arduino.INPUT);
 
-            Retrotable.Arduino.PinMode(PinMapping.EncoderSW, Arduino.INPUT);
-            Retrotable.Arduino.PinMode(PinMapping.EncoderDT, Arduino.INPUT);
-            Retrotable.Arduino.PinMode(PinMapping.EncoderCLK, Arduino.INPUT);
+                Retrotable.ArduinoLeonardo.PinMode(PinMapping.EncoderSW, Arduino.INPUT);
+                Retrotable.ArduinoLeonardo.PinMode(PinMapping.EncoderDT, Arduino.INPUT);
+                Retrotable.ArduinoLeonardo.PinMode(PinMapping.EncoderCLK, Arduino.INPUT);
 
-            Retrotable.Arduino.PinMode(PinMapping.Player1ButtonLeftLed, Arduino.OUTPUT);
-            Retrotable.Arduino.PinMode(PinMapping.Player1ButtonRightLed, Arduino.OUTPUT);
-            Retrotable.Arduino.PinMode(PinMapping.Player2ButtonLeftLed, Arduino.OUTPUT);
-            Retrotable.Arduino.PinMode(PinMapping.Player2ButtonRightLed, Arduino.OUTPUT);
+                Retrotable.ArduinoLeonardo.PinMode(PinMapping.Player1ButtonLeftLed, Arduino.OUTPUT);
+                Retrotable.ArduinoLeonardo.PinMode(PinMapping.Player1ButtonRightLed, Arduino.OUTPUT);
+                Retrotable.ArduinoLeonardo.PinMode(PinMapping.Player2ButtonLeftLed, Arduino.OUTPUT);
+                Retrotable.ArduinoLeonardo.PinMode(PinMapping.Player2ButtonRightLed, Arduino.OUTPUT);
+            }
 
             SetStartLeds(true, true);
 
@@ -30,11 +33,26 @@ namespace RetroTable.Board
 
             _blinkTimer.Elapsed += delegate
             {
-                _blinkState = !_blinkState;
-                Retrotable.Arduino.DigitalWrite(_blinkPlayer ? PinMapping.Player1ButtonLeftLed : PinMapping.Player2ButtonLeftLed, _blinkState ? Arduino.HIGH : Arduino.LOW);
-                Retrotable.Arduino.DigitalWrite(_blinkPlayer ? PinMapping.Player1ButtonRightLed : PinMapping.Player2ButtonRightLed, _blinkState ? Arduino.HIGH : Arduino.LOW);
+                if (_blinkPlayer)
+                {
+                    _blinkState[0] = !_blinkState[0];
+                    if (!Retrotable.DesktopMode)
+                    {
+                        Retrotable.ArduinoLeonardo.DigitalWrite(PinMapping.Player1ButtonLeftLed, _blinkState[0] ? Arduino.HIGH : Arduino.LOW);
+                        Retrotable.ArduinoLeonardo.DigitalWrite(PinMapping.Player1ButtonRightLed, _blinkState[0] ? Arduino.HIGH : Arduino.LOW);
+                    }
+                }
+                else
+                {
+                    _blinkState[1] = !_blinkState[1];
+                    if (!Retrotable.DesktopMode)
+                    {
+                        Retrotable.ArduinoLeonardo.DigitalWrite(PinMapping.Player2ButtonLeftLed, _blinkState[1] ? Arduino.HIGH : Arduino.LOW);
+                        Retrotable.ArduinoLeonardo.DigitalWrite(PinMapping.Player2ButtonRightLed, _blinkState[1] ? Arduino.HIGH : Arduino.LOW);
+                    }
+                }
 
-                if(_blinkTimes > 0)
+                if (_blinkTimes > 0)
                 {
                     _blinkTimes--;
                     if (_blinkTimes == 0)
@@ -84,15 +102,21 @@ namespace RetroTable.Board
         {
             if (!Retrotable.ArduinoMode) return;
 
-            Retrotable.Arduino.DigitalWrite(PinMapping.Player1ButtonLeftLed, player1 ? Arduino.HIGH : Arduino.LOW);
-            Retrotable.Arduino.DigitalWrite(PinMapping.Player1ButtonRightLed, player1 ? Arduino.HIGH : Arduino.LOW);
-            Retrotable.Arduino.DigitalWrite(PinMapping.Player2ButtonLeftLed, player2 ? Arduino.HIGH : Arduino.LOW);
-            Retrotable.Arduino.DigitalWrite(PinMapping.Player2ButtonRightLed, player2 ? Arduino.HIGH : Arduino.LOW);
+            _blinkState[0] = player1;
+            _blinkState[1] = player2;
+
+            if (!Retrotable.DesktopMode)
+            {
+                Retrotable.ArduinoLeonardo.DigitalWrite(PinMapping.Player1ButtonLeftLed, _blinkState[0] ? Arduino.HIGH : Arduino.LOW);
+                Retrotable.ArduinoLeonardo.DigitalWrite(PinMapping.Player1ButtonRightLed, _blinkState[0] ? Arduino.HIGH : Arduino.LOW);
+                Retrotable.ArduinoLeonardo.DigitalWrite(PinMapping.Player2ButtonLeftLed, _blinkState[1] ? Arduino.HIGH : Arduino.LOW);
+                Retrotable.ArduinoLeonardo.DigitalWrite(PinMapping.Player2ButtonRightLed, _blinkState[1] ? Arduino.HIGH : Arduino.LOW);
+            }
         }
 
         private static Timer _blinkTimer;
         private static bool _blinkPlayer = false;
-        private static bool _blinkState = false;
+        private static bool[] _blinkState = new bool[2];
         private static int _blinkTimes = 0;
 
         /// <summary>
@@ -120,8 +144,8 @@ namespace RetroTable.Board
         /// <summary> Stops the blinking for the startbuttons. </summary>
         public static void StopBlinking()
         {
+            if (!Retrotable.ArduinoMode) return;
             _blinkTimer.Enabled = false;
         }
-
     }
 }

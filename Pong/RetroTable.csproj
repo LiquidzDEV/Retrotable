@@ -78,6 +78,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Board\Slider.cs" />
     <Compile Include="Bounce\Ball.cs">
       <SubType>Component</SubType>
     </Compile>

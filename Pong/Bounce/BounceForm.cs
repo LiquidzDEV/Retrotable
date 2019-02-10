@@ -54,7 +54,7 @@ namespace RetroTable.Bounce
         public new void Show()
         {
             InputDelay.Start();
-            Main.Player.Location = new Point(16, Height / 2 - Main.Player.Bounds.Height / 2);
+            Main.Player.Location = new Point(Bounds.Width - Main.Player.Bounds.Width - 16, Height / 2 - Main.Player.Bounds.Height / 2);
             lblTime.NewText = "0 Minuten 0 Sekunden";
             lblScore.NewText = UserManager.Player1.Name + ": 0";
             timerPaddle.Start();
@@ -135,8 +135,6 @@ namespace RetroTable.Bounce
                     lblOwnRecord.Text = (i + 1) + ". " + UserManager.GetName(ranking.User_Id) + ": " + ranking.Score;
                 }
             }
-
-
 
             pnlRanking.Visible = true;
         }

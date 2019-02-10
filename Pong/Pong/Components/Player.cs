@@ -13,11 +13,6 @@ namespace RetroTable.Pong.Components
         /// <summary> The movement speed of the player. </summary>
 		private const int Speed = 20;
 
-        /// <summary> The three sizes of the panel configured over the options. </summary>
-		public const int PanelSmall = 50;
-        public const int PanelNormal = 150;
-        public const int PanelBig = 200;
-
         private readonly Panel _pnl;
         private readonly Label _lblScore;
 
@@ -75,7 +70,7 @@ namespace RetroTable.Pong.Components
             if (Player1)
             {
                 UserManager.Player1.MadeGoals_Pong++;
-                UserManager.Player2.TakenGoals_Pong++;
+                UserManager.Player2.TakenGoals_Pong++;               
             }
             else
             {
@@ -124,7 +119,7 @@ namespace RetroTable.Pong.Components
         public float GetRelativeHitPosition(Ball ball)
         {
             var bounds = ball.GetBounds();
-            bounds.X = Player1 ? _pnl.Bounds.Right - 1 : _pnl.Bounds.Left + 1;
+            bounds.X = !Player1 ? _pnl.Bounds.Right - 1 : _pnl.Bounds.Left + 1;
             if (_pnl.Bounds.IntersectsWith(bounds))
             {
                 var hitPosition = (bounds.Y + bounds.Height / 2f) - _pnl.Bounds.Y;
@@ -143,7 +138,7 @@ namespace RetroTable.Pong.Components
 
         public void Resize()
         {
-            int x = Player1 ? 10 : World.Right - _pnl.Size.Width - 10;
+            int x = !Player1 ? 10 : World.Right - _pnl.Size.Width - 10;
             _pnl.Location = new Point(x, Math.Min(World.Bottom - _pnl.Size.Height, _pnl.Location.Y));
         }
     }

@@ -68,7 +68,9 @@ namespace RetroTable.Bounce
             Retrotable.LiveGameData.Timeleft = 0;
             Retrotable.UpdateLiveGameData();
 
-            Balls.Add(new Ball(BounceForm));
+            var ball = new Ball(BounceForm);
+
+            Balls.Add(ball);
             BounceForm.timerMain.Start();
             BounceForm.timerBalls.Start();
             BounceForm.timerAddBall.Start();
